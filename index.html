@@ -1,0 +1,985 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DSFabio | Menu digitali per la tua attività</title>
+<meta name="description" content="Menu digitali personalizzati per ristoranti, bar, pizzerie e locali. Scopri i modelli DSFabio, un progetto di DS Service.">
+
+<meta name="theme-color" content="#10131b">
+
+<style>
+:root {
+    --bg: #10131b;
+    --panel: #1b202c;
+    --orange: #ff9b50;
+    --white: #fff;
+    --muted: #a6afbd;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* HEADER */
+
+header {
+    height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+}
+
+.logo span { color: var(--orange); }
+
+.header-btn {
+    padding: 12px 21px;
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 30px;
+    font-size: 13px;
+    transition: .3s;
+}
+
+.header-btn:hover {
+    background: white;
+    color: var(--bg);
+}
+
+/* HERO */
+
+.hero {
+    position: relative;
+    padding: 85px 0 90px;
+    background:
+        radial-gradient(ellipse at 78% 45%, rgba(255,155,80,.15), transparent 43%),
+        linear-gradient(120deg,#10131b,#171d2a);
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    align-items: center;
+    gap: 25px;
+}
+
+.eyebrow {
+    color: var(--orange);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 800;
+    margin-bottom: 24px;
+}
+
+.hero h1 {
+    font-size: clamp(44px,5.4vw,69px);
+    line-height: 1.04;
+    letter-spacing: -3px;
+    margin-bottom: 23px;
+}
+
+.hero h1 span { color: var(--orange); }
+
+.hero p {
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 440px;
+    margin-bottom: 30px;
+}
+
+.main-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--orange);
+    color: #171923;
+    padding: 18px 26px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.main-btn:hover {
+    background: #ffb577;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255,155,80,.2);
+}
+
+.main-btn span { font-size: 21px; }
+
+.hero-small {
+    display: block;
+    margin-top: 18px;
+    color: #8993a3;
+    font-size: 12px;
+}
+
+/* DEVICE SHOWCASE */
+
+.device-stage {
+    position: relative;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    isolation: isolate;
+}
+
+.device-glow {
+    position: absolute;
+    width: 420px;
+    height: 350px;
+    background: rgba(255,155,80,.13);
+    filter: blur(90px);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* TABLET */
+
+.tablet {
+    width: 440px;
+    height: 320px;
+    padding: 12px;
+    background: linear-gradient(145deg,#4b5260,#171b24 35%,#080a0f);
+    border: 2px solid #626875;
+    border-radius: 21px;
+    box-shadow:
+        0 35px 65px rgba(0,0,0,.55),
+        inset 0 0 0 2px #10131a;
+    position: relative;
+    transform: perspective(1000px) rotateY(-7deg) rotateX(2deg);
+    z-index: 2;
+}
+
+.tablet::after {
+    content: "";
+    position: absolute;
+    right: 4px;
+    top: 45%;
+    width: 3px;
+    height: 35px;
+    background: #747b86;
+    border-radius: 3px;
+}
+
+.tablet-camera {
+    position: absolute;
+    left: 50%;
+    top: 3px;
+    width: 5px;
+    height: 5px;
+    background: #090b11;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+.tablet-screen {
+    height: 100%;
+    width: 100%;
+    background: #f5f0e8;
+    border-radius: 11px;
+    overflow: hidden;
+    color: #24221f;
+    position: relative;
+}
+
+/* MENU TABLET */
+
+.tablet-hero {
+    height: 135px;
+    position: relative;
+    background:
+        linear-gradient(0deg,rgba(0,0,0,.55),transparent 75%),
+        url("https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=85") center 48%/cover;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 15px 19px;
+    color: white;
+}
+
+.tablet-brand {
+    font-size: 9px;
+    letter-spacing: 3px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.tablet-hero h3 {
+    font-size: 23px;
+}
+
+.tablet-tag {
+    font-size: 9px;
+    background: rgba(255,255,255,.2);
+    padding: 6px 9px;
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+}
+
+.tablet-menu {
+    padding: 13px 17px;
+}
+
+.tablet-menu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tablet-menu-title h4 {
+    font-size: 14px;
+}
+
+.tablet-menu-title span {
+    color: #a56b3f;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+.tablet-products {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 9px;
+}
+
+.product-mini {
+    background: white;
+    border-radius: 7px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.product-mini img {
+    width: 100%;
+    height: 61px;
+    object-fit: cover;
+    display: block;
+}
+
+.product-mini div {
+    padding: 6px;
+}
+
+.product-mini strong {
+    font-size: 9px;
+    display: block;
+}
+
+.product-mini span {
+    font-size: 9px;
+    color: #a56b3f;
+    font-weight: bold;
+}
+
+/* IPHONE */
+
+.iphone {
+    width: 156px;
+    height: 318px;
+    padding: 7px;
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    z-index: 4;
+    border-radius: 30px;
+    background: linear-gradient(135deg,#777f8b,#252a34 30%,#080a0e 80%);
+    border: 2px solid #69717e;
+    box-shadow: 0 28px 55px rgba(0,0,0,.65);
+    transform: rotate(7deg);
+}
+
+.iphone::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 57px;
+    height: 13px;
+    background: #090a0d;
+    border-radius: 15px;
+    z-index: 5;
+}
+
+.iphone-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 23px;
+    overflow: hidden;
+    background: #f8f3ec;
+    color: #27221f;
+}
+
+.phone-top {
+    height: 125px;
+    background:
+        linear-gradient(0deg,rgba(0,0,0,.55),transparent),
+        url("https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=85") center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 12px;
+    color: white;
+}
+
+.phone-top small {
+    font-size: 7px;
+    letter-spacing: 2px;
+}
+
+.phone-top strong {
+    font-size: 17px;
+    margin-top: 4px;
+}
+
+.phone-menu {
+    padding: 10px;
+}
+
+.phone-menu h4 {
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.phone-food {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e7ded3;
+    padding: 8px 0;
+    font-size: 9px;
+}
+
+.phone-food b {
+    color: #a15c30;
+}
+
+/* QR CODE CARDS */
+
+.qr-card {
+    position: absolute;
+    z-index: 5;
+    width: 125px;
+    padding: 10px;
+    background: white;
+    border-radius: 11px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.4);
+    text-align: center;
+}
+
+.qr-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+.qr-card strong {
+    display: block;
+    color: #202735;
+    font-size: 10px;
+    margin-top: 7px;
+}
+
+.qr-card small {
+    color: #777;
+    font-size: 8px;
+}
+
+.qr-one {
+    left: 0;
+    bottom: 7px;
+    transform: rotate(-7deg);
+}
+
+.qr-two {
+    right: -4px;
+    top: 5px;
+    width: 112px;
+    transform: rotate(5deg);
+}
+
+/* SECTION */
+
+.section-label {
+    text-align: center;
+    padding: 75px 0 35px;
+}
+
+.section-label small {
+    color: var(--orange);
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.section-label h2 {
+    font-size: clamp(29px,4vw,43px);
+    letter-spacing: -1.5px;
+    margin-top: 12px;
+}
+
+/* MODEL CARDS */
+
+.models {
+    padding-bottom: 90px;
+}
+
+.models-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 22px;
+}
+
+.model {
+    background: var(--panel);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 13px;
+    overflow: hidden;
+    transition: .35s;
+}
+
+.model:hover {
+    transform: translateY(-7px);
+    border-color: rgba(255,155,80,.6);
+}
+
+.model-image {
+    height: 220px;
+    overflow: hidden;
+}
+
+.model-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .5s;
+}
+
+.model:hover img { transform: scale(1.06); }
+
+.model-info {
+    padding: 20px;
+}
+
+.model-info small {
+    color: var(--orange);
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.model-info h3 {
+    font-size: 19px;
+    margin-top: 8px;
+}
+
+.model-info p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.model-info .arrow {
+    display: block;
+    text-align: right;
+    color: var(--orange);
+    font-size: 21px;
+    margin-top: 10px;
+}
+
+/* CATEGORY */
+
+.categories {
+    text-align: center;
+    padding: 0 0 85px;
+}
+
+.category-list {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.category-list span {
+    border: 1px solid #343b48;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 12px;
+    color: #c4cbd5;
+}
+
+/* FINAL */
+
+.final {
+    background:
+        radial-gradient(ellipse at 50% 100%,rgba(255,155,80,.22),transparent 65%),
+        #1b202c;
+    text-align: center;
+    padding: 85px 20px 95px;
+    border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.final h2 {
+    font-size: clamp(35px,5vw,55px);
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 18px;
+}
+
+.final h2 span { color: var(--orange); }
+
+.final p {
+    color: var(--muted);
+    margin: 0 auto 30px;
+    font-size: 15px;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 27px 5%;
+    text-align: center;
+    color: #727c8c;
+    font-size: 12px;
+}
+
+footer strong {
+    color: white;
+    font-size: 17px;
+}
+
+footer strong span { color: var(--orange); }
+
+footer a { color: var(--orange); }
+
+/* RESPONSIVE */
+
+@media(max-width:1000px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .hero-copy { text-align: center; }
+
+    .hero p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .device-stage {
+        width: 100%;
+        max-width: 650px;
+        margin: auto;
+    }
+}
+
+@media(max-width:650px) {
+    .container { width: 90%; }
+
+    header { height: 72px; }
+
+    .logo { font-size: 23px; }
+
+    .header-btn {
+        font-size: 11px;
+        padding: 10px 13px;
+    }
+
+    .hero { padding: 65px 0 35px; }
+
+    .hero h1 {
+        font-size: 48px;
+        letter-spacing: -2px;
+    }
+
+    .hero p { font-size: 14px; }
+
+    .device-stage {
+        min-height: 350px;
+        transform: scale(.91);
+        transform-origin: center;
+        margin: -5px -15px;
+        width: calc(100% + 30px);
+    }
+
+    .tablet {
+        width: min(390px, 85vw);
+        height: 280px;
+        padding: 9px;
+    }
+
+    .tablet-hero { height: 115px; }
+
+    .tablet-hero h3 { font-size: 19px; }
+
+    .product-mini img { height: 48px; }
+
+    .iphone {
+        width: 127px;
+        height: 260px;
+        right: 0;
+        bottom: 0;
+    }
+
+    .phone-top { height: 103px; }
+
+    .phone-menu { padding: 7px; }
+
+    .phone-food { padding: 6px 0; font-size: 8px; }
+
+    .qr-card {
+        width: 93px;
+        padding: 7px;
+    }
+
+    .qr-card strong { font-size: 8px; }
+
+    .qr-card small { font-size: 7px; }
+
+    .qr-one { left: 0; bottom: 0; }
+
+    .qr-two { right: -2px; top: 0; width: 88px; }
+
+    .models-grid { grid-template-columns: 1fr; }
+
+    .model-image { height: 220px; }
+
+    .section-label { padding-top: 50px; }
+
+    .final { padding: 70px 20px; }
+}
+
+@media(max-width:380px) {
+    .device-stage { transform: scale(.82); margin: -20px -20px; width: calc(100% + 40px); }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="container">
+    <a href="https://dsfabio.com" class="logo">
+        DS<span>Fabio.</span>
+    </a>
+
+    <a href="https://dsfabio.com/modelli" class="header-btn">
+        Esplora i modelli ↗
+    </a>
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+<div class="container hero-grid">
+
+    <div class="hero-copy">
+
+        <div class="eyebrow">DSFABIO · MENU DIGITALI</div>
+
+        <h1>
+            Il tuo locale.<br>
+            Una nuova<br>
+            <span>dimensione.</span>
+        </h1>
+
+        <p>
+            Dai un'identità digitale alla tua attività.
+            Menu moderni, personalizzati e pronti
+            per essere consultati con un semplice QR code.
+        </p>
+
+        <a href="https://dsfabio.com/modelli" class="main-btn">
+            SCOPRI I MODELLI <span>→</span>
+        </a>
+
+        <span class="hero-small">
+            Ristoranti · Bar · Pizzerie · Pub · Locali
+        </span>
+
+    </div>
+
+    <!-- DISPOSITIVI REALISTICI -->
+
+    <div class="device-stage">
+
+        <div class="device-glow"></div>
+
+        <!-- TABLET -->
+
+        <div class="tablet">
+            <div class="tablet-camera"></div>
+
+            <div class="tablet-screen">
+
+                <div class="tablet-hero">
+                    <div>
+                        <div class="tablet-brand">RISTORANTE</div>
+                        <h3>Il gusto italiano</h3>
+                    </div>
+                    <span class="tablet-tag">MENU DIGITALE</span>
+                </div>
+
+                <div class="tablet-menu">
+
+                    <div class="tablet-menu-title">
+                        <h4>Le nostre specialità</h4>
+                        <span>FRESCO · AUTENTICO · SPECIALE</span>
+                    </div>
+
+                    <div class="tablet-products">
+
+                        <div class="product-mini">
+                            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=300&q=80" alt="Pizza">
+                            <div>
+                                <strong>Pizza Gourmet</strong>
+                                <span>12,00 €</span>
+                            </div>
+                        </div>
+
+                        <div class="product-mini">
+                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=300&q=80" alt="Hamburger">
+                            <div>
+                                <strong>Hamburger</strong>
+                                <span>14,00 €</span>
+                            </div>
+                        </div>
+
+                        <div class="product-mini">
+                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=300&q=80" alt="Insalata">
+                            <div>
+                                <strong>Specialità</strong>
+                                <span>10,00 €</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IPHONE -->
+
+        <div class="iphone">
+            <div class="iphone-screen">
+
+                <div class="phone-top">
+                    <small>COCKTAIL BAR</small>
+                    <strong>Drink & More</strong>
+                </div>
+
+                <div class="phone-menu">
+                    <h4>La nostra drink list</h4>
+
+                    <div class="phone-food">
+                        <span>Spritz</span>
+                        <b>7 €</b>
+                    </div>
+
+                    <div class="phone-food">
+                        <span>Mojito</span>
+                        <b>9 €</b>
+                    </div>
+
+                    <div class="phone-food">
+                        <span>Negroni</span>
+                        <b>9 €</b>
+                    </div>
+
+                    <div class="phone-food">
+                        <span>Gin Tonic</span>
+                        <b>10 €</b>
+                    </div>
+
+                    <div class="phone-food">
+                        <span>Analcolico</span>
+                        <b>6 €</b>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- QR ARANCIONE -->
+
+        <div class="qr-card qr-one">
+            <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fdsfabio.com%2Fmodelli&color=CA702D&bgcolor=FFFFFF&qzone=2"
+                alt="QR code arancione per DSFabio">
+            <strong>MENU DIGITALE</strong>
+            <small>Scansiona e scopri</small>
+        </div>
+
+        <!-- QR VERDE -->
+
+        <div class="qr-card qr-two">
+            <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fdsfabio.com%2Fmodelli&color=247B64&bgcolor=FFFFFF&qzone=2"
+                alt="QR code verde per DSFabio">
+            <strong>IL TUO MENU</strong>
+            <small>Un semplice QR code</small>
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+<!-- VETRINA MODELLI -->
+
+<section class="models container">
+
+    <div class="section-label">
+        <small>ISPIRATI · SCEGLI · PERSONALIZZA</small>
+        <h2>Trova il tuo stile.</h2>
+    </div>
+
+    <div class="models-grid">
+
+        <a href="https://dsfabio.com/modelli" class="model">
+            <div class="model-image">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=85" alt="Menu per ristoranti e pizzerie" loading="lazy">
+            </div>
+            <div class="model-info">
+                <small>01 / FOOD</small>
+                <h3>Ristoranti & Pizzerie</h3>
+                <p>Valorizza ogni piatto.</p>
+                <span class="arrow">↗</span>
+            </div>
+        </a>
+
+        <a href="https://dsfabio.com/modelli" class="model">
+            <div class="model-image">
+                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=85" alt="Menu per bar e caffetterie" loading="lazy">
+            </div>
+            <div class="model-info">
+                <small>02 / COFFEE</small>
+                <h3>Bar & Caffetterie</h3>
+                <p>Presenta le tue proposte.</p>
+                <span class="arrow">↗</span>
+            </div>
+        </a>
+
+        <a href="https://dsfabio.com/modelli" class="model">
+            <div class="model-image">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=85" alt="Menu per pub e cocktail bar" loading="lazy">
+            </div>
+            <div class="model-info">
+                <small>03 / LIFESTYLE</small>
+                <h3>Pub & Locali</h3>
+                <p>Uno stile che lascia il segno.</p>
+                <span class="arrow">↗</span>
+            </div>
+        </a>
+
+    </div>
+
+</section>
+
+<!-- CATEGORIE -->
+
+<section class="categories container">
+
+    <div class="section-label">
+        <small>UNA SOLUZIONE PER OGNI ATTIVITÀ</small>
+        <h2>Il digitale non ha confini.</h2>
+    </div>
+
+    <div class="category-list">
+        <span>Ristoranti</span>
+        <span>Bar</span>
+        <span>Pizzerie</span>
+        <span>Pub</span>
+        <span>Gelaterie</span>
+        <span>Hotel</span>
+        <span>Negozi</span>
+        <span>Altre attività</span>
+    </div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="final">
+
+    <h2>
+        Hai un'attività?<br>
+        <span>Fatti notare.</span>
+    </h2>
+
+    <p>
+        Scopri i modelli e trova quello giusto per te.
+    </p>
+
+    <a href="https://dsfabio.com/modelli" class="main-btn">
+        GUARDA TUTTI I MODELLI <span>→</span>
+    </a>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    <strong>DS<span>Fabio.</span></strong>
+
+    <p style="margin-top:8px">
+        Un progetto di Fabio · DS Service
+    </p>
+
+    <p style="margin-top:10px">
+        <a href="https://dsfabio.com">dsfabio.com</a>
+    </p>
+
+    <p style="margin-top:15px">
+        © <span id="year">2026</span> DS Service. Tutti i diritti riservati.
+    </p>
+</footer>
+
+<script>
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+</script>
+
+</body>
+</html>
