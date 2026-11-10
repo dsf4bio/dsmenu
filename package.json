@@ -1,0 +1,7 @@
+{
+  "name": "dsmenu",
+  "private": true,
+  "type": "module",
+  "description": "dsmenu.it: menu digitali dei locali, letti dal gestionale DS Service",
+  "engines": { "node": ">=20" }
+}
