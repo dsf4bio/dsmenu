@@ -452,7 +452,8 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
         if (cents > 0) {
           var eur = function (c) { return (c / 100).toFixed(2).replace('.', ',').replace(',00', '') + ' €'; };
           $('dsm-price-y').textContent = eur(cents);
-          $('dsm-price-m').textContent = 'meno di ' + eur(Math.ceil(cents / 12 / 100) * 100) + ' al mese';
+          var day = Math.ceil(cents / 365);
+          $('dsm-price-m').textContent = 'meno di ' + (day < 100 ? day + ' centesimi' : eur(day)) + ' al giorno';
           $('dsm-price').hidden = false;
           $('dsm-pay').textContent = 'Riattiva ora · ' + eur(cents) + ' / anno';
         }
