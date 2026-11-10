@@ -11,7 +11,9 @@ si gestiscono dal gestionale (Supabase, migrazione 026): qui ci sono solo i temi
 - `/anteprima/<token>` – anteprima di una bozza (link segreto, mai in cache, non indicizzata).
 - `themes/mdc-XXX.html` – i temi (gli stessi modelli di dsfabio.com). Dei modelli si usano
   la grafica e il codice: piatti, intestazione e piè di pagina vengono sostituiti con i dati del locale.
-- `assets/fonts`, `favicon.svg` – caratteri e icona usati dai temi.
+  I temi mdc-005 … mdc-015 si rigenerano dai modelli con `python3 tools/prepara_temi.py ../dsfabio`
+  (mdc-014 = Fuoco & Brace, mdc-015 = Sakura Neon): toglie i dati di fantasia e mette i segnaposto.
+- `assets/fonts`, `assets/vendor`, `favicon.svg` – caratteri, librerie e icona usati dai temi.
 
 Stati di una pagina:
 | Situazione | Cosa vede chi inquadra il QR |
