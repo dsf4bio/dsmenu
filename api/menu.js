@@ -179,6 +179,107 @@ function render(r, { preview = false } = {}) {
   return h;
 }
 
+// ---------- menu in pausa (abbonamento sospeso) ----------
+// Un assaggio del menu sfocato sotto un messaggio gentile; il titolare può
+// riattivarlo da qui: codice cliente → pagamento → torna online da solo.
+function pausedPage(r) {
+  let h;
+  try {
+    h = render(r);
+  } catch {
+    return simplePage(`${r.name}`, 'Il menu digitale è momentaneamente in pausa. Chiedi pure al personale: ti aspettiamo!', 200).html;
+  }
+  const n = esc(r.name);
+  const overlay = `
+<style>
+html,body{overflow:hidden!important;height:100%!important}
+body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!important;user-select:none!important}
+#dsm-pause{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:20px;
+  background:rgba(250,246,238,.55);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#2b2420;
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);overflow:auto}
+#dsm-pause *{box-sizing:border-box;text-shadow:none;font-family:inherit;text-transform:none;letter-spacing:normal;-webkit-text-stroke:0;filter:none}
+#dsm-pause *::before,#dsm-pause *::after{content:none!important}
+#dsm-pause .card{width:100%;max-width:400px;background:#fffdf9;border-radius:22px;padding:28px 24px 22px;text-align:center;
+  box-shadow:0 18px 50px rgba(43,36,32,.22),0 2px 6px rgba(43,36,32,.08)}
+#dsm-pause .ico{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:#f3ebdd;font-size:26px}
+#dsm-pause h1{font-size:1.35rem;line-height:1.25;margin:0 0 8px;font-weight:700;letter-spacing:-.01em;color:#2b2420;background:none;padding:0}
+#dsm-pause p{margin:0;color:#6b5f57}
+#dsm-pause .sep{height:1px;background:#eee4d6;margin:20px 0 16px}
+#dsm-pause .own{font-size:.93rem}
+#dsm-pause button,#dsm-pause input{font:inherit}
+#dsm-pause .btn{display:block;width:100%;margin-top:12px;border:0;border-radius:12px;padding:13px 16px;font-weight:700;cursor:pointer;
+  background:#2b2420;color:#fff}
+#dsm-pause .btn:disabled{opacity:.6;cursor:default}
+#dsm-pause .link{background:none;border:0;color:#8a5a2b;font-weight:600;text-decoration:underline;cursor:pointer;padding:4px}
+#dsm-pause form{margin-top:12px;text-align:left}
+#dsm-pause label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px}
+#dsm-pause input{width:100%;box-sizing:border-box;border:1.5px solid #ddd0bf;border-radius:12px;padding:12px 14px;font-size:1.1rem;
+  letter-spacing:.12em;text-transform:uppercase;background:#fff;color:#2b2420}
+#dsm-pause input:focus{outline:none;border-color:#8a5a2b;box-shadow:0 0 0 3px rgba(138,90,43,.15)}
+#dsm-pause .hint{font-size:.8rem;color:#8b7f76;margin-top:6px}
+#dsm-pause .err{color:#b42318;font-size:.88rem;margin-top:8px}
+#dsm-pause .ok{color:#1f7a3a;font-size:.88rem;margin-top:8px}
+#dsm-pause .by{margin-top:18px;font-size:.75rem;color:#a0948a}
+#dsm-pause .by a{color:inherit}
+</style>
+<div id="dsm-pause" role="dialog" aria-modal="true" aria-labelledby="dsm-pause-t">
+  <div class="card">
+    <div class="ico" aria-hidden="true">🍽️</div>
+    <h1 id="dsm-pause-t">Il menu digitale è in pausa</h1>
+    <p>Il menu di <strong>${n}</strong> al momento non è disponibile online. Chiedi pure al personale: sarà felice di aiutarti!</p>
+    <div class="sep"></div>
+    <div class="own">
+      <div id="dsm-own-q"><p>Sei il titolare?</p>
+        <button type="button" class="btn" id="dsm-open">Riattiva il menu in un minuto</button></div>
+      <form id="dsm-form" hidden novalidate>
+        <label for="dsm-code">Il tuo codice cliente</label>
+        <input id="dsm-code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="Es. ABC12345" required>
+        <div class="hint">Lo trovi sulla scheda che ti abbiamo consegnato.</div>
+        <div class="err" id="dsm-err" role="alert" hidden></div>
+        <button type="submit" class="btn" id="dsm-go">Vai al pagamento</button>
+        <div class="hint" style="text-align:center;margin-top:10px">Pagamento sicuro con Stripe · il menu torna online appena il pagamento è confermato</div>
+      </form>
+    </div>
+    <div class="by">Menu digitale by <a href="https://dsfabio.com" target="_blank" rel="noopener">DS Service</a> · <a href="https://dsfabio.com/assistenza" target="_blank" rel="noopener">Assistenza</a></div>
+  </div>
+</div>
+<script>
+(function () {
+  var SLUG = ${json(r.slug)}, SB = ${json(SUPABASE_URL)}, KEY = ${json(SUPABASE_KEY)};
+  var $ = function (id) { return document.getElementById(id); };
+  Array.prototype.forEach.call(document.body.children, function (el) {
+    if (el.id !== 'dsm-pause' && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE') { el.setAttribute('aria-hidden', 'true'); el.inert = true; }
+  });
+  $('dsm-open').addEventListener('click', function () {
+    $('dsm-own-q').hidden = true; $('dsm-form').hidden = false; $('dsm-code').focus();
+  });
+  function err(t) { var e = $('dsm-err'); e.textContent = t || ''; e.hidden = !t; }
+  $('dsm-form').addEventListener('submit', function (ev) {
+    ev.preventDefault(); err('');
+    var code = $('dsm-code').value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
+    if (!/^[A-Z]{3}[0-9OIL]{5}$/.test(code)) return err('Il codice cliente è formato da 3 lettere e 5 numeri (es. ABC12345).');
+    var b = $('dsm-go'); b.disabled = true; b.textContent = 'Un attimo…';
+    fetch(SB + '/rest/v1/rpc/menu_reactivate', {
+      method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_slug: SLUG, p_code: code })
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.ok && d.pay_url) { b.textContent = 'Apro il pagamento…'; location.href = d.pay_url; return; }
+      if (d && d.ok && d.active) { err(''); $('dsm-err').hidden = true; b.textContent = 'Il menu è già attivo: ricarico…'; setTimeout(function () { location.reload(); }, 1500); return; }
+      err((d && d.message) || 'Non è stato possibile continuare. Riprova.');
+      b.disabled = false; b.textContent = 'Vai al pagamento';
+    }).catch(function () {
+      err('Connessione non riuscita. Riprova.'); b.disabled = false; b.textContent = 'Vai al pagamento';
+    });
+  });
+})();
+</script>
+`;
+  return h.replace(/<meta name="robots"[^>]*>/, '<meta name="robots" content="noindex, nofollow">')
+    .replace(/<title>[\s\S]*?<\/title>/, () => `<title>${n} · Menu in pausa</title>`)
+    .replace(/<link rel="canonical"[^>]*>\n?/, '')
+    .replace(/<\/body>/i, () => `${overlay}</body>`);
+}
+
 function simplePage(title, text, status, robots = 'noindex') {
   return { status, html: `<!doctype html><html lang="it"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="${robots}">
@@ -215,7 +316,7 @@ export default async function handler(req, res) {
         return res.end();
       }
       if (r.state === 'ok') out = { status: 200, html: render(r) };
-      else if (r.state === 'paused') out = simplePage(`${r.name}`, 'Il menu digitale è momentaneamente non disponibile. Chiedi pure al personale: ti aspettiamo!', 200);
+      else if (r.state === 'paused') out = { status: 200, html: pausedPage(r) };
       else if (r.state === 'empty') out = simplePage(`${r.name}`, 'Il menu digitale è in preparazione: sarà online a breve.', 200);
       else out = simplePage('Menu non trovato', 'Controlla l\'indirizzo o inquadra di nuovo il QR code.', 404);
       // in cache 60 s: una modifica pubblicata è online entro circa un minuto
