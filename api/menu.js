@@ -47,6 +47,20 @@ async function rpc(fn, args) {
 
 // ---------- dai dati del gestionale al formato dei temi ----------
 // Tutti i testi vengono "puliti" qui: i temi li inseriscono così come sono nella pagina.
+// ---------- foto dei piatti (migrazione 033) ----------
+// Solo dal contenitore "menu-photos" del nostro Supabase. Nei temi con l'emoji del
+// piatto la foto ne prende il posto; negli altri va sopra la descrizione.
+const PHOTO_RE = new RegExp(`^${SUPABASE_URL.replace(/[.]/g, '\\.')}/storage/v1/object/public/menu-photos/[0-9a-f-]{36}/[A-Za-z0-9_-]{6,40}\\.(webp|jpg|jpeg|png)$`);
+const PHOTO_IN_DESC = new Set(['mdc-001', 'mdc-004', 'mdc-005', 'mdc-012']);
+const photoOk = (u) => typeof u === 'string' && PHOTO_RE.test(u);
+const photoImg = (u, alt, cls) => `<img class="${cls}" src="${esc(u)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
+const PHOTO_CSS = `<style>
+img.dsm-ph{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;max-width:none}
+.pic{position:relative;overflow:hidden}.pic>img.dsm-ph{position:absolute;inset:0}
+img.dsm-ph-big{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin:6px 0 10px}
+</style>`;
+const hasPhotos = (data) => (data?.sections || []).some((s) => (s.items || []).some((i) => photoOk(i.photo)));
+
 function toTheme(name, data) {
   const sections = Array.isArray(data?.sections) ? data.sections : [];
   const DIET = { veg: 'Vegetariano', vegan: 'Vegano' };
@@ -62,6 +76,10 @@ function toTheme(name, data) {
       if (name === 'mdc-002') o.t = [...(it.diet ? ['veg'] : []), ...(it.spicy ? ['hot'] : []), ...(it.new ? ['new'] : [])];
       if (name === 'mdc-003') { if (it.diet === 'vegan') o.vg = 1; else if (it.diet === 'veg') o.v = 1; }
       if (name === 'mdc-004') o.t = labels[0] || '';
+      if (photoOk(it.photo)) {
+        if (PHOTO_IN_DESC.has(name)) o.d = photoImg(it.photo, it.name, 'dsm-ph-big') + o.d;
+        else o.e = photoImg(it.photo, it.name, 'dsm-ph');
+      }
       return o;
     });
     return sec;
@@ -167,6 +185,10 @@ function normalize(name, data) {
         e: esc(it.emoji || s.emoji || fallback),
         veg: it.diet === 'veg' || it.diet === 'vegan', hot: !!it.spicy, isNew: !!it.new,
         top: labels.some((l) => HIGHLIGHT.test(l)), label: esc(labels[0] || ''), LABEL: esc((labels[0] || '').toUpperCase()),
+        dPlain: esc(it.description || ''),
+        ...(photoOk(it.photo) ? (PHOTO_IN_DESC.has(name)
+          ? { d: photoImg(it.photo, it.name, 'dsm-ph-big') + esc(it.description || '') }
+          : { e: photoImg(it.photo, it.name, 'dsm-ph') }) : {}),
       };
     });
     return sec;
@@ -202,7 +224,7 @@ function themeData(name, S) {
       break;
     case 'mdc-009': {
       // "Nel bicchiere ora": solo dalle sezioni di drink (cocktail, vini, bevande…)
-      const drinks = S.filter((s) => DRINK_SECTION.test(s.title)).flatMap((s) => s.items).slice(0, 6).map((it, i) => ({ n: it.n, d: it.d, c: LIQ[i % LIQ.length] }));
+      const drinks = S.filter((s) => DRINK_SECTION.test(s.title)).flatMap((s) => s.items).slice(0, 6).map((it, i) => ({ n: it.n, d: it.dPlain, c: LIQ[i % LIQ.length] }));
       out.js = `var AL = ${AL_JS};\nvar TASTES = {};\n`
         + v('MENU', S.map((s) => ({ id: s.id, t: s.title, items: s.items.map((it) => base(it, { e: it.e, g: [], z: 0 })) })))
         + v('DSM_DRINKS', drinks);
@@ -281,6 +303,7 @@ function render(r, { preview = false } = {}) {
   let h = theme(name);
   const placeholders = PLACEHOLDER_THEMES.has(name);
   const { MENU, TASTING, NOTE } = placeholders ? {} : toTheme(name, r.data);
+  if (hasPhotos(r.data)) h = h.replace('</head>', () => `${PHOTO_CSS}\n</head>`);
   const url = `${SITE}/${r.slug}`;
   const title = `${r.name} · Menu${r.city ? ` · ${r.city}` : ''}`;
   const desc = [r.info?.tagline, `Il menu di ${r.name}${r.city ? ` a ${r.city}` : ''}: piatti, prezzi e allergeni sempre aggiornati.`]
