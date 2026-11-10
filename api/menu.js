@@ -358,6 +358,9 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
   letter-spacing:.12em;text-transform:uppercase;background:#fff;color:#2b2420}
 #dsm-pause input:focus{outline:none;border-color:#8a5a2b;box-shadow:0 0 0 3px rgba(138,90,43,.15)}
 #dsm-pause .hint{font-size:.8rem;color:#8b7f76;margin-top:6px}
+#dsm-pause .hello{font-weight:700;color:#2b2420;margin-bottom:6px!important}
+#dsm-pause #dsm-renew{text-align:left}
+#dsm-pause a.btn{text-decoration:none;text-align:center;box-sizing:border-box}
 #dsm-pause .err{color:#b42318;font-size:.88rem;margin-top:8px}
 #dsm-pause .ok{color:#1f7a3a;font-size:.88rem;margin-top:8px}
 #dsm-pause .by{margin-top:18px;font-size:.75rem;color:#a0948a}
@@ -370,16 +373,20 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
     <p>Il menu di <strong>${n}</strong> al momento non è disponibile online. Chiedi pure al personale: sarà felice di aiutarti!</p>
     <div class="sep"></div>
     <div class="own">
-      <div id="dsm-own-q"><p>Sei il titolare?</p>
-        <button type="button" class="btn" id="dsm-open">Riattiva il menu in un minuto</button></div>
+      <div id="dsm-own-q"><button type="button" class="link" id="dsm-open">Sei il titolare? Area riservata</button></div>
       <form id="dsm-form" hidden novalidate>
-        <label for="dsm-code">Il tuo codice cliente</label>
-        <input id="dsm-code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" placeholder="Es. ABC12345" required>
-        <div class="hint">Lo trovi sulla scheda che ti abbiamo consegnato.</div>
+        <label for="dsm-code">Codice cliente</label>
+        <input id="dsm-code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" required>
+        <div class="hint">Lo trovi sulla scheda cliente che ti abbiamo consegnato.</div>
         <div class="err" id="dsm-err" role="alert" hidden></div>
-        <button type="submit" class="btn" id="dsm-go">Vai al pagamento</button>
-        <div class="hint" style="text-align:center;margin-top:10px">Pagamento sicuro con Stripe · il menu torna online appena il pagamento è confermato</div>
+        <button type="submit" class="btn" id="dsm-go">Continua</button>
       </form>
+      <div id="dsm-renew" hidden>
+        <p class="hello" id="dsm-hello"></p>
+        <p id="dsm-why"></p>
+        <a class="btn" id="dsm-pay" href="#">Rinnova e riattiva il menu</a>
+        <div class="hint" style="text-align:center;margin-top:10px">Pagamento sicuro con Stripe · il menu torna online appena il pagamento è confermato</div>
+      </div>
     </div>
     <div class="by">Menu digitale by <a href="https://dsfabio.com" target="_blank" rel="noopener">DS Service</a> · <a href="https://dsfabio.com/assistenza" target="_blank" rel="noopener">Assistenza</a></div>
   </div>
@@ -398,19 +405,27 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
   $('dsm-form').addEventListener('submit', function (ev) {
     ev.preventDefault(); err('');
     var code = $('dsm-code').value.replace(/[^A-Za-z0-9]/g, '').toUpperCase();
-    if (!/^[A-Z]{3}[0-9OIL]{5}$/.test(code)) return err('Il codice cliente è formato da 3 lettere e 5 numeri (es. ABC12345).');
+    if (code.length < 6) return err('Inserisci il codice cliente.');
     var b = $('dsm-go'); b.disabled = true; b.textContent = 'Un attimo…';
+    function reset() { b.disabled = false; b.textContent = 'Continua'; }
     fetch(SB + '/rest/v1/rpc/menu_reactivate', {
       method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' },
       body: JSON.stringify({ p_slug: SLUG, p_code: code })
     }).then(function (r) { return r.json(); }).then(function (d) {
-      if (d && d.ok && d.pay_url) { b.textContent = 'Apro il pagamento…'; location.href = d.pay_url; return; }
-      if (d && d.ok && d.active) { err(''); $('dsm-err').hidden = true; b.textContent = 'Il menu è già attivo: ricarico…'; setTimeout(function () { location.reload(); }, 1500); return; }
-      err((d && d.message) || 'Non è stato possibile continuare. Riprova.');
-      b.disabled = false; b.textContent = 'Vai al pagamento';
-    }).catch(function () {
-      err('Connessione non riuscita. Riprova.'); b.disabled = false; b.textContent = 'Vai al pagamento';
-    });
+      if (d && d.ok && d.pay_url) {
+        // solo ora, con il codice giusto, si parla di scadenza e pagamento
+        $('dsm-form').hidden = true; $('dsm-renew').hidden = false;
+        $('dsm-hello').textContent = 'Ciao' + (d.name ? ' ' + d.name : '') + '!';
+        $('dsm-why').textContent = (d.expired ? 'L\\'abbonamento del menu digitale è scaduto il ' + d.expired + '. ' : 'L\\'abbonamento del menu digitale è scaduto. ')
+          + 'Rinnova ora: il menu torna online da solo appena il pagamento è confermato.';
+        $('dsm-pay').href = d.pay_url;
+        if (d.price) $('dsm-pay').textContent = 'Rinnova e riattiva · ' + d.price + ' / anno';
+        $('dsm-pay').focus();
+        return;
+      }
+      if (d && d.ok && d.active) { b.textContent = 'Il menu è già attivo: ricarico…'; setTimeout(function () { location.reload(); }, 1500); return; }
+      err((d && d.message) || 'Non è stato possibile continuare. Riprova.'); reset();
+    }).catch(function () { err('Connessione non riuscita. Riprova.'); reset(); });
   });
 })();
 </script>
