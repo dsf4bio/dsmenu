@@ -358,7 +358,19 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
   letter-spacing:.12em;text-transform:uppercase;background:#fff;color:#2b2420}
 #dsm-pause input:focus{outline:none;border-color:#8a5a2b;box-shadow:0 0 0 3px rgba(138,90,43,.15)}
 #dsm-pause .hint{font-size:.8rem;color:#8b7f76;margin-top:6px}
-#dsm-pause .hello{font-weight:700;color:#2b2420;margin-bottom:6px!important}
+#dsm-pause .hello{font-weight:700;color:#8a5a2b;margin-bottom:4px!important}
+#dsm-pause .lead{margin:0 0 14px!important}
+#dsm-pause form h1,#dsm-pause #dsm-renew h1{text-align:left}
+#dsm-pause .back{display:block;margin:12px auto 0;font-weight:500;color:#8b7f76}
+#dsm-pause .perks{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px}
+#dsm-pause .perks li{position:relative;padding-left:28px;color:#4b403a;font-size:.95rem;line-height:1.4}
+#dsm-pause .perks li::before{content:"✓"!important;position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#e7f6ec;color:#1f7a3a;font-weight:800;font-size:12px;display:grid;place-items:center}
+#dsm-pause .price{text-align:center;border:1.5px solid #eadfce;border-radius:14px;padding:12px;margin-bottom:4px;background:#fffaf2}
+#dsm-pause .price b{font-size:1.9rem;color:#2b2420}
+#dsm-pause .price span{color:#6b5f57}
+#dsm-pause .price small{display:block;color:#8a5a2b;font-weight:600;font-size:.85rem;margin-top:2px}
+#dsm-pause .btn-go{background:#1f7a3a;font-size:1.05rem;padding:15px 16px}
+#dsm-pause .trust{text-align:center;margin-top:10px}
 #dsm-pause #dsm-renew{text-align:left}
 #dsm-pause a.btn{text-decoration:none;text-align:center;box-sizing:border-box}
 #dsm-pause .err{color:#b42318;font-size:.88rem;margin-top:8px}
@@ -368,24 +380,37 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
 </style>
 <div id="dsm-pause" role="dialog" aria-modal="true" aria-labelledby="dsm-pause-t">
   <div class="card">
-    <div class="ico" aria-hidden="true">🍽️</div>
-    <h1 id="dsm-pause-t">Il menu digitale è in pausa</h1>
-    <p>Il menu di <strong>${n}</strong> al momento non è disponibile online. Chiedi pure al personale: sarà felice di aiutarti!</p>
-    <div class="sep"></div>
+    <div class="ico" aria-hidden="true" id="dsm-ico">🍽️</div>
+    <div id="dsm-guest">
+      <h1 id="dsm-pause-t">Il menu digitale è in pausa</h1>
+      <p>Il menu di <strong>${n}</strong> al momento non è disponibile online. Chiedi pure al personale: sarà felice di aiutarti!</p>
+      <div class="sep"></div>
+      <button type="button" class="link" id="dsm-open">Sei il titolare? Area riservata</button>
+    </div>
     <div class="own">
-      <div id="dsm-own-q"><button type="button" class="link" id="dsm-open">Sei il titolare? Area riservata</button></div>
       <form id="dsm-form" hidden novalidate>
+        <h1>Area titolare</h1>
+        <p class="lead">Inserisci il codice cliente per riattivare il menu di <strong>${n}</strong>.</p>
         <label for="dsm-code">Codice cliente</label>
         <input id="dsm-code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="12" required>
         <div class="hint">Lo trovi sulla scheda cliente che ti abbiamo consegnato.</div>
         <div class="err" id="dsm-err" role="alert" hidden></div>
         <button type="submit" class="btn" id="dsm-go">Continua</button>
+        <button type="button" class="link back" id="dsm-back">← Torna indietro</button>
       </form>
       <div id="dsm-renew" hidden>
         <p class="hello" id="dsm-hello"></p>
-        <p id="dsm-why"></p>
-        <a class="btn" id="dsm-pay" href="#">Rinnova e riattiva il menu</a>
-        <div class="hint" style="text-align:center;margin-top:10px">Pagamento sicuro con Stripe · il menu torna online appena il pagamento è confermato</div>
+        <h1>Riattiva il tuo menu in un minuto</h1>
+        <p class="lead" id="dsm-why"></p>
+        <ul class="perks">
+          <li><b>Torna online subito</b>, appena il pagamento è confermato</li>
+          <li><b>Stessi QR sui tavoli</b>: niente da ristampare</li>
+          <li><b>Piatti, prezzi e foto salvati</b>: ritrovi tutto com'era</li>
+          <li><b>Aggiornamenti del menu inclusi</b> per tutto l'anno</li>
+        </ul>
+        <div class="price" id="dsm-price" hidden><b id="dsm-price-y"></b><span> / anno</span><small id="dsm-price-m"></small></div>
+        <a class="btn btn-go" id="dsm-pay" href="#">Riattiva ora il menu</a>
+        <div class="hint trust">🔒 Pagamento sicuro con Stripe · ricevuta via email<br>Rinnovo annuale, disdici quando vuoi fino a 30 giorni prima</div>
       </div>
     </div>
     <div class="by">Menu digitale by <a href="https://dsfabio.com" target="_blank" rel="noopener">DS Service</a> · <a href="https://dsfabio.com/assistenza" target="_blank" rel="noopener">Assistenza</a></div>
@@ -398,8 +423,12 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
   Array.prototype.forEach.call(document.body.children, function (el) {
     if (el.id !== 'dsm-pause' && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE') { el.setAttribute('aria-hidden', 'true'); el.inert = true; }
   });
+  // il messaggio per i clienti del locale resta solo nella prima schermata
   $('dsm-open').addEventListener('click', function () {
-    $('dsm-own-q').hidden = true; $('dsm-form').hidden = false; $('dsm-code').focus();
+    $('dsm-guest').hidden = true; $('dsm-ico').textContent = '🔑'; $('dsm-form').hidden = false; $('dsm-code').focus();
+  });
+  $('dsm-back').addEventListener('click', function () {
+    $('dsm-form').hidden = true; $('dsm-guest').hidden = false; $('dsm-ico').textContent = '🍽️'; err('');
   });
   function err(t) { var e = $('dsm-err'); e.textContent = t || ''; e.hidden = !t; }
   $('dsm-form').addEventListener('submit', function (ev) {
@@ -414,12 +443,19 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
     }).then(function (r) { return r.json(); }).then(function (d) {
       if (d && d.ok && d.pay_url) {
         // solo ora, con il codice giusto, si parla di scadenza e pagamento
-        $('dsm-form').hidden = true; $('dsm-renew').hidden = false;
+        $('dsm-form').hidden = true; $('dsm-renew').hidden = false; $('dsm-ico').textContent = '🚀';
         $('dsm-hello').textContent = 'Ciao' + (d.name ? ' ' + d.name : '') + '!';
-        $('dsm-why').textContent = (d.expired ? 'L\\'abbonamento del menu digitale è scaduto il ' + d.expired + '. ' : 'L\\'abbonamento del menu digitale è scaduto. ')
-          + 'Rinnova ora: il menu torna online da solo appena il pagamento è confermato.';
+        $('dsm-why').textContent = 'Il menu di ' + (d.business || 'questo locale') + ' è in pausa'
+          + (d.expired ? ' dal ' + d.expired : '') + ': in questo momento i tuoi clienti al tavolo non lo vedono.';
         $('dsm-pay').href = d.pay_url;
-        if (d.price) $('dsm-pay').textContent = 'Rinnova e riattiva · ' + d.price + ' / anno';
+        var cents = d.price ? Math.round(parseFloat(String(d.price).replace(/[^0-9,]/g, '').replace(',', '.')) * 100) : 0;
+        if (cents > 0) {
+          var eur = function (c) { return (c / 100).toFixed(2).replace('.', ',').replace(',00', '') + ' €'; };
+          $('dsm-price-y').textContent = eur(cents);
+          $('dsm-price-m').textContent = 'meno di ' + eur(Math.ceil(cents / 12 / 100) * 100) + ' al mese';
+          $('dsm-price').hidden = false;
+          $('dsm-pay').textContent = 'Riattiva ora · ' + eur(cents) + ' / anno';
+        }
         $('dsm-pay').focus();
         return;
       }
