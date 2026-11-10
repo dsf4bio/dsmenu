@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0e0e10">
+<title>Smoke &amp; Steel · Modello di menu digitale (esempio) | DS Service</title>
+<meta name="description" content="Fumo realistico in WebGL e cursore del piccante: il cliente vede solo i piatti che regge. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="DS Service · Menu digitali">
+<meta property="og:title" content="Smoke &amp; Steel · Modello di menu digitale (esempio) | DS Service">
+<meta property="og:description" content="Fumo realistico in WebGL e cursore del piccante: il cliente vede solo i piatti che regge. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:url" content="https://dsfabio.com/mdc-011">
+<meta property="og:image" content="https://dsfabio.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts/bigshouldersdisplay-inter.css">
+<style>
+:root{--bg:#0e0e10;--steel:#1b1c20;--steel2:#26272c;--line:rgba(255,255,255,.09);--txt:#efeae4;--sub:#a59d94;--copper:#e07a3c;--copper2:#ffb27a;--chili:#ff3d2e;--soc-bg:#26272c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--bg);color:var(--txt);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:8px}
+.demo{position:relative;z-index:5;background:#000;color:var(--copper2);text-align:center;font-size:.74rem;font-weight:800;padding:7px 12px}
+.bs{font-family:"Big Shoulders Display",Impact,sans-serif}
+
+/* HERO con fumo WebGL */
+.hero{position:relative;height:min(86svh,720px);min-height:500px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(60% 50% at 50% 100%,rgba(224,122,60,.35),transparent 70%),linear-gradient(180deg,#151517,#0e0e10)}
+#smoke{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.nogl .hero::before{content:"";position:absolute;inset:-20%;background:radial-gradient(40% 30% at 30% 70%,rgba(200,200,210,.18),transparent 70%),radial-gradient(40% 30% at 70% 40%,rgba(200,200,210,.14),transparent 70%);filter:blur(30px);animation:drift 12s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,-8%)}}
+.grill{position:absolute;left:0;right:0;bottom:0;height:18%;opacity:.7;background:repeating-linear-gradient(90deg,transparent 0 46px,rgba(0,0,0,.55) 46px 52px),linear-gradient(180deg,transparent,rgba(224,122,60,.25) 60%,rgba(255,90,30,.4));-webkit-mask-image:linear-gradient(to top,#000 40%,transparent);mask-image:linear-gradient(to top,#000 40%,transparent)}
+.hero-in{position:relative;z-index:2;text-align:center;padding:20px}
+.est{display:inline-block;font-weight:800;font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;color:var(--copper2);border:1px solid rgba(224,122,60,.5);padding:6px 14px;border-radius:4px}
+.hero h1{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:clamp(4rem,19vw,9rem);line-height:.82;text-transform:uppercase;margin:16px 0 12px;background:linear-gradient(180deg,#fff 0%,#d9d4cf 45%,#8d8780 55%,#e8e3dd 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 18px rgba(0,0,0,.6))}
+.hero h1 span{display:block;font-size:.42em;letter-spacing:.3em;color:var(--copper);-webkit-text-fill-color:var(--copper)}
+.hero p{color:var(--sub);font-weight:600}
+
+/* Piccante */
+.heat{position:sticky;top:0;z-index:30;background:rgba(14,14,16,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.heat-in{max-width:980px;margin:0 auto;padding:10px 14px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:9px 15px;border-radius:10px;font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:1.15rem;letter-spacing:.04em;text-transform:uppercase;color:var(--sub);background:var(--steel);border:1px solid var(--line);transition:all .25s}
+.tab[aria-selected="true"]{color:#0e0e10;background:linear-gradient(135deg,var(--copper2),var(--copper));border-color:transparent}
+.spice{display:flex;align-items:center;gap:12px;margin-top:10px}
+.spice label{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);white-space:nowrap}
+.spice input{flex:1;accent-color:var(--chili);height:26px;min-width:0}
+.spice output{flex:0 0 auto;min-width:96px;text-align:right;font-size:1rem;letter-spacing:1px}
+
+main{max-width:980px;margin:0 auto;padding:20px 14px 30px}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:14px}
+.sh h2{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:clamp(2.2rem,9vw,3.4rem);line-height:.9;text-transform:uppercase}
+.sh small{color:var(--sub);font-weight:600;font-size:.86rem}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;perspective:1000px}
+.card{position:relative;overflow:hidden;padding:18px;border-radius:18px;background:linear-gradient(160deg,var(--steel2),var(--steel));border:1px solid var(--line);display:flex;flex-direction:column;gap:6px;transform:rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .25s ease-out,border-color .3s;animation:in .5s ease backwards}
+@keyframes in{from{opacity:0;transform:translateY(16px)}}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.08) 48%,transparent 60%);transform:translateX(var(--sx,-100%));transition:transform .6s;pointer-events:none}
+.card:hover{border-color:rgba(224,122,60,.5)}
+.card:hover::after{--sx:100%}
+.card .row{display:flex;gap:12px;align-items:flex-start}
+.em{flex:0 0 56px;height:56px;border-radius:14px;display:grid;place-items:center;font-size:1.9rem;background:radial-gradient(circle at 50% 120%,rgba(224,122,60,.45),rgba(255,255,255,.04));border:1px solid var(--line)}
+.card h3{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:1.45rem;line-height:1;text-transform:uppercase;letter-spacing:.02em}
+.chilis{font-size:.85rem;letter-spacing:1px;margin-top:4px}
+.chilis .off{filter:grayscale(1);opacity:.25}
+.card p{color:var(--sub);font-size:.9rem}
+.card .bot{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;margin-top:auto;padding-top:6px}
+.price{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:1.6rem;color:var(--copper2);white-space:nowrap}
+.tag{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(224,122,60,.18);color:var(--copper2);margin-left:6px;vertical-align:4px;font-family:Inter,sans-serif}
+.als{display:flex;flex-wrap:wrap;gap:4px}
+.al{width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.07);display:inline-grid;place-items:center;font-size:.72rem}
+.none{font-size:.72rem;color:var(--sub)}
+.empty{grid-column:1/-1;text-align:center;color:var(--sub);padding:34px;border:1px dashed var(--line);border-radius:18px}
+.pit{margin-top:26px;display:flex;gap:16px;align-items:center;padding:20px;border-radius:18px;background:radial-gradient(90% 140% at 0% 100%,rgba(224,122,60,.3),transparent 60%),var(--steel);border:1px solid var(--line)}
+.pit .n{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:3.2rem;line-height:1;color:var(--copper2)}
+.pit p{color:var(--sub)}.pit b{color:#fff}
+.legend{margin-top:22px;background:var(--steel);border:1px solid var(--line);border-radius:18px;padding:18px}
+.legend h2{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:1.6rem;text-transform:uppercase;margin-bottom:10px}
+.legend ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;font-size:.86rem}
+.legend li{display:flex;gap:8px;align-items:center}
+.legend p{font-size:.8rem;color:var(--sub);margin-top:10px}
+footer{text-align:center;padding:34px 18px;color:var(--sub);font-size:.9rem}
+footer strong{font-family:"Big Shoulders Display",sans-serif;font-weight:900;font-size:2.2rem;text-transform:uppercase;color:#fff;display:block;line-height:1}
+@media (max-width:680px){.grid{grid-template-columns:1fr}.pit{flex-direction:column;align-items:flex-start}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.soc{display:flex;justify-content:center;gap:12px;margin:18px 0 6px}
+.soc a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soc-bg,#222);color:var(--soc-fg,#fff);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s;text-decoration:none}
+.soc a:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 10px 22px rgba(0,0,0,.25)}
+.soc a.fb{background:#1877F2;color:#fff}.soc a.wa{background:#25D366;color:#fff}
+.soc a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);color:#fff}
+.soc svg{width:23px;height:23px}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
+.flinks a{text-decoration:underline;text-underline-offset:3px;color:inherit;opacity:.85}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="smoke" aria-hidden="true"></canvas>
+  <div class="grill" aria-hidden="true"></div>
+  <div class="hero-in">
+    <span class="est" data-dsm-opt="KICKER">__DSM_KICKER__</span>
+    <h1>__DSM_NAME_A__<span>__DSM_NAME_B__</span></h1>
+    <p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p>
+  </div>
+</header>
+
+<nav class="heat" aria-label="Categorie e piccante">
+  <div class="heat-in">
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div class="spice"><label for="lvl">🌶 Piccante max</label><input id="lvl" type="range" min="0" max="5" step="1" value="5"><output id="out" for="lvl"></output></div>
+  </div>
+</nav>
+
+<main>
+  <div id="view"></div>
+  <section class="legend" aria-labelledby="leg"><h2 id="leg">Legenda allergeni</h2><ul id="legend"></ul><p>Per informazioni su allergeni e intolleranze chiedi al personale. I piatti possono contenere tracce di altri allergeni.</p></section>
+</main>
+
+<footer>
+  <strong>Smoke &amp; Steel</strong>
+  Via dell'Acciaio 12 · Tel. 0123 456789<br><small>Dati di esempio</small>
+  <div class="soc"><a class="fb" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.1 23.7v-8H6.6V12h2.5v-1.6c0-4.1 1.8-6 5.9-6 .8 0 2.1.2 2.6.3v3.3l-1.4-.1c-1.9 0-2.6.7-2.6 2.6V12h3.9l-.7 3.7h-3.2V24C19.4 23.2 24 18.2 24 12 24 5.4 18.6 0 12 0S0 5.4 0 12c0 5.6 3.9 10.4 9.1 11.7Z"/></svg></a><a class="ig" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a><a class="wa" href="https://wa.me/390123456789" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 4.9-1.3A9.9 9.9 0 1 0 12.04 2Zm5.8 14.1c-.25.7-1.45 1.33-2 1.38-.53.05-1.03.24-3.47-.72-2.93-1.16-4.8-4.15-4.95-4.35-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.25.58.83 2.01.9 2.16.08.14.12.31.03.5-.1.2-.14.31-.29.48l-.43.5c-.14.15-.3.31-.13.6.17.3.75 1.24 1.6 2 1.1.98 2.03 1.28 2.32 1.43.29.14.46.12.63-.08.17-.19.73-.85.92-1.14.2-.29.39-.24.65-.14.27.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.7-.18 1.38Z"/></svg></a></div><nav class="flinks" aria-label="Contatti"><a href="tel:+390123456789">📞 Chiama</a><a href="https://maps.google.com/?q=Via+dell'Acciaio+12" target="_blank" rel="noopener">📍 Dove siamo</a><a href="https://www.google.com/maps" target="_blank" rel="noopener">⭐ Lascia una recensione</a></nav>
+</footer>
+
+<script>
+(function () {
+'use strict';
+/*DSM:DATA*/
+var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var eur = function (v) { return new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'}).format(v); };
+var $ = function (s) { return document.querySelector(s); };
+var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+var cur = MENU[0].id, max = 5, LBL = ['Per niente','Delicato','Leggero','Medio','Forte','Estremo'];
+function chili(h) { var s = ''; for (var i = 1; i <= 5; i++) s += '<span' + (i > h ? ' class="off"' : '') + '>🌶</span>'; return s; }
+function als(a) { return a.length ? a.map(function (k) { return '<span class="al" title="' + AL[k][1] + '" aria-label="' + AL[k][1] + '">' + AL[k][0] + '</span>'; }).join('') : '<span class="none">Nessun allergene dichiarato</span>'; }
+function render() {
+  var c = MENU.filter(function (x) { return x.id === cur; })[0], list = c.items.filter(function (it) { return it.h <= max; });
+  $('#view').innerHTML = '<div class="sh"><h2>' + c.t + '</h2><small>' + c.s + '</small></div><div class="grid">' + (list.length ? list.map(function (it, i) {
+    return '<article class="card" style="animation-delay:' + i * 60 + 'ms"><div class="row"><div class="em" aria-hidden="true">' + it.e + '</div><div><h3>' + it.n + (it.t ? '<span class="tag">' + it.t + '</span>' : '') + '</h3><div class="chilis" aria-label="Piccante: ' + LBL[it.h] + '">' + chili(it.h) + '</div></div></div><p>' + it.d + '</p><div class="bot"><div class="als">' + als(it.a) + '</div><span class="price">' + eur(it.p) + '</span></div></article>';
+  }).join('') : '<p class="empty">Nessun piatto entro questo livello di piccante. Alza il cursore 🌶</p>') + '</div>';
+  $('#tabs').innerHTML = MENU.map(function (x) { return '<button class="tab" role="tab" data-id="' + x.id + '" aria-selected="' + (x.id === cur) + '">' + x.t + '</button>'; }).join('');
+  $('#out').innerHTML = chili(max) ;
+  $('#out').setAttribute('aria-label', LBL[max]);
+  bindTilt();
+}
+function bindTilt() {
+  if (reduced || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  $$('.card').forEach(function (c) {
+    c.addEventListener('pointermove', function (e) { var r = c.getBoundingClientRect(); c.style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 10 + 'deg'); c.style.setProperty('--rx', (.5 - (e.clientY - r.top) / r.height) * 10 + 'deg'); });
+    c.addEventListener('pointerleave', function () { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); });
+  });
+}
+$('#tabs').addEventListener('click', function (e) { var b = e.target.closest('.tab'); if (!b) return; cur = b.dataset.id; render(); var top = $('.heat').getBoundingClientRect().top + scrollY; if (scrollY > top) window.scrollTo(0, top); });
+$('#lvl').addEventListener('input', function (e) { max = +e.target.value; render(); });
+$('#legend').innerHTML = Object.keys(AL).map(function (k) { return '<li><span class="al">' + AL[k][0] + '</span>' + AL[k][1] + '</li>'; }).join('');
+render();
+
+/* ---------- Fumo in WebGL (rumore frattale deformato) ---------- */
+var hero = $('.hero'), visible = true;
+new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(hero);
+var c = $('#smoke'), gl = !reduced && c.getContext('webgl', {premultipliedAlpha: false, antialias: false});
+if (!gl) { document.documentElement.classList.add('nogl'); c.remove(); return; }
+var vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+var fs = [
+  'precision mediump float;uniform vec2 r;uniform float t;',
+  'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
+  'float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),f.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),f.x),f.y);}',
+  'float fbm(vec2 p){float v=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<6;i++){v+=a*n(p);p=m*p;a*=.5;}return v;}',
+  'void main(){vec2 uv=gl_FragCoord.xy/r;vec2 q=vec2(uv.x*r.x/r.y,uv.y)*2.2;',
+  'vec2 w=vec2(fbm(q+vec2(0.,-t*.25)),fbm(q+vec2(5.2,1.3-t*.2)));',
+  'float d=fbm(q+w*1.8+vec2(t*.05,-t*.35));',
+  'float m=smoothstep(.28,.78,d)*(1.-uv.y*.45)*smoothstep(0.,.25,uv.y+.1);',
+  'vec3 col=mix(vec3(.55,.53,.52),vec3(.9,.86,.82),d);col=mix(col,vec3(1.,.62,.35),(1.-uv.y)*.25);',
+  'gl_FragColor=vec4(col,m*.82);}'
+].join('\n');
+function sh(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+var pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(pr);
+if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { document.documentElement.classList.add('nogl'); c.remove(); return; }
+gl.useProgram(pr);
+var b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+var lp = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(lp); gl.vertexAttribPointer(lp, 2, gl.FLOAT, false, 0, 0);
+var ur = gl.getUniformLocation(pr, 'r'), ut = gl.getUniformLocation(pr, 't');
+gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+var scale = innerWidth < 700 ? .4 : .5;
+function size() { c.width = Math.max(2, c.clientWidth * scale | 0); c.height = Math.max(2, c.clientHeight * scale | 0); gl.viewport(0, 0, c.width, c.height); }
+size(); addEventListener('resize', size);
+var t0 = performance.now();
+(function loop(t) { requestAnimationFrame(loop); if (!visible || document.hidden) return; gl.uniform2f(ur, c.width, c.height); gl.uniform1f(ut, (t - t0) / 1000); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); })(t0);
+})();
+</script>
+</body>
+</html>

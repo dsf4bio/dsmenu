@@ -13,7 +13,10 @@ const SUPABASE_URL = process.env.SUPABASE_URL || 'https://xzhbyxvlrxemujrqatbl.s
 // chiave pubblica (publishable): può stare qui, i dati sono protetti dal database
 const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_sfam2xLCQig0550kvfkUdg_yGaU0IA_';
 const SITE = 'https://www.dsmenu.it';
-const THEMES = new Set(['mdc-001', 'mdc-002', 'mdc-003', 'mdc-004']);
+const THEMES = new Set(Array.from({ length: 15 }, (_, i) => `mdc-${String(i + 1).padStart(3, '0')}`));
+// temi preparati con tools/prepara_temi.py: dati e intestazione tramite segnaposto
+const PLACEHOLDER_THEMES = new Set(['mdc-005', 'mdc-006', 'mdc-007', 'mdc-008', 'mdc-009', 'mdc-010',
+  'mdc-011', 'mdc-012', 'mdc-013', 'mdc-014', 'mdc-015']);
 const DEFAULT_THEME = 'mdc-001';
 const ALLERGENS = new Set(['glutine', 'crostacei', 'uova', 'pesce', 'arachidi', 'soia', 'latte',
   'frutta', 'sedano', 'senape', 'sesamo', 'solfiti', 'lupini', 'molluschi']);
@@ -142,20 +145,155 @@ function footer(r) {
 </footer>`;
 }
 
+// ---------- temi mdc-005 … mdc-015 (segnaposto) ----------
+const AL_JS = "{glutine:['🌾','Glutine'],crostacei:['🦐','Crostacei'],uova:['🥚','Uova'],pesce:['🐟','Pesce'],arachidi:['🥜','Arachidi'],soia:['🫘','Soia'],latte:['🥛','Latte'],frutta:['🌰','Frutta a guscio'],sedano:['🥬','Sedano'],senape:['🟡','Senape'],sesamo:['⚪','Sesamo'],solfiti:['🍷','Solfiti'],lupini:['🌼','Lupini'],molluschi:['🐚','Molluschi']}";
+const HIGHLIGHT = /consigl|speciali|chef|\btop\b|più (scelt|amat|chiest|vendut)|signature|best/i;
+const DRINK_SECTION = /cocktail|drink|spritz|aperitiv|vin[io]|bevand|bibit|bere|birr|distillat|gin|rum|whisk|analcolic|zero|signature|classici|sake|long/i;
+const LIQ = ['#7fe3ff', '#ff7a2f', '#2f8cff', '#ff4d6d', '#9bd13a', '#c58bff'];
+// piatto senza emoji: quella della sezione, altrimenti una neutra
+const DEFAULT_EMOJI = { 'mdc-009': '🍸' };
+
+/** Dati del gestionale → forma comune, con tutti i testi già "puliti". */
+function normalize(name, data) {
+  const fallback = DEFAULT_EMOJI[name] || '🍽️';
+  return (Array.isArray(data?.sections) ? data.sections : []).map((s, si) => {
+    const sec = { id: `s-${String(s.id || si).replace(/[^A-Za-z0-9_-]/g, '')}`, title: esc(s.title), TITLE: esc(String(s.title || '').toUpperCase()), sub: esc(s.subtitle || ''),
+                  emoji: esc(s.emoji || '') };
+    sec.items = (Array.isArray(s.items) ? s.items : []).map((it) => {
+      const labels = (Array.isArray(it.labels) ? it.labels : []).map(String);
+      return {
+        n: esc(it.name), d: esc(it.description || ''), p: num(it.price, 0),
+        a: (Array.isArray(it.allergens) ? it.allergens : []).filter((x) => ALLERGENS.has(x)),
+        e: esc(it.emoji || s.emoji || fallback),
+        veg: it.diet === 'veg' || it.diet === 'vegan', hot: !!it.spicy, isNew: !!it.new,
+        top: labels.some((l) => HIGHLIGHT.test(l)), label: esc(labels[0] || ''), LABEL: esc((labels[0] || '').toUpperCase()),
+      };
+    });
+    return sec;
+  });
+}
+
+const tagList = (it, keys) => keys.filter((k) => ({ hot: it.hot, veg: it.veg, top: it.top, new: it.isNew })[k]);
+
+function themeData(name, S) {
+  const v = (n, val) => `var ${n} = ${json(val)};\n`;
+  const base = (it, extra = {}) => ({ n: it.n, d: it.d, p: it.p, a: it.a, ...extra });
+  const out = { js: '', css: '', vars: {} };
+  switch (name) {
+    case 'mdc-005':
+      out.js = `var AL = ${AL_JS};\nvar GIORNI = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];\nvar LAVAGNA = [[],[],[],[],[],[],[]];\n`
+        + v('MENU', S.map((s) => ({ id: s.id, t: s.title, s: s.sub, items: s.items.map((it) => base(it, it.top ? { star: 1 } : {})) })));
+      break;
+    case 'mdc-006':
+      out.js = `var AL = ${AL_JS};\nvar PESCATO = [];\n`
+        + v('MENU', S.map((s) => ({ id: s.id, t: s.title, s: s.sub, items: s.items.map((it) => base(it, { e: it.e, ...(it.top ? { t: 'top' } : {}) })) })));
+      break;
+    case 'mdc-007': {
+      const views = {};
+      S.forEach((s) => { views[s.id] = [{ id: s.id, t: s.title, items: s.items.map((it) => base(it, { e: it.e, t: it.label || (it.top ? 'Top' : it.veg ? 'Veg' : '') })) }]; });
+      out.js = `var AL = ${AL_JS};\nvar SIZES = ['', '', ''];\nvar STYLES = {};\nvar BIRRE = [];\n`
+        + v('DSM_VIEWS', views) + v('DSM_START', S[0]?.id || '');
+      out.vars.TABS = S.map((s, i) => `<button role="tab" data-v="${s.id}" aria-selected="${i === 0}">${s.emoji ? `${s.emoji} ` : ''}${s.title}</button>`).join('\n  ');
+      break;
+    }
+    case 'mdc-008':
+      out.js = `var AL = ${AL_JS};\nvar TAGS = {hot:'Piccante', veg:'Veg', top:'Consigliata'};\n`
+        + v('MENU', S.map((s) => ({ id: s.id, t: s.title, s: s.sub, items: s.items.map((it) => base(it, { e: it.e, t: tagList(it, ['hot', 'veg', 'top']) })) })));
+      break;
+    case 'mdc-009': {
+      // "Nel bicchiere ora": solo dalle sezioni di drink (cocktail, vini, bevande…)
+      const drinks = S.filter((s) => DRINK_SECTION.test(s.title)).flatMap((s) => s.items).slice(0, 6).map((it, i) => ({ n: it.n, d: it.d, c: LIQ[i % LIQ.length] }));
+      out.js = `var AL = ${AL_JS};\nvar TASTES = {};\n`
+        + v('MENU', S.map((s) => ({ id: s.id, t: s.title, items: s.items.map((it) => base(it, { e: it.e, g: [], z: 0 })) })))
+        + v('DSM_DRINKS', drinks);
+      out.vars.DRINK_N = drinks[0]?.n || '';
+      out.vars.DRINK_D = drinks[0]?.d || '';
+      out.css = '.tastes{display:none!important}';
+      break;
+    }
+    case 'mdc-010':
+      out.js = `var AL = ${AL_JS};\n`
+        + v('MENU', S.map((s) => ({ id: s.id, t: `${s.emoji || '🍔'} ${s.title}`, s: s.sub, items: s.items.map((it) => {
+          const b = it.top ? 'TOP' : it.hot ? 'HOT' : it.veg ? 'VEG' : it.isNew ? 'NEW' : it.LABEL;
+          return base(it, { e: it.e, ...(b ? { b, bc: it.veg && !it.top && !it.hot ? 'veg' : '' } : {}) });
+        }) })));
+      break;
+    case 'mdc-011':
+      out.js = `var AL = ${AL_JS};\n`
+        + v('MENU', S.map((s) => ({ id: s.id, t: s.title, s: s.sub, items: s.items.map((it) => base(it, { e: it.e, h: it.hot ? 3 : 0, t: it.label || (it.top ? 'Il più scelto' : it.veg ? 'Veg' : '') })) })));
+      if (!S.some((s) => s.items.some((it) => it.hot))) out.css = '.spice,.chilis{display:none!important}';
+      break;
+    case 'mdc-012':
+      out.js = `var AL = ${AL_JS};\nvar TAGS = {veg:'Veg', top:'La più chiesta', hot:'Piccante'};\n`
+        + v('MENU', S.map((s) => ({ id: s.id, t: s.title, s: s.sub, items: s.items.map((it) => base(it, { t: tagList(it, ['veg', 'top']) })) })))
+        + "var IMPASTI = [['', 0]];\nvar FORMATI = [['', 0]];\nvar RIPIENI = [];\n";
+      break;
+    case 'mdc-013':
+      out.js = `var AL = ${AL_JS};\nvar FORMATI = [['🥙','Panino']];\nvar FORMATI_D = [''];\nvar TAGS = {hot:'Piccante', veg:'Veg', top:'Il più scelto'};\n`
+        + v('MENU', S.map((s) => ({ id: s.id, t: s.title, s: s.sub, items: s.items.map((it) => base(it, { e: it.e, t: tagList(it, ['hot', 'veg', 'top']) })) })));
+      break;
+    case 'mdc-014':
+      out.js = `const AL = ${AL_JS};\nconst TAGS = {veg:'🌱 Veg', hot:'🌶 Piccante', new:'✨ Novità'};\n`
+        + `const MENU = ${json(S.map((s) => ({ id: s.id, label: s.title, e: s.emoji || '🍽️', items: s.items.map((it) => base(it, { e: it.e, t: tagList(it, ['veg', 'hot', 'new']), ...(it.top ? { top: 1 } : {}) })) })))};\n`;
+      if (!S.some((s) => s.items.some((it) => it.top))) out.css = '.specials{display:none!important}';
+      break;
+    case 'mdc-015':
+      out.js = `const CATS = ${json(S.map((s) => ({ id: s.id, e: s.emoji || '🍽️', l: { it: s.title, en: s.title }, s: { it: s.sub, en: s.sub },
+        items: s.items.map((it, i) => ({ e: it.e, h: (i * 47 + 330) % 360, n: { it: it.n, en: it.n }, d: { it: it.d, en: it.d }, p: it.p, a: it.a, t: tagList(it, ['top', 'hot', 'veg', 'new']) })) })))};\n`;
+      break;
+    default:
+  }
+  return out;
+}
+
+function fillTheme(name, r, h) {
+  const info = r.info || {};
+  const S = normalize(name, r.data);
+  const firstEmoji = (r.data?.sections || []).flatMap((s) => [s.emoji, ...(s.items || []).map((i) => i.emoji)]).find(Boolean);
+  const { js, css, vars } = themeData(name, S);
+  const words = String(r.name || '').trim().split(/\s+/).filter(Boolean);
+  const values = {
+    NAME: esc(r.name),
+    NAME_A: esc(words.length > 1 ? words.slice(0, -1).join(' ') : words.join(' ')),
+    NAME_B: esc(words.length > 1 ? ` ${words[words.length - 1]}` : ''),
+    KICKER: esc(info.kicker || ''),
+    TAGLINE: esc(info.tagline || ''),
+    HOURS: esc(info.hours || ''),
+    HERO_EMOJI: esc(firstEmoji || '🍽️'),
+    MONO: esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase()),
+    MARQUEE: `${Array(2).fill(S.map((s) => s.TITLE).join(' ✦ ')).join(' ✦ ')} ✦&nbsp;`,
+    TITLE_LINES: words.map((w) => `<span class="line${w === '&' ? ' amp' : ''}" aria-hidden="true">${esc(w)}</span>`).join(''),
+    ...vars,
+  };
+  // elementi facoltativi: spariscono se il dato manca
+  h = h.replace(/<(\w+)([^>]*?) data-dsm-opt="([A-Z_]+)">([\s\S]*?)<\/\1>/g,
+    (m, tag, attrs, key, inner) => (values[key] ? `<${tag}${attrs}>${inner}</${tag}>` : ''));
+  h = h.replace(/__DSM_([A-Z_]+?)__/g, (m, key) => (key in values ? values[key] : ''));
+  h = h.replace('/*DSM:DATA*/', () => `/* dati del menu: dal gestionale */\n${js}`);
+  if (name === 'mdc-015') h = h.replace('/* dati del menu: dal gestionale */', () => `/* dati del menu: dal gestionale */\nconst DSM_TAG = ${json(values.TAGLINE || values.KICKER)};`);
+  if (css) h = h.replace('</head>', () => `<style>${css}</style>\n</head>`);
+  return h;
+}
+
 // ---------- pagina del menu ----------
 function render(r, { preview = false } = {}) {
   const name = THEMES.has(r.theme) ? r.theme : DEFAULT_THEME;
   let h = theme(name);
-  const { MENU, TASTING, NOTE } = toTheme(name, r.data);
+  const placeholders = PLACEHOLDER_THEMES.has(name);
+  const { MENU, TASTING, NOTE } = placeholders ? {} : toTheme(name, r.data);
   const url = `${SITE}/${r.slug}`;
   const title = `${r.name} · Menu${r.city ? ` · ${r.city}` : ''}`;
   const desc = [r.info?.tagline, `Il menu di ${r.name}${r.city ? ` a ${r.city}` : ''}: piatti, prezzi e allergeni sempre aggiornati.`]
     .filter(Boolean).join(' · ');
 
-  // dati: sostituisce solo i piatti, tiene legenda allergeni e filtri del tema
-  h = h.replace(/var MENU = \[[\s\S]*?\n\];/, () => `var MENU = ${json(MENU)};`)
-       .replace(/var TASTING = \{.*\};/, () => `var TASTING = ${json(TASTING)};`)
-       .replace(/var NOTE = '.*';/, () => `var NOTE = ${json(NOTE)};`);
+  if (placeholders) {
+    h = fillTheme(name, r, h);
+  } else {
+    // dati: sostituisce solo i piatti, tiene legenda allergeni e filtri del tema
+    h = h.replace(/var MENU = \[[\s\S]*?\n\];/, () => `var MENU = ${json(MENU)};`)
+         .replace(/var TASTING = \{.*\};/, () => `var TASTING = ${json(TASTING)};`)
+         .replace(/var NOTE = '.*';/, () => `var NOTE = ${json(NOTE)};`);
+  }
 
   // testa della pagina
   h = h.replace(/<meta name="robots"[^>]*>/, preview ? '<meta name="robots" content="noindex, nofollow">' : '<meta name="robots" content="index, follow">')
@@ -171,10 +309,13 @@ function render(r, { preview = false } = {}) {
 
   // niente componenti di vendita dei modelli dimostrativi
   h = h.replace(/<script[^>]*src="\/?assets\/trial\.js"[^>]*><\/script>\n?/g, '');
+  if (placeholders && preview) {
+    h = h.replace(/<body([^>]*)>/, (m) => `${m}\n<div style="position:sticky;top:0;z-index:2147483000;background:#c2410c;color:#fff;text-align:center;font:600 13px/1.3 system-ui,sans-serif;padding:8px 12px">ANTEPRIMA · versione ${esc(r.version)} non ancora pubblicata</div>`);
+  }
   h = h.replace(/<div class="demo">[\s\S]*?<\/div>/, preview
     ? `<div class="demo">ANTEPRIMA · versione ${esc(r.version)} non ancora pubblicata</div>` : '');
 
-  h = h.replace(/<header[\s\S]*?<\/header>/, () => header(name, r));
+  if (!placeholders) h = h.replace(/<header[\s\S]*?<\/header>/, () => header(name, r));
   h = h.replace(/<footer>[\s\S]*?<\/footer>/, () => footer(r));
   return h;
 }

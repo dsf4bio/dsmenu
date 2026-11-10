@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0b4f7c">
+<title>Onda Blu · Modello di menu digitale (esempio) | DS Service</title>
+<meta name="description" content="Onde animate, pescato del giorno al peso e sezioni da scorrere col dito come schede. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="DS Service · Menu digitali">
+<meta property="og:title" content="Onda Blu · Modello di menu digitale (esempio) | DS Service">
+<meta property="og:description" content="Onde animate, pescato del giorno al peso e sezioni da scorrere col dito come schede. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:url" content="https://dsfabio.com/mdc-006">
+<meta property="og:image" content="https://dsfabio.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts/josefinsans-librebaskerville.css">
+<style>
+:root{--deep:#0b4f7c;--deep2:#07324f;--sea:#4fb3d9;--foam:#eaf6fb;--sand:#f6efe2;--ink:#0e2433;--sub:#557083;--line:#d6e7ef;--coral:#ff7b5c;--soc-bg:#0b4f7c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:66px}
+body{background:#fff;color:var(--ink);font-family:"Josefin Sans",system-ui,sans-serif;line-height:1.5}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:8px}
+.demo{background:var(--deep2);color:#bfe7f6;text-align:center;font-size:.74rem;font-weight:700;padding:7px 12px}
+.serif{font-family:"Libre Baskerville",Georgia,serif}
+
+/* Testata con onde */
+.top{position:relative;background:linear-gradient(180deg,var(--deep2),var(--deep) 60%,#1677a8);color:#fff;text-align:center;padding:40px 20px 110px;overflow:hidden}
+.top .kick{font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sea);font-weight:700}
+.top h1{font-family:"Libre Baskerville",serif;font-size:clamp(2.8rem,12vw,4.8rem);line-height:1;margin:12px 0 8px}
+.top p{opacity:.85;font-size:1.05rem}
+.waves{position:absolute;left:0;right:0;bottom:-2px;height:90px}
+.waves svg{position:absolute;bottom:0;width:200%;height:100%;animation:wave 12s linear infinite}
+.waves svg:nth-child(2){animation-duration:18s;opacity:.6;bottom:6px}
+.waves svg:nth-child(3){animation-duration:9s;opacity:.35;bottom:12px}
+@keyframes wave{to{transform:translateX(-50%)}}
+.fish{position:absolute;font-size:1.6rem;animation:swim 14s linear infinite;opacity:.8}
+.fish.f1{top:30%;left:-10%}.fish.f2{top:62%;left:-20%;animation-duration:20s;animation-delay:-6s;font-size:1.1rem}
+@keyframes swim{to{transform:translateX(130vw)}}
+
+/* Pescato del giorno */
+.catch{max-width:960px;margin:-46px auto 0;padding:0 16px;position:relative;z-index:2}
+.catch-box{background:#fff;border-radius:24px;box-shadow:0 18px 40px rgba(11,79,124,.18);padding:20px;border:1px solid var(--line)}
+.catch-box h2{font-family:"Libre Baskerville",serif;font-size:1.4rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.live{font-family:"Josefin Sans",sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--coral);color:#fff;padding:4px 10px;border-radius:20px}
+.catch-box>p{color:var(--sub);font-size:.92rem;margin:4px 0 12px}
+.fishes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.fsh{background:var(--foam);border-radius:16px;padding:12px;text-align:center}
+.fsh span{font-size:1.8rem;display:block}
+.fsh b{display:block;font-size:.98rem;line-height:1.2;margin-top:2px}
+.fsh small{color:var(--deep);font-weight:700}
+
+/* Chip categorie */
+.chips{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin-top:22px}
+.chips-in{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;max-width:960px;margin:0 auto;padding:10px 16px}
+.chips-in::-webkit-scrollbar{display:none}
+.chips a{flex:0 0 auto;text-decoration:none;padding:9px 16px;border-radius:30px;background:var(--foam);color:var(--deep);font-weight:700;font-size:.92rem;transition:all .25s}
+.chips a.on{background:var(--deep);color:#fff}
+
+main{max-width:960px;margin:0 auto;padding:4px 0 30px}
+.sec{padding:30px 0 0}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding:0 16px 12px}
+.sec-h h2{font-family:"Libre Baskerville",serif;font-size:1.7rem;line-height:1.1}
+.sec-h small{display:block;font-family:"Josefin Sans",sans-serif;color:var(--sub);font-size:.9rem;font-weight:400;margin-top:4px}
+.arrows{display:flex;gap:6px;flex:0 0 auto}
+.arrows button{width:38px;height:38px;border-radius:50%;background:var(--foam);color:var(--deep);font-weight:700;font-size:1.1rem}
+.track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 16px 14px;scroll-padding:16px;-webkit-overflow-scrolling:touch}
+.track::-webkit-scrollbar{display:none}
+.card{flex:0 0 min(78%,300px);scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(11,79,124,.12)}
+.pic{height:120px;display:grid;place-items:center;font-size:3.4rem;background:linear-gradient(160deg,var(--foam),#cfe9f4)}
+.cb{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cb h3{font-family:"Libre Baskerville",serif;font-size:1.08rem;line-height:1.25}
+.cb p{color:var(--sub);font-size:.9rem}
+.cf{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;margin-top:auto;padding-top:6px}
+.price{font-family:"Libre Baskerville",serif;font-weight:700;color:var(--deep);font-size:1.15rem;white-space:nowrap}
+.tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:20px;background:#ffe4dc;color:#c4472a;width:max-content}
+.tag.raw{background:#dff1f8;color:var(--deep)}
+.als{display:flex;flex-wrap:wrap;gap:3px}
+.al{width:23px;height:23px;border-radius:50%;background:var(--foam);display:inline-grid;place-items:center;font-size:.7rem}
+.none{font-size:.72rem;color:var(--sub)}
+.dots{display:flex;justify-content:center;gap:6px}
+.dots i{width:7px;height:7px;border-radius:7px;background:var(--line);transition:all .3s}
+.dots i.on{width:22px;background:var(--sea)}
+.legend{margin:30px 16px 0;background:var(--foam);border-radius:22px;padding:18px}
+.legend h2{font-family:"Libre Baskerville",serif;font-size:1.3rem;margin-bottom:10px}
+.legend ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;font-size:.88rem}
+.legend li{display:flex;gap:8px;align-items:center}
+.legend li .al{background:#fff}
+.legend p{font-size:.82rem;color:var(--sub);margin-top:10px}
+footer{text-align:center;padding:30px 18px 34px;color:var(--sub);font-size:.92rem;background:var(--sand)}
+footer strong{font-family:"Libre Baskerville",serif;font-size:1.5rem;color:var(--deep);display:block}
+@media (min-width:820px){
+  .track{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;padding-bottom:4px}
+  .card{flex:auto}
+  .arrows,.dots{display:none}
+}
+@media (max-width:640px){.fishes{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+.soc{display:flex;justify-content:center;gap:12px;margin:18px 0 6px}
+.soc a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soc-bg,#222);color:var(--soc-fg,#fff);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s;text-decoration:none}
+.soc a:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 10px 22px rgba(0,0,0,.25)}
+.soc a.fb{background:#1877F2;color:#fff}.soc a.wa{background:#25D366;color:#fff}
+.soc a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);color:#fff}
+.soc svg{width:23px;height:23px}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
+.flinks a{text-decoration:underline;text-underline-offset:3px;color:inherit;opacity:.85}
+
+/* dsmenu: riquadri con dati di esempio nascosti */
+.catch{display:none!important}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <span class="fish f1" aria-hidden="true">🐟</span><span class="fish f2" aria-hidden="true">🐠</span>
+  <p class="kick" data-dsm-opt="KICKER">__DSM_KICKER__</p>
+  <h1>__DSM_NAME__</h1>
+  <p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p>
+  <div class="waves" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#ffffff" d="M0 50 C120 20 240 20 360 50 S600 80 720 50 960 20 1080 50 1320 80 1440 50 V90 H0Z"/></svg>
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#ffffff" d="M0 40 C180 70 360 10 540 40 S900 70 1080 40 1260 10 1440 40 V90 H0Z"/></svg>
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#ffffff" d="M0 60 C200 30 400 80 600 50 S1000 30 1200 60 1440 40 1440 40 V90 H0Z"/></svg>
+  </div>
+</header>
+
+<section class="catch" aria-labelledby="catch-t">
+  <div class="catch-box">
+    <h2 id="catch-t">🎣 Pescato del giorno <span class="live" id="today"></span></h2>
+    <p>Pesce fresco al peso: scegli il pesce e la cottura (alla griglia, al forno, all'acqua pazza).</p>
+    <div class="fishes" id="fishes"></div>
+  </div>
+</section>
+
+<nav class="chips" aria-label="Categorie"><div class="chips-in" id="chips"></div></nav>
+<main id="menu"></main>
+
+<footer>
+  <strong>Onda Blu</strong>
+  Molo Nord 7 · Tel. 0123 456789<br><small>Dati di esempio</small>
+  <div class="soc"><a class="fb" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.1 23.7v-8H6.6V12h2.5v-1.6c0-4.1 1.8-6 5.9-6 .8 0 2.1.2 2.6.3v3.3l-1.4-.1c-1.9 0-2.6.7-2.6 2.6V12h3.9l-.7 3.7h-3.2V24C19.4 23.2 24 18.2 24 12 24 5.4 18.6 0 12 0S0 5.4 0 12c0 5.6 3.9 10.4 9.1 11.7Z"/></svg></a><a class="ig" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a><a class="wa" href="https://wa.me/390123456789" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 4.9-1.3A9.9 9.9 0 1 0 12.04 2Zm5.8 14.1c-.25.7-1.45 1.33-2 1.38-.53.05-1.03.24-3.47-.72-2.93-1.16-4.8-4.15-4.95-4.35-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.25.58.83 2.01.9 2.16.08.14.12.31.03.5-.1.2-.14.31-.29.48l-.43.5c-.14.15-.3.31-.13.6.17.3.75 1.24 1.6 2 1.1.98 2.03 1.28 2.32 1.43.29.14.46.12.63-.08.17-.19.73-.85.92-1.14.2-.29.39-.24.65-.14.27.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.7-.18 1.38Z"/></svg></a></div><nav class="flinks" aria-label="Contatti"><a href="tel:+390123456789">📞 Chiama</a><a href="https://maps.google.com/?q=Molo+Nord+7" target="_blank" rel="noopener">📍 Dove siamo</a><a href="https://www.google.com/maps" target="_blank" rel="noopener">⭐ Lascia una recensione</a></nav>
+</footer>
+
+<script>
+(function () {
+'use strict';
+/*DSM:DATA*/
+var eur = function (v) { return new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'}).format(v); };
+var $ = function (s, c) { return (c || document).querySelector(s); };
+var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+$('#today').textContent = new Date().toLocaleDateString('it-IT', {weekday:'long', day:'numeric', month:'long'});
+$('#fishes').innerHTML = PESCATO.map(function (f) { return '<div class="fsh"><span aria-hidden="true">' + f[0] + '</span><b>' + f[1] + '</b><small>' + f[2] + '</small></div>'; }).join('');
+function als(a) { return a.length ? a.map(function (k) { return '<span class="al" title="' + AL[k][1] + '" aria-label="' + AL[k][1] + '">' + AL[k][0] + '</span>'; }).join('') : '<span class="none">Nessun allergene dichiarato</span>'; }
+var TAGS = {raw:['raw','Crudo'], top:['','Il più scelto']};
+var html = '';
+MENU.forEach(function (c) {
+  html += '<section class="sec" id="' + c.id + '" aria-labelledby="h-' + c.id + '"><div class="sec-h"><h2 id="h-' + c.id + '">' + c.t + '<small>' + c.s + '</small></h2><div class="arrows"><button data-dir="-1" aria-label="Indietro">‹</button><button data-dir="1" aria-label="Avanti">›</button></div></div><div class="track" tabindex="0" aria-label="' + c.t + ', scorri per vedere tutti i piatti">';
+  c.items.forEach(function (it) {
+    html += '<article class="card"><div class="pic" aria-hidden="true">' + it.e + '</div><div class="cb">' + (it.t ? '<span class="tag ' + TAGS[it.t][0] + '">' + TAGS[it.t][1] + '</span>' : '') + '<h3>' + it.n + '</h3><p>' + it.d + '</p><div class="cf"><div class="als">' + als(it.a) + '</div><span class="price">' + eur(it.p) + '</span></div></div></article>';
+  });
+  html += '</div><div class="dots" aria-hidden="true">' + c.items.map(function (_, i) { return '<i' + (i ? '' : ' class="on"') + '></i>'; }).join('') + '</div></section>';
+});
+html += '<section class="legend" aria-labelledby="leg"><h2 id="leg">Legenda allergeni</h2><ul>' + Object.keys(AL).map(function (k) { return '<li><span class="al">' + AL[k][0] + '</span>' + AL[k][1] + '</li>'; }).join('') + '</ul><p>Per informazioni su allergeni e intolleranze chiedi al personale. I piatti possono contenere tracce di altri allergeni.</p></section>';
+$('#menu').innerHTML = html;
+$('#chips').innerHTML = MENU.map(function (c) { return '<a href="#' + c.id + '">' + c.t + '</a>'; }).join('');
+
+/* Frecce e puntini dei caroselli */
+$$('.sec').forEach(function (sec) {
+  var tr = $('.track', sec), dots = $$('.dots i', sec);
+  $$('.arrows button', sec).forEach(function (b) {
+    b.addEventListener('click', function () { tr.scrollBy({left: +b.dataset.dir * (tr.firstElementChild.offsetWidth + 14), behavior: 'smooth'}); });
+  });
+  var raf = 0;
+  tr.addEventListener('scroll', function () {
+    if (raf) return;
+    raf = requestAnimationFrame(function () {
+      raf = 0; var w = tr.firstElementChild.offsetWidth + 14, i = Math.round(tr.scrollLeft / w);
+      dots.forEach(function (d, k) { d.classList.toggle('on', k === Math.min(i, dots.length - 1)); });
+    });
+  }, {passive: true});
+});
+/* Categoria attiva */
+var links = $$('.chips a');
+function setOn(id) { links.forEach(function (l) { var on = l.getAttribute('href') === '#' + id; l.classList.toggle('on', on); if (on) l.parentNode.scrollTo({left: l.offsetLeft - 30, behavior: 'smooth'}); }); }
+if ('IntersectionObserver' in window) {
+  var so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) setOn(e.target.id); }); }, {rootMargin: '-30% 0px -65% 0px'});
+  $$('.sec').forEach(function (s) { so.observe(s); });
+}
+setOn(MENU[0].id);
+})();
+</script>
+</body>
+</html>

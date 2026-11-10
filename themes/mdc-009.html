@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#04131f">
+<title>Ice Lounge · Modello di menu digitale (esempio) | DS Service</title>
+<meta name="description" content="Un cocktail che si versa nel bicchiere con ghiaccio e bollicine e cambia colore; drink filtrabili per gusto. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="DS Service · Menu digitali">
+<meta property="og:title" content="Ice Lounge · Modello di menu digitale (esempio) | DS Service">
+<meta property="og:description" content="Un cocktail che si versa nel bicchiere con ghiaccio e bollicine e cambia colore; drink filtrabili per gusto. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:url" content="https://dsfabio.com/mdc-009">
+<meta property="og:image" content="https://dsfabio.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts/unbounded-inter.css">
+<style>
+:root{--bg:#04131f;--bg2:#072238;--glass:rgba(200,240,255,.07);--line:rgba(190,235,255,.16);--txt:#eaf8ff;--sub:#9fc3d6;--ice:#9be7ff;--ice2:#5ec8f2;--mint:#7ff5d0;--soc-bg:#0b2d48}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:radial-gradient(90% 60% at 50% 0%,#0b3554,transparent 70%),var(--bg);color:var(--txt);font-family:Inter,system-ui,sans-serif;line-height:1.5;min-height:100vh}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--ice);outline-offset:3px;border-radius:8px}
+.demo{position:relative;z-index:5;background:#021019;color:var(--ice);text-align:center;font-size:.74rem;font-weight:800;padding:7px 12px}
+
+/* HERO: il bicchiere che si riempie */
+.hero{--liq:#7fe3ff;position:relative;overflow:hidden;padding:clamp(34px,7vh,80px) 18px clamp(30px,6vh,60px);background:radial-gradient(60% 60% at 75% 55%,color-mix(in srgb,var(--liq) 35%,transparent),transparent 70%),linear-gradient(180deg,#0a2c48,#04131f);transition:background 1.2s}
+.bokeh i{position:absolute;border-radius:50%;filter:blur(2px);background:radial-gradient(circle,rgba(255,255,255,.22),rgba(255,255,255,0) 70%);animation:bok 14s ease-in-out infinite alternate}
+.bokeh i:nth-child(1){width:90px;height:90px;left:6%;top:12%}.bokeh i:nth-child(2){width:50px;height:50px;left:30%;top:70%;animation-duration:11s}
+.bokeh i:nth-child(3){width:130px;height:130px;right:4%;top:6%;animation-duration:17s}.bokeh i:nth-child(4){width:36px;height:36px;right:30%;bottom:10%;animation-duration:9s}
+.bokeh i:nth-child(5){width:70px;height:70px;left:52%;top:18%;animation-duration:13s}.bokeh i:nth-child(6){width:24px;height:24px;left:16%;bottom:20%;animation-duration:8s}
+@keyframes bok{to{transform:translate(20px,-24px) scale(1.15)}}
+.hero-grid{position:relative;max-width:960px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}
+.kick{display:inline-block;font-size:.74rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--ice)}
+.hero h1{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(2.6rem,10vw,5rem);line-height:.95;letter-spacing:-.02em;margin:12px 0 12px;background:linear-gradient(180deg,#fff 30%,var(--ice));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--sub);font-weight:500;max-width:420px}
+.now{margin-top:22px;display:inline-flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid var(--line);border-left:4px solid var(--liq);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:border-color 1.2s;min-width:220px}
+.now span{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+.now b{font-family:Unbounded,sans-serif;font-size:1.25rem;transition:opacity .4s}
+.now small{color:var(--sub);transition:opacity .4s}
+.now.swap b,.now.swap small{opacity:0}
+.glass-wrap{position:relative;display:grid;place-items:center}
+.glass{width:min(240px,62vw);height:auto;overflow:visible;filter:drop-shadow(0 20px 40px rgba(0,0,0,.35))}
+.shadow{width:150px;height:18px;margin-top:-8px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--liq) 60%,transparent),transparent);transition:background 1.2s}
+.liq{fill:var(--liq);transition:fill 1.2s}
+.wave2{opacity:.55}
+.liquid{transform:translateY(240px);animation:pour 2.2s cubic-bezier(.2,.8,.2,1) .3s forwards}
+@keyframes pour{to{transform:translateY(0)}}
+.wave1{animation:wave 3s linear infinite}.wave2{animation:wave 4.5s linear infinite reverse}
+@keyframes wave{to{transform:translateX(100px)}}
+.cube rect{fill:rgba(255,255,255,.32);stroke:rgba(255,255,255,.85);stroke-width:2}
+.cube path{stroke:rgba(255,255,255,.9);stroke-width:3;stroke-linecap:round}
+.cube{transform-box:fill-box;transform-origin:center;animation:drop 1s cubic-bezier(.3,1.4,.5,1) both,bob 4s ease-in-out 1.6s infinite}
+.c1{animation-delay:1.2s,2.4s}.c2{animation-delay:1.45s,3s}.c3{animation-delay:1.7s,2.7s}
+@keyframes drop{from{transform:translateY(-240px) rotate(-30deg);opacity:0}60%{opacity:1}}
+@keyframes bob{50%{transform:translateY(-5px) rotate(4deg)}}
+.c2{--r:8deg}
+.bubbles circle{fill:rgba(255,255,255,.7);animation:rise 3.2s linear infinite}
+.bubbles circle:nth-child(2){animation-delay:-.6s;animation-duration:2.6s}.bubbles circle:nth-child(3){animation-delay:-1.4s}.bubbles circle:nth-child(4){animation-delay:-2s;animation-duration:3.8s}.bubbles circle:nth-child(5){animation-delay:-2.6s}.bubbles circle:nth-child(6){animation-delay:-1s;animation-duration:2.9s}
+@keyframes rise{from{transform:translateY(0);opacity:0}15%{opacity:1}90%{opacity:.8}to{transform:translateY(-210px);opacity:0}}
+.drips ellipse{fill:rgba(235,250,255,.75)}
+.dr{animation:drip 6s ease-in infinite}.dr:nth-child(2){animation-delay:-2s;animation-duration:7.5s}.dr:nth-child(3){animation-delay:-4s;animation-duration:5.5s}
+@keyframes drip{0%,30%{transform:translateY(0);opacity:1}90%{transform:translateY(110px);opacity:.8}100%{transform:translateY(120px);opacity:0}}
+.lime{animation:lime 1s cubic-bezier(.3,1.4,.5,1) 2.2s both}
+@keyframes lime{from{opacity:0;transform:translate(170px,-40px) rotate(-120deg)}}
+@media (max-width:720px){.hero-grid{grid-template-columns:1fr;text-align:center}.hero p{margin:0 auto}.glass-wrap{order:-1}.glass{width:min(190px,52vw)}}
+
+/* Filtri e categorie */
+.bar{position:sticky;top:0;z-index:30;background:rgba(4,19,31,.82);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid var(--line)}
+.bar-in{max-width:960px;margin:0 auto;padding:10px 14px 8px}
+.cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:0 0 auto;padding:10px 15px;border-radius:14px;font-weight:800;font-size:.88rem;color:var(--sub);border:1px solid transparent;transition:all .3s}
+.cat[aria-selected="true"]{color:#04131f;background:linear-gradient(135deg,#fff,var(--ice));box-shadow:0 6px 22px rgba(155,231,255,.35)}
+.tastes{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-top:8px}
+.tastes::-webkit-scrollbar{display:none}
+.taste{flex:0 0 auto;padding:6px 12px;border-radius:30px;border:1px solid var(--line);font-size:.78rem;font-weight:700;color:var(--sub);transition:all .25s}
+.taste[aria-pressed="true"]{border-color:var(--mint);color:var(--mint);background:rgba(127,245,208,.08)}
+
+main{max-width:960px;margin:0 auto;padding:18px 14px 30px}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px}
+.head h2{font-family:Unbounded,sans-serif;font-size:clamp(1.6rem,6vw,2.4rem);font-weight:800;line-height:1}
+.head small{color:var(--sub);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{position:relative;overflow:hidden;padding:18px;border-radius:24px;background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;flex-direction:column;gap:6px;animation:in .5s cubic-bezier(.2,.9,.2,1) both}
+@keyframes in{from{opacity:0;transform:translateY(16px) scale(.97);filter:blur(6px)}}
+/* gocce di condensa */
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;background-image:radial-gradient(circle at 12% 18%,rgba(255,255,255,.35) 0 2px,transparent 3px),radial-gradient(circle at 86% 30%,rgba(255,255,255,.3) 0 1.5px,transparent 2.5px),radial-gradient(circle at 70% 82%,rgba(255,255,255,.28) 0 2.5px,transparent 3.5px),radial-gradient(circle at 30% 70%,rgba(255,255,255,.22) 0 1.5px,transparent 2.5px),radial-gradient(circle at 92% 88%,rgba(255,255,255,.25) 0 1px,transparent 2px)}
+.card .top{display:flex;gap:12px;align-items:center}
+.drink{flex:0 0 58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:2rem;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.35),rgba(94,200,242,.15));border:1px solid var(--line);box-shadow:inset 0 0 18px rgba(155,231,255,.25)}
+.card h3{font-family:Unbounded,sans-serif;font-weight:500;font-size:1.05rem;line-height:1.2}
+.card .tl{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.chip{font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:20px;background:rgba(155,231,255,.12);color:var(--ice)}
+.chip.zero{background:rgba(127,245,208,.14);color:var(--mint)}
+.card p{color:var(--sub);font-size:.9rem}
+.card .bot{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;margin-top:auto;padding-top:6px}
+.price{font-family:Unbounded,sans-serif;font-weight:800;font-size:1.15rem;color:#fff;white-space:nowrap}
+.als{display:flex;flex-wrap:wrap;gap:4px}
+.al{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.08);display:inline-grid;place-items:center;font-size:.72rem}
+.none{font-size:.72rem;color:var(--sub)}
+.empty{grid-column:1/-1;text-align:center;color:var(--sub);padding:34px;border:1px dashed var(--line);border-radius:22px}
+.legend{margin-top:26px;background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:18px}
+.legend h2{font-family:Unbounded,sans-serif;font-size:1.1rem;margin-bottom:10px}
+.legend ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;font-size:.86rem}
+.legend li{display:flex;gap:8px;align-items:center}
+.legend p{font-size:.8rem;color:var(--sub);margin-top:10px}
+footer{text-align:center;padding:34px 18px;color:var(--sub);font-size:.9rem}
+footer strong{font-family:Unbounded,sans-serif;font-size:1.5rem;color:#fff;display:block}
+@media (max-width:640px){.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.liquid{transform:none}}
+.soc{display:flex;justify-content:center;gap:12px;margin:18px 0 6px}
+.soc a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soc-bg,#222);color:var(--soc-fg,#fff);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s;text-decoration:none}
+.soc a:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 10px 22px rgba(0,0,0,.25)}
+.soc a.fb{background:#1877F2;color:#fff}.soc a.wa{background:#25D366;color:#fff}
+.soc a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);color:#fff}
+.soc svg{width:23px;height:23px}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
+.flinks a{text-decoration:underline;text-underline-offset:3px;color:inherit;opacity:.85}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="bokeh" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="hero-grid">
+    <div class="hero-txt">
+      <span class="kick" data-dsm-opt="KICKER">__DSM_KICKER__</span>
+      <h1>__DSM_NAME__</h1>
+      <p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p>
+      <div class="now" aria-live="polite"><span>Nel bicchiere ora</span><b id="drink-name">__DSM_DRINK_N__</b><small id="drink-desc">__DSM_DRINK_D__</small></div>
+    </div>
+    <div class="glass-wrap">
+      <svg class="glass" viewBox="0 0 220 330" aria-hidden="true">
+        <defs>
+          <clipPath id="cup"><path d="M44 34 L58 300 Q60 314 74 314 L146 314 Q160 314 162 300 L176 34Z"/></clipPath>
+          <linearGradient id="shine" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".25" stop-color="#fff" stop-opacity=".08"/><stop offset=".75" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".25"/></linearGradient>
+          <linearGradient id="liqShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".25"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient>
+          <pattern id="stripe" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#fff"/><rect width="4" height="8" fill="#ff4d6d"/></pattern>
+        </defs>
+        <rect x="128" y="-30" width="9" height="250" rx="4" fill="url(#stripe)" transform="rotate(14 132 100)"/>
+        <g clip-path="url(#cup)">
+          <g class="liquid">
+            <path class="liq wave1" d="M-200 80 Q-175 70 -150 80 T-100 80 T-50 80 T0 80 T50 80 T100 80 T150 80 T200 80 T250 80 T300 80 T350 80 T400 80 V340 H-200Z"/>
+            <path class="liq wave2" d="M-200 84 Q-170 92 -140 84 T-80 84 T-20 84 T40 84 T100 84 T160 84 T220 84 T280 84 T340 84 T400 84 V340 H-200Z"/>
+            <rect x="0" y="78" width="220" height="260" fill="url(#liqShade)"/>
+            <g class="bubbles"><circle cx="80" cy="300" r="3"/><circle cx="104" cy="300" r="2"/><circle cx="126" cy="300" r="2.6"/><circle cx="146" cy="300" r="1.8"/><circle cx="92" cy="300" r="1.6"/><circle cx="138" cy="300" r="2.2"/></g>
+          </g>
+          <g class="cube c1"><rect x="64" y="96" width="46" height="44" rx="8"/><path d="M70 104 L90 102"/></g>
+          <g class="cube c2"><rect x="106" y="120" width="44" height="42" rx="8"/><path d="M112 128 L130 126"/></g>
+          <g class="cube c3"><rect x="76" y="148" width="42" height="40" rx="8"/><path d="M82 156 L100 154"/></g>
+        </g>
+        <path d="M44 34 L58 300 Q60 314 74 314 L146 314 Q160 314 162 300 L176 34" fill="url(#shine)" stroke="rgba(235,250,255,.85)" stroke-width="3" stroke-linejoin="round"/>
+        <rect x="56" y="300" width="108" height="16" rx="6" fill="rgba(235,250,255,.25)"/>
+        <g class="drips"><ellipse class="dr" cx="62" cy="120" rx="2.4" ry="3.4"/><ellipse class="dr" cx="160" cy="90" rx="2" ry="3"/><ellipse class="dr" cx="150" cy="190" rx="2.6" ry="3.6"/><ellipse cx="70" cy="210" rx="1.6" ry="2.2"/><ellipse cx="156" cy="240" rx="1.8" ry="2.4"/><ellipse cx="66" cy="70" rx="1.4" ry="2"/></g>
+        <g class="lime" transform="translate(170 40) rotate(-20)"><circle r="26" fill="#9bd13a"/><circle r="22" fill="#d9f28a"/><g stroke="#9bd13a" stroke-width="2.4"><path d="M0 -22V22M-22 0H22M-15.5 -15.5L15.5 15.5M-15.5 15.5L15.5 -15.5"/></g><circle r="4" fill="#9bd13a"/></g>
+      </svg>
+      <div class="shadow" aria-hidden="true"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="bar" aria-label="Categorie e gusti">
+  <div class="bar-in">
+    <div class="cats" id="cats" role="tablist"></div>
+    <div class="tastes" id="tastes" role="group" aria-label="Filtra per gusto"></div>
+  </div>
+</nav>
+
+<main>
+  <div id="view"></div>
+  <section class="legend" aria-labelledby="leg"><h2 id="leg">Legenda allergeni</h2><ul id="legend"></ul><p>Per informazioni su allergeni e intolleranze chiedi al personale. I piatti possono contenere tracce di altri allergeni.</p></section>
+</main>
+
+<footer>
+  <strong>Ice Lounge</strong>
+  Lungomare 33 · Tel. 0123 456789<br><small>Dati di esempio</small>
+  <div class="soc"><a class="fb" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.1 23.7v-8H6.6V12h2.5v-1.6c0-4.1 1.8-6 5.9-6 .8 0 2.1.2 2.6.3v3.3l-1.4-.1c-1.9 0-2.6.7-2.6 2.6V12h3.9l-.7 3.7h-3.2V24C19.4 23.2 24 18.2 24 12 24 5.4 18.6 0 12 0S0 5.4 0 12c0 5.6 3.9 10.4 9.1 11.7Z"/></svg></a><a class="ig" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a><a class="wa" href="https://wa.me/390123456789" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 4.9-1.3A9.9 9.9 0 1 0 12.04 2Zm5.8 14.1c-.25.7-1.45 1.33-2 1.38-.53.05-1.03.24-3.47-.72-2.93-1.16-4.8-4.15-4.95-4.35-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.25.58.83 2.01.9 2.16.08.14.12.31.03.5-.1.2-.14.31-.29.48l-.43.5c-.14.15-.3.31-.13.6.17.3.75 1.24 1.6 2 1.1.98 2.03 1.28 2.32 1.43.29.14.46.12.63-.08.17-.19.73-.85.92-1.14.2-.29.39-.24.65-.14.27.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.7-.18 1.38Z"/></svg></a></div><nav class="flinks" aria-label="Contatti"><a href="tel:+390123456789">📞 Chiama</a><a href="https://maps.google.com/?q=Lungomare+33" target="_blank" rel="noopener">📍 Dove siamo</a><a href="https://www.google.com/maps" target="_blank" rel="noopener">⭐ Lascia una recensione</a></nav>
+</footer>
+
+<script>
+(function () {
+'use strict';
+/*DSM:DATA*/
+var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var eur = function (v) { return new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'}).format(v); };
+var $ = function (s) { return document.querySelector(s); };
+var cur = MENU[0].id, taste = {};
+function als(a) { return a.length ? a.map(function (k) { return '<span class="al" title="' + AL[k][1] + '" aria-label="' + AL[k][1] + '">' + AL[k][0] + '</span>'; }).join('') : '<span class="none">Nessun allergene dichiarato</span>'; }
+function okTaste(it) { var on = Object.keys(taste).filter(function (k) { return taste[k]; }); return !on.length || on.every(function (k) { return it.g.indexOf(k) > -1; }); }
+function render() {
+  var c = MENU.filter(function (x) { return x.id === cur; })[0];
+  var list = c.items.filter(okTaste);
+  var out = '<div class="head"><h2>' + c.t + '</h2><small>' + list.length + ' su ' + c.items.length + '</small></div><div class="grid">';
+  out += list.length ? list.map(function (it, i) {
+    return '<article class="card" style="animation-delay:' + i * 60 + 'ms"><div class="top"><div class="drink" aria-hidden="true">' + it.e + '</div><div><h3>' + it.n + '</h3><div class="tl">' + (it.z ? '<span class="chip zero">0% alcol</span>' : '') + it.g.map(function (g) { return '<span class="chip">' + TASTES[g] + '</span>'; }).join('') + '</div></div></div><p>' + it.d + '</p><div class="bot"><div class="als">' + als(it.a) + '</div><span class="price">' + eur(it.p) + '</span></div></article>';
+  }).join('') : '<p class="empty">Nessun drink con questi gusti in questa sezione. Prova a togliere un filtro.</p>';
+  $('#view').innerHTML = out + '</div>';
+  $('#cats').innerHTML = MENU.map(function (x) { return '<button class="cat" role="tab" data-id="' + x.id + '" aria-selected="' + (x.id === cur) + '">' + x.t + '</button>'; }).join('');
+  $('#tastes').innerHTML = Object.keys(TASTES).map(function (k) { return '<button class="taste" data-t="' + k + '" aria-pressed="' + !!taste[k] + '">' + TASTES[k] + '</button>'; }).join('');
+}
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.id) { cur = b.dataset.id; render(); var top = $('.bar').getBoundingClientRect().top + scrollY; if (scrollY > top) window.scrollTo(0, top); }
+  else if (b.dataset.t) { taste[b.dataset.t] = !taste[b.dataset.t]; render(); }
+});
+$('#legend').innerHTML = Object.keys(AL).map(function (k) { return '<li><span class="al">' + AL[k][0] + '</span>' + AL[k][1] + '</li>'; }).join('');
+render();
+
+/* ---------- Il drink nel bicchiere cambia colore ---------- */
+var DRINKS = DSM_DRINKS;
+var CAT_DRINK = {};
+var heroEl = $('.hero'), now = $('.now'), di = 0, timer = null;
+function pour(i) {
+  di = i; now.classList.add('swap');
+  setTimeout(function () { $('#drink-name').textContent = DRINKS[i].n; $('#drink-desc').textContent = DRINKS[i].d; now.classList.remove('swap'); }, 380);
+  heroEl.style.setProperty('--liq', DRINKS[i].c);
+}
+function auto() { clearInterval(timer); if (!reduced) timer = setInterval(function () { if (!document.hidden) pour((di + 1) % DRINKS.length); }, 4200); }
+document.addEventListener('click', function (e) { var b = e.target.closest('[data-id]'); if (b && CAT_DRINK[b.dataset.id] != null) { pour(CAT_DRINK[b.dataset.id]); auto(); } });
+if (!DRINKS.length) now.style.display = 'none'; else { heroEl.style.setProperty('--liq', DRINKS[0].c); if (DRINKS.length > 1) setTimeout(auto, 2600); }
+})();
+</script>
+</body>
+</html>

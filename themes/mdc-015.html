@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0d0a1f">
+<title>Sakura Neon · Modello di menu digitale (esempio) | DS Service</title>
+<meta name="description" content="Colori neon, cambio categoria con animazione a cerchio, swipe tra le sezioni e menu in italiano e inglese. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="DS Service · Menu digitali">
+<meta property="og:title" content="Sakura Neon · Modello di menu digitale (esempio) | DS Service">
+<meta property="og:description" content="Colori neon, cambio categoria con animazione a cerchio, swipe tra le sezioni e menu in italiano e inglese. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:url" content="https://dsfabio.com/demo-sakura-neon">
+<meta property="og:image" content="https://dsfabio.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/fonts/syne-manrope-600.css">
+<style>
+@property --ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+:root{--bg:#0d0a1f;--card:rgba(255,255,255,.06);--line:rgba(255,255,255,.12);--txt:#f4f1ff;--sub:#b7b0d6;--pink:#ff3cac;--violet:#7b5cff;--cyan:#22d3ee;--lime:#b4ff39;--amber:#ffcf3f;
+  --grad:linear-gradient(120deg,var(--pink),var(--violet),var(--cyan));
+  --grad-loop:linear-gradient(120deg,var(--pink),var(--violet),var(--cyan),var(--pink));
+  --tab-h:72px;--soc-bg:#1f1840}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--bg);color:var(--txt);font-family:Manrope,system-ui,-apple-system,sans-serif;line-height:1.5;overflow-x:clip;padding-bottom:calc(var(--tab-h) + 30px + env(safe-area-inset-bottom));-webkit-tap-highlight-color:transparent}
+body.locked{overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:8px}
+.demo-bar{position:relative;z-index:5;background:#000;color:var(--amber);text-align:center;font-size:.75rem;font-weight:800;letter-spacing:.04em;padding:6px 10px}
+
+/* ---------- Sfondo aurora animato ---------- */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(80% 60% at 50% 0%,#1f1350,transparent 70%),var(--bg)}
+.bg i{position:absolute;width:60vmax;height:60vmax;border-radius:50%;filter:blur(70px);opacity:.42;will-change:transform;animation:drift 22s ease-in-out infinite alternate}
+.bg .b1{background:var(--pink);top:-22vmax;left:-22vmax}
+.bg .b2{background:var(--violet);top:20vh;right:-28vmax;animation-duration:28s;animation-delay:-6s}
+.bg .b3{background:var(--cyan);bottom:-28vmax;left:5vw;animation-duration:32s;animation-delay:-12s;opacity:.28}
+@keyframes drift{to{transform:translate(12vw,10vh) scale(1.15)}}
+.bg::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:22px 22px;-webkit-mask-image:linear-gradient(#000,transparent 70%);mask-image:linear-gradient(#000,transparent 70%)}
+
+/* Barra di avanzamento dello scroll (CSS scroll-driven) */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:60;background:var(--grad);transform-origin:0 50%;transform:scaleX(0)}
+@supports (animation-timeline: scroll()){
+  .progress{animation:prog linear both;animation-timeline:scroll(root)}
+  @keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+}
+
+/* ---------- Header ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 18px 8px;max-width:900px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:52px;height:52px;flex:0 0 auto;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;font-weight:800;background:var(--grad);box-shadow:0 8px 24px rgba(255,60,172,.35)}
+h1{font-family:Syne,sans-serif;font-size:1.7rem;line-height:1.05}
+.grad-text{background:linear-gradient(90deg,#fff,var(--pink),var(--cyan),#fff);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 8s linear infinite}
+@keyframes sheen{to{background-position:300% 0}}
+.tagline{font-size:.82rem;color:var(--sub)}
+.btn-neon{flex:0 0 auto;border:2px solid transparent;border-radius:999px;padding:9px 16px;font-weight:800;font-size:.85rem;background:linear-gradient(var(--bg),var(--bg)) padding-box,conic-gradient(from var(--ang),var(--pink),var(--violet),var(--cyan),var(--lime),var(--pink)) border-box;animation:rot 4s linear infinite}
+@keyframes rot{to{--ang:360deg}}
+
+/* ---------- Striscia scorrevole ---------- */
+.marquee{overflow:hidden;border-block:1px solid var(--line);margin:12px 0 6px;background:rgba(255,255,255,.03);transform:rotate(-2deg) scale(1.06)}
+.mq{display:flex;width:max-content;animation:mq 24s linear infinite}
+.mq span{padding:10px 0;font-family:Syne,sans-serif;font-weight:800;letter-spacing:.08em;white-space:nowrap;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- Pagina categoria ---------- */
+.hero{max-width:900px;margin:0 auto;padding:22px 18px 4px;display:flex;align-items:center;gap:16px}
+.hero-emoji{font-size:clamp(4rem,22vw,7rem);line-height:1;filter:drop-shadow(0 12px 30px rgba(123,92,255,.55))}
+.hero-emoji span{display:inline-block;animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px) rotate(-6deg)}}
+.hero h2{font-family:Syne,sans-serif;font-size:clamp(2.2rem,11vw,4rem);line-height:.95;text-transform:uppercase}
+.hero p{color:var(--sub);font-size:.88rem;margin-top:6px}
+.swipe{display:inline-block;margin-top:6px;font-size:.72rem;color:var(--cyan);letter-spacing:.06em}
+
+.grid{max-width:900px;margin:0 auto;padding:14px 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;perspective:900px}
+.card-in{position:relative;height:100%;padding:16px;border-radius:24px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out,border-color .3s;display:flex;gap:14px;align-items:flex-start;overflow:hidden}
+.card-in::before{content:"";position:absolute;inset:0;background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.14),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover .card-in::before{opacity:1}
+.card:hover .card-in{border-color:rgba(255,255,255,.25)}
+.orb{flex:0 0 auto;width:72px;height:72px;border-radius:22px;display:grid;place-items:center;font-size:2.4rem;background:linear-gradient(140deg,hsl(var(--h) 90% 62%),hsl(calc(var(--h) + 60) 90% 55%));box-shadow:0 10px 26px hsl(var(--h) 90% 50% / .45),inset 0 2px 0 rgba(255,255,255,.35)}
+.orb span{display:inline-block;animation:float 3.6s ease-in-out infinite;animation-delay:calc(var(--i) * -.6s)}
+.c-body{flex:1;min-width:0}
+.c-body h3{font-family:Syne,sans-serif;font-size:1.08rem;line-height:1.2}
+.c-body p{font-size:.84rem;color:var(--sub);margin:5px 0 8px}
+.c-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.price{font-family:Syne,sans-serif;font-weight:800;font-size:1.1rem}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.tag{font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.tag.top{background:rgba(255,207,63,.18);color:var(--amber)}
+.tag.hot{background:rgba(255,60,172,.18);color:#ff8fcf}
+.tag.veg{background:rgba(180,255,57,.15);color:var(--lime)}
+.tag.new{background:rgba(34,211,238,.15);color:var(--cyan)}
+.als{display:flex;flex-wrap:wrap;gap:4px}
+.al{width:24px;height:24px;border-radius:8px;display:inline-grid;place-items:center;font-size:.78rem;background:rgba(255,255,255,.08)}
+.al-none{font-size:.72rem;color:var(--sub)}
+
+/* Pulsante Aggiungi con gradiente e onda */
+.add{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:6px;padding:9px 15px;border-radius:999px;font-weight:800;font-size:.85rem;color:#0d0a1f;background:var(--grad-loop);background-size:300% 100%;transition:background-position .5s,transform .15s;box-shadow:0 6px 18px rgba(255,60,172,.35)}
+.add:hover{background-position:100% 0}
+.add:active{transform:scale(.92)}
+.add .q{background:#0d0a1f;color:#fff;border-radius:999px;padding:0 7px;font-size:.72rem}
+.add .q:empty{display:none}
+.ripple{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:rgba(255,255,255,.7);transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(9);opacity:0}}
+
+/* Comparsa delle card legata allo scroll (CSS scroll-driven) */
+@supports (animation-timeline: view()){
+  .card{animation:rise linear both;animation-timeline:view();animation-range:entry 5% cover 30%}
+}
+@keyframes rise{from{opacity:0;transform:translateY(60px) scale(.92) rotateX(18deg)}to{opacity:1;transform:none}}
+/* Alternativa per browser senza scroll-driven animations */
+.io .card{opacity:0;transform:translateY(40px);transition:opacity .7s,transform .7s cubic-bezier(.2,.9,.2,1);transition-delay:calc(var(--i) * 70ms)}
+.io .card.in{opacity:1;transform:none}
+
+/* ---------- Legenda / footer / CTA ---------- */
+.legend{max-width:900px;margin:26px auto 0;padding:0 18px}
+.legend-box{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.legend h2{font-family:Syne,sans-serif;font-size:1.2rem;margin-bottom:12px}
+.legend ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px 12px;font-size:.85rem}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend p{font-size:.78rem;color:var(--sub);margin-top:12px}
+footer{text-align:center;padding:30px 18px 10px;color:var(--sub);font-size:.85rem}
+.links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+.links a{text-decoration:none;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--txt);font-weight:700;font-size:.82rem}
+.cta{max-width:560px;margin:24px 18px 0;margin-inline:auto;text-align:center;padding:28px 20px;border-radius:28px;background:linear-gradient(160deg,rgba(255,60,172,.16),rgba(34,211,238,.1));border:1px solid var(--line)}
+.cta h2{font-family:Syne,sans-serif;font-size:1.6rem;line-height:1.1}
+.cta p{color:var(--sub);margin:8px 0 18px}
+.cta-btn{display:inline-block;padding:14px 24px;border-radius:999px;font-weight:800;text-decoration:none;color:#0d0a1f;background:var(--grad-loop);background-size:300% 100%;animation:sheen 6s linear infinite;box-shadow:0 10px 30px rgba(255,60,172,.4)}
+.back{display:block;margin-top:16px;color:var(--cyan);font-weight:800;text-decoration:none}
+
+/* ---------- Barra categorie in basso ---------- */
+.tabbar{position:fixed;z-index:40;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(560px,calc(100% - 20px));height:var(--tab-h);display:grid;grid-template-columns:repeat(4,1fr);padding:8px;border-radius:26px;background:rgba(20,15,45,.72);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.5);view-transition-name:tabbar}
+.tab{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:18px;font-size:.72rem;font-weight:800;color:var(--sub);transition:color .3s}
+.tab .ti{font-size:1.4rem;line-height:1.1;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.tab[aria-current="page"]{color:#fff}
+.tab[aria-current="page"] .ti{transform:translateY(-3px) scale(1.18)}
+.ind{position:absolute;z-index:0;top:8px;bottom:8px;left:8px;width:calc((100% - 16px) / 4);border-radius:18px;background:var(--grad);box-shadow:0 8px 24px rgba(123,92,255,.5);transform:translateX(calc(var(--idx,0) * 100%));transition:transform .55s cubic-bezier(.6,-.25,.2,1.3)}
+
+/* ---------- View Transitions: cambio categoria con cerchio ---------- */
+::view-transition-old(tabbar){display:none}
+::view-transition-new(tabbar),::view-transition-group(tabbar){animation:none}
+html.vt-circle::view-transition-old(root),html.vt-circle::view-transition-new(root){animation:none;mix-blend-mode:normal}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .card{animation:none!important}
+}
+.soc{display:flex;justify-content:center;gap:12px;margin:18px 0 6px}
+.soc a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soc-bg,#222);color:var(--soc-fg,#fff);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s;text-decoration:none}
+.soc a:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 10px 22px rgba(0,0,0,.25)}
+.soc a.fb{background:#1877F2;color:#fff}.soc a.wa{background:#25D366;color:#fff}
+.soc a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);color:#fff}
+.soc svg{width:23px;height:23px}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
+.flinks a{text-decoration:underline;text-underline-offset:3px;color:inherit;opacity:.85}
+
+/* dsmenu: riquadri con dati di esempio nascosti */
+#lang{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"></div>
+<div class="bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+
+<header class="top">
+  <div class="brand">
+    <div class="logo" aria-hidden="true">__DSM_MONO__</div>
+    <div><h1 class="grad-text">__DSM_NAME__</h1><p class="tagline" id="tagline"></p></div>
+  </div>
+  <button class="btn-neon" id="lang"></button>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="mq"><span>__DSM_MARQUEE__</span><span>__DSM_MARQUEE__</span></div>
+</div>
+
+<main id="page"></main>
+
+<section class="legend" aria-labelledby="leg-t">
+  <div class="legend-box"><h2 id="leg-t"></h2><ul id="legend"></ul><p id="leg-p"></p></div>
+</section>
+
+<footer>
+  <p><strong>Sakura Neon</strong><br>Corso Italia 10 · Tel. 0123 456789<br><small>Dati di esempio</small></p>
+  <div class="soc"><a class="fb" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.1 23.7v-8H6.6V12h2.5v-1.6c0-4.1 1.8-6 5.9-6 .8 0 2.1.2 2.6.3v3.3l-1.4-.1c-1.9 0-2.6.7-2.6 2.6V12h3.9l-.7 3.7h-3.2V24C19.4 23.2 24 18.2 24 12 24 5.4 18.6 0 12 0S0 5.4 0 12c0 5.6 3.9 10.4 9.1 11.7Z"/></svg></a><a class="ig" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a><a class="wa" href="https://wa.me/390123456789" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 4.9-1.3A9.9 9.9 0 1 0 12.04 2Zm5.8 14.1c-.25.7-1.45 1.33-2 1.38-.53.05-1.03.24-3.47-.72-2.93-1.16-4.8-4.15-4.95-4.35-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.25.58.83 2.01.9 2.16.08.14.12.31.03.5-.1.2-.14.31-.29.48l-.43.5c-.14.15-.3.31-.13.6.17.3.75 1.24 1.6 2 1.1.98 2.03 1.28 2.32 1.43.29.14.46.12.63-.08.17-.19.73-.85.92-1.14.2-.29.39-.24.65-.14.27.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.7-.18 1.38Z"/></svg></a></div><nav class="flinks" aria-label="Contatti"><a href="tel:+390123456789">📞 Chiama</a><a href="https://maps.google.com/?q=Corso+Italia+10" target="_blank" rel="noopener">📍 Dove siamo</a><a href="https://www.google.com/maps" target="_blank" rel="noopener">⭐ Lascia una recensione</a></nav>
+</footer>
+
+<nav class="tabbar" id="tabbar" aria-label="Categorie del menu"><span class="ind" aria-hidden="true"></span></nav>
+
+<noscript><p style="padding:20px;text-align:center">Attiva JavaScript per vedere il menu.</p></noscript>
+
+<script>
+(function () {
+'use strict';
+/* =========================================================
+   1) DATI DEL MENU (italiano + inglese)
+   h = colore della card (0-360), t = etichette
+   ========================================================= */
+const AL = {
+  glutine:['🌾','Glutine','Gluten'], crostacei:['🦐','Crostacei','Crustaceans'], uova:['🥚','Uova','Eggs'], pesce:['🐟','Pesce','Fish'],
+  arachidi:['🥜','Arachidi','Peanuts'], soia:['🫘','Soia','Soy'], latte:['🥛','Latte','Milk'], frutta:['🌰','Frutta a guscio','Tree nuts'],
+  sedano:['🥬','Sedano','Celery'], senape:['🟡','Senape','Mustard'], sesamo:['⚪','Sesamo','Sesame'], solfiti:['🍷','Solfiti','Sulphites'],
+  lupini:['🌼','Lupini','Lupin'], molluschi:['🐚','Molluschi','Molluscs']
+};
+/*DSM:DATA*/
+const T = {
+  it:{tag:DSM_TAG,lang:'EN',langL:'Switch to English',add:'Aggiungi',added:'Aggiunto!',choice:'La mia scelta',
+      empty:'Non hai ancora scelto nulla. Tocca “Aggiungi” sui piatti.',total:'Totale indicativo',
+      waiter:'Mostra questa schermata al cameriere per ordinare. Il menu non invia ordini.',clear:'Svuota la lista',legend:'Legenda allergeni',
+      none:'Nessun allergene dichiarato',ask:'Per informazioni su allergeni e intolleranze chiedi al personale. I piatti possono contenere tracce di altri allergeni.',
+      items:'proposte',swipe:'← scorri per cambiare categoria →',close:'Chiudi',dec:'Togli uno',inc:'Aggiungi uno',
+      tags:{top:'🔥 Più amato',hot:'🌶 Piccante',veg:'🌱 Veg',new:'✨ Novità'}},
+  en:{tag:DSM_TAG,lang:'IT',langL:'Passa all’italiano',add:'Add',added:'Added!',choice:'My picks',
+      empty:'You haven’t picked anything yet. Tap “Add” on a dish.',total:'Estimated total',
+      waiter:'Show this screen to your waiter to order. This menu does not send orders.',clear:'Clear list',legend:'Allergen legend',
+      none:'No allergens declared',ask:'Please ask our staff about allergens and intolerances. Dishes may contain traces of other allergens.',
+      items:'items',swipe:'← swipe to change category →',close:'Close',dec:'Remove one',inc:'Add one',
+      tags:{top:'🔥 Bestseller',hot:'🌶 Spicy',veg:'🌱 Veg',new:'✨ New'}}
+};
+
+/* ========================================================= */
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SDA = !!(window.CSS && CSS.supports && CSS.supports('animation-timeline: view()'));
+if (!SDA && !reduced) document.documentElement.classList.add('io');
+const $ = (s, c) => (c || document).querySelector(s);
+const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+let lang = 'it', cur = CATS[0].id;
+const ITEMS = {};
+CATS.forEach(c => c.items.forEach((it, i) => { it.id = c.id + '-' + i; ITEMS[it.id] = it; }));
+const eur = v => new Intl.NumberFormat(lang === 'it' ? 'it-IT' : 'en-IE', {style:'currency', currency:'EUR'}).format(v);
+const alName = k => AL[k][lang === 'it' ? 1 : 2];
+
+const page = $('#page'), tabbar = $('#tabbar');
+
+/* ---------- Render ---------- */
+function card(it, i) {
+  const tags = (it.t || []).map(k => `<span class="tag ${k}">${T[lang].tags[k]}</span>`).join('');
+  const als = it.a.length ? it.a.map(k => `<span class="al" title="${alName(k)}" aria-label="${alName(k)}">${AL[k][0]}</span>`).join('') : `<span class="al-none">${T[lang].none}</span>`;
+  return `<article class="card" style="--i:${i}"><div class="card-in">
+    <div class="orb" style="--h:${it.h}" aria-hidden="true"><span>${it.e}</span></div>
+    <div class="c-body">
+      <h3>${it.n[lang]}</h3>${tags ? `<div class="tags">${tags}</div>` : ''}
+      <p>${it.d[lang]}</p><div class="als">${als}</div>
+      <div class="c-foot"><span class="price">${eur(it.p)}</span></div>
+    </div></div></article>`;
+}
+function renderPage() {
+  const c = CATS.find(x => x.id === cur);
+  page.innerHTML = `<section class="hero" aria-labelledby="cat-t">
+      <div class="hero-emoji" aria-hidden="true"><span>${c.e}</span></div>
+      <div><h2 id="cat-t">${c.l[lang]}</h2><p>${c.s[lang]} · ${c.items.length} ${T[lang].items}</p><span class="swipe">${T[lang].swipe}</span></div>
+    </section>
+    <div class="grid">${c.items.map(card).join('')}</div>`;
+  if (!reduced) $('.hero-emoji', page).animate([{transform:'scale(0) rotate(-40deg)'},{transform:'scale(1) rotate(0)'}], {duration:700, easing:'cubic-bezier(.3,1.6,.5,1)'});
+  bindTilt(); observe();
+}
+function renderTabs() {
+  const idx = CATS.findIndex(c => c.id === cur);
+  $$('.tab', tabbar).forEach(t => t.remove());
+  tabbar.insertAdjacentHTML('beforeend', CATS.map(c => `<button class="tab" data-cat="${c.id}" aria-current="${c.id === cur ? 'page' : 'false'}"><span class="ti" aria-hidden="true">${c.e}</span><span>${c.l[lang]}</span></button>`).join(''));
+  tabbar.style.setProperty('--idx', idx);
+}
+function renderAll() {
+  document.documentElement.lang = lang;
+  $('#tagline').textContent = T[lang].tag;
+  const lb = $('#lang'); lb.textContent = T[lang].lang; lb.setAttribute('aria-label', T[lang].langL);
+  $('#leg-t').textContent = T[lang].legend; $('#leg-p').textContent = T[lang].ask;
+  $('#legend').innerHTML = Object.keys(AL).map(k => `<li><span class="al">${AL[k][0]}</span> ${alName(k)}</li>`).join('');
+  renderTabs(); renderPage();
+}
+
+/* ---------- Effetto 3D al passaggio del mouse ---------- */
+const canHover = matchMedia('(hover:hover) and (pointer:fine)').matches;
+function bindTilt() {
+  if (!canHover || reduced) return;
+  $$('.card', page).forEach(c => {
+    const inn = c.firstElementChild;
+    c.addEventListener('pointermove', e => {
+      const r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+      inn.style.setProperty('--ry', (px - .5) * 14 + 'deg'); inn.style.setProperty('--rx', (.5 - py) * 14 + 'deg');
+      inn.style.setProperty('--mx', px * 100 + '%'); inn.style.setProperty('--my', py * 100 + '%');
+    });
+    c.addEventListener('pointerleave', () => { inn.style.setProperty('--rx', '0deg'); inn.style.setProperty('--ry', '0deg'); });
+  });
+}
+/* Comparsa con IntersectionObserver se il browser non supporta le scroll-driven animations */
+let io = null;
+function observe() {
+  if (SDA || reduced) return;
+  if (io) io.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .15});
+  $$('.card', page).forEach(c => io.observe(c));
+}
+
+/* ---------- Cambio categoria con transizione a cerchio ---------- */
+function go(id, x, y) {
+  if (id === cur) return;
+  const update = () => {
+    cur = id; renderTabs(); renderPage();
+    const top = page.getBoundingClientRect().top + scrollY - 10;
+    if (scrollY > top) window.scrollTo(0, top);
+  };
+  if (!document.startViewTransition || reduced) { update(); return; }
+  const html = document.documentElement;
+  const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  html.classList.add('vt-circle');
+  const t = document.startViewTransition(update);
+  t.ready.then(() => {
+    html.animate({clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`]},
+      {duration: 700, easing: 'cubic-bezier(.65,0,.2,1)', pseudoElement: '::view-transition-new(root)'});
+  }).catch(() => {});
+  t.finished.finally(() => html.classList.remove('vt-circle'));
+}
+tabbar.addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if (!b) return;
+  const r = b.getBoundingClientRect();
+  go(b.dataset.cat, e.clientX || r.left + r.width / 2, e.clientY || r.top + r.height / 2);
+});
+/* Swipe a destra/sinistra per cambiare categoria */
+let sx = 0, sy = 0;
+page.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, {passive: true});
+page.addEventListener('touchend', e => {
+  const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 70 && Math.abs(dy) < 50) {
+    const i = CATS.findIndex(c => c.id === cur) + (dx < 0 ? 1 : -1);
+    if (i >= 0 && i < CATS.length) go(CATS[i].id, dx < 0 ? innerWidth : 0, t.clientY);
+  }
+}, {passive: true});
+
+/* ---------- Lingua IT / EN ---------- */
+$('#lang').addEventListener('click', () => {
+  const upd = () => { lang = lang === 'it' ? 'en' : 'it'; renderAll(); };
+  if (document.startViewTransition && !reduced) document.startViewTransition(upd); else upd();
+});
+
+renderAll();
+})();
+</script>
+</body>
+</html>

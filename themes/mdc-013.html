@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#0b1730">
+<title>Bosforo Kebab · Modello di menu digitale (esempio) | DS Service</title>
+<meta name="description" content="Insegna al neon, spiedo che gira e prezzi che cambiano scegliendo panino, piadina, box o piatto. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="DS Service · Menu digitali">
+<meta property="og:title" content="Bosforo Kebab · Modello di menu digitale (esempio) | DS Service">
+<meta property="og:description" content="Insegna al neon, spiedo che gira e prezzi che cambiano scegliendo panino, piadina, box o piatto. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:url" content="https://dsfabio.com/mdc-013">
+<meta property="og:image" content="https://dsfabio.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts/monoton-rubik.css">
+<style>
+:root{--night:#0b1730;--night2:#12224a;--tile:#1e6fb8;--turq:#2ec4c4;--red:#e63946;--saffron:#f4b400;--cream:#fff4dc;--txt:#f3f5ff;--sub:#a9b4d6;--line:rgba(255,255,255,.12);--soc-bg:#12224a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--night);color:var(--txt);font-family:Rubik,system-ui,sans-serif;line-height:1.5}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--saffron);outline-offset:3px;border-radius:8px}
+.demo{position:relative;z-index:5;background:#050b18;color:var(--saffron);text-align:center;font-size:.74rem;font-weight:800;padding:7px 12px}
+
+/* Piastrelle Iznik in CSS */
+.tiles{background-color:#0d1d40;background-image:radial-gradient(circle at 50% 50%,var(--red) 0 7%,transparent 7.5%),radial-gradient(circle at 50% 50%,transparent 0 22%,var(--turq) 22.5% 25%,transparent 25.5%),conic-gradient(from 45deg at 50% 50%,var(--tile) 0 25%,#0d1d40 0 50%,var(--tile) 0 75%,#0d1d40 0),radial-gradient(circle at 0 0,var(--saffron) 0 9%,transparent 9.5%),radial-gradient(circle at 100% 0,var(--saffron) 0 9%,transparent 9.5%),radial-gradient(circle at 0 100%,var(--saffron) 0 9%,transparent 9.5%),radial-gradient(circle at 100% 100%,var(--saffron) 0 9%,transparent 9.5%);background-size:64px 64px}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;padding:clamp(30px,6vh,70px) 18px 0;background:radial-gradient(60% 60% at 70% 70%,rgba(244,120,20,.25),transparent 70%),linear-gradient(180deg,#0b1730,#0b1730)}
+.hero::before{content:"";position:absolute;inset:0;opacity:.13}
+.hero-grid{position:relative;max-width:980px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:end}
+.sign{display:inline-block;margin:0;font-weight:400;font-family:Monoton,cursive;font-size:clamp(3.2rem,15vw,6.4rem);line-height:1;color:#fff4f4;text-shadow:0 0 6px #fff,0 0 14px var(--red),0 0 28px var(--red),0 0 52px var(--red);animation:neon 6s infinite}
+@keyframes neon{0%,18%,22%,25%,53%,57%,100%{opacity:1}20%,24%,55%{opacity:.35;text-shadow:none}}
+.sub-sign{font-weight:900;font-size:clamp(1.1rem,4vw,1.5rem);letter-spacing:.3em;text-transform:uppercase;color:var(--turq);text-shadow:0 0 10px rgba(46,196,196,.7);margin-top:4px}
+.hero p{color:var(--sub);font-weight:500;max-width:420px;margin:14px 0 22px}
+.hours{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:30px;background:rgba(255,255,255,.07);border:1px solid var(--line);font-weight:800;font-size:.86rem;margin-bottom:28px}
+.hours i{width:9px;height:9px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 4px rgba(61,220,132,.2)}
+
+/* Spiedo che gira */
+.spit{position:relative;height:clamp(260px,46vh,380px)}
+.heater{position:absolute;top:30px;bottom:30px;right:calc(50% + 96px);width:24px;border-radius:10px;background:repeating-linear-gradient(180deg,#ff6a14 0 10px,#ffb347 10px 14px,#ff6a14 14px 24px);box-shadow:0 0 30px 8px rgba(255,110,20,.55);animation:heat 1.8s ease-in-out infinite alternate}
+@keyframes heat{to{box-shadow:0 0 44px 14px rgba(255,110,20,.75);filter:brightness(1.15)}}
+.meat{position:absolute;z-index:1;left:50%;transform:translateX(-50%);bottom:22px;top:26px;width:clamp(130px,26vw,180px);clip-path:polygon(2% 0,98% 0,84% 100%,16% 100%);border-radius:30% 30% 0 0/8% 8% 0 0;background:repeating-linear-gradient(180deg,#7a3e1a 0 6px,#9a5526 6px 11px,#5e2c10 11px 13px,#b46c34 13px 19px);background-size:100% 19px;animation:turn 4s linear infinite}
+.meat::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(50,20,5,.4) 0 3px,transparent 3px 13px,rgba(255,190,120,.22) 13px 17px,transparent 17px 30px);background-size:60px 100%;animation:spin 1.8s linear infinite}
+.meat::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,140,40,.55),rgba(255,180,100,.25) 22%,rgba(255,220,160,.18) 40%,transparent 60%,rgba(0,0,0,.55))}
+@keyframes spin{to{background-position:60px 0}}
+@keyframes turn{to{background-position:0 19px}}
+.cap{position:absolute;z-index:2;left:50%;transform:translateX(-50%);top:19px;width:clamp(132px,26.4vw,182px);height:14px;border-radius:50%;background:radial-gradient(closest-side,#c47a3c,#7a3e1a);box-shadow:inset 0 -3px 0 rgba(0,0,0,.3)}
+.rod{position:absolute;left:50%;margin-left:-4px;top:6px;bottom:0;width:8px;border-radius:4px;background:linear-gradient(90deg,#666,#ddd,#777)}
+.rod::before{content:"";position:absolute;top:-6px;left:-6px;width:20px;height:12px;border-radius:50%;background:#bfc4cf}
+.drip{position:absolute;bottom:22px;z-index:2;width:6px;height:14px;border-radius:0 0 6px 6px;background:#e9a24b;opacity:0;animation:fat 2.4s ease-in infinite}
+.drip:nth-of-type(1){left:44%}.drip:nth-of-type(2){left:56%;animation-delay:-1.2s}
+@keyframes fat{0%{transform:translateY(-30px);opacity:0}30%{opacity:.9}100%{transform:translateY(20px);opacity:0}}
+.tray{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);z-index:2;width:clamp(170px,32vw,230px);height:16px;border-radius:0 0 12px 12px;background:linear-gradient(#d9dde6,#8a90a0)}
+
+/* Formato */
+.fmt{position:sticky;top:0;z-index:30;background:rgba(11,23,48,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.fmt-in{max-width:980px;margin:0 auto;padding:10px 14px 8px}
+.fmt-row{display:flex;align-items:center;gap:10px}
+.fmt-row b{font-size:.74rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--saffron);white-space:nowrap}
+.seg{flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:rgba(255,255,255,.06);border-radius:14px;padding:4px}
+.seg button{padding:8px 4px;border-radius:10px;font-weight:800;font-size:.84rem;color:var(--sub);transition:all .25s;display:flex;flex-direction:column;align-items:center;line-height:1.1}
+.seg button span{font-size:1.3rem;margin-bottom:2px}
+.seg button[aria-pressed="true"]{background:var(--saffron);color:#1b1300}
+.cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-top:8px}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:0 0 auto;padding:7px 13px;border-radius:30px;border:1px solid var(--line);font-weight:800;font-size:.84rem;color:var(--sub);transition:all .2s}
+.cat[aria-selected="true"]{background:var(--red);border-color:var(--red);color:#fff}
+
+main{max-width:980px;margin:0 auto;padding:20px 14px 30px}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:14px}
+.sh h2{font-weight:900;font-size:clamp(1.9rem,7vw,2.8rem);line-height:1;text-transform:uppercase;letter-spacing:-.01em}
+.sh h2 em{font-style:normal;color:var(--saffron)}
+.sh small{color:var(--sub);font-weight:600;text-align:right}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{position:relative;overflow:hidden;padding:16px;border-radius:20px;background:linear-gradient(160deg,var(--night2),#0e1b3a);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px;animation:in .4s ease backwards}
+@keyframes in{from{opacity:0;transform:translateY(12px)}}
+.card::before{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;opacity:.16;border-radius:50%}
+.card .row{display:flex;gap:12px;align-items:flex-start}
+.em{flex:0 0 56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:1.9rem;background:radial-gradient(circle at 50% 30%,rgba(244,180,0,.3),rgba(255,255,255,.04));border:1px solid var(--line)}
+.card h3{font-weight:900;font-size:1.08rem;line-height:1.2}
+.card p{color:var(--sub);font-size:.9rem}
+.card .bot{display:flex;justify-content:space-between;align-items:flex-end;gap:8px;margin-top:auto;padding-top:6px}
+.price{font-weight:900;font-size:1.3rem;color:var(--saffron);white-space:nowrap;transition:transform .3s}
+.price.bump{animation:bump .4s ease}
+@keyframes bump{50%{transform:scale(1.18)}}
+.price small{display:block;font-size:.66rem;font-weight:700;color:var(--sub);text-align:right}
+.tag{display:inline-block;font-size:.64rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-top:4px;margin-right:4px}
+.tag.hot{background:rgba(230,57,70,.2);color:#ff8a93}.tag.veg{background:rgba(46,196,196,.18);color:var(--turq)}.tag.top{background:rgba(244,180,0,.18);color:var(--saffron)}
+.als{display:flex;flex-wrap:wrap;gap:4px}
+.al{width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.08);display:inline-grid;place-items:center;font-size:.72rem}
+.none{font-size:.72rem;color:var(--sub)}
+.sauces{margin-top:26px;border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+.sauces .tiles{height:14px}
+.sauces-in{padding:16px 18px;background:var(--night2)}
+.sauces h2{font-weight:900;font-size:1.3rem;text-transform:uppercase;margin-bottom:10px}
+.sauces ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.sauces li{display:flex;justify-content:space-between;gap:8px;padding:9px 12px;border-radius:12px;background:rgba(255,255,255,.05);font-weight:700;font-size:.9rem}
+.sauces li span{color:var(--sub);font-weight:600}
+.sauces p{color:var(--sub);font-size:.84rem;margin-top:10px}
+.legend{margin-top:22px;background:var(--night2);border:1px solid var(--line);border-radius:20px;padding:18px}
+.legend h2{font-weight:900;font-size:1.2rem;text-transform:uppercase;margin-bottom:10px}
+.legend ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;font-size:.86rem}
+.legend li{display:flex;gap:8px;align-items:center}
+.legend p{font-size:.8rem;color:var(--sub);margin-top:10px}
+footer{text-align:center;padding:34px 18px;color:var(--sub);font-size:.9rem}
+footer strong{font-family:Monoton,cursive;font-weight:400;font-size:1.8rem;color:#fff;text-shadow:0 0 12px var(--red);display:block;line-height:1.2}
+@media (max-width:720px){.hero-grid{grid-template-columns:1fr;text-align:center}.hero p{margin:14px auto 18px}.spit{height:240px}.grid{grid-template-columns:1fr}.fmt-row b{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.soc{display:flex;justify-content:center;gap:12px;margin:18px 0 6px}
+.soc a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soc-bg,#222);color:var(--soc-fg,#fff);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s;text-decoration:none}
+.soc a:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 10px 22px rgba(0,0,0,.25)}
+.soc a.fb{background:#1877F2;color:#fff}.soc a.wa{background:#25D366;color:#fff}
+.soc a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);color:#fff}
+.soc svg{width:23px;height:23px}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
+.flinks a{text-decoration:underline;text-underline-offset:3px;color:inherit;opacity:.85}
+
+/* dsmenu: riquadri con dati di esempio nascosti */
+.fmt-row{display:none!important}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="tiles" style="position:absolute;inset:0;opacity:.1" aria-hidden="true"></div>
+  <div class="hero-grid">
+    <div>
+      <h1 class="sign">__DSM_NAME__</h1>
+      <div class="sub-sign" data-dsm-opt="KICKER">__DSM_KICKER__</div>
+      <p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p>
+      <span class="hours" id="hours" data-dsm-opt="HOURS"><i></i>__DSM_HOURS__</span>
+    </div>
+    <div class="spit" aria-hidden="true">
+      <div class="heater"></div>
+      <div class="rod"></div>
+      <div class="meat"></div>
+      <div class="cap"></div>
+      <i class="drip"></i><i class="drip"></i>
+      <div class="tray"></div>
+    </div>
+  </div>
+</header>
+<div class="tiles" style="height:22px" aria-hidden="true"></div>
+
+<nav class="fmt" aria-label="Formato e categorie">
+  <div class="fmt-in">
+    <div class="fmt-row"><b>Come lo vuoi?</b><div class="seg" id="seg" role="group" aria-label="Formato"></div></div>
+    <div class="cats" id="cats" role="tablist"></div>
+  </div>
+</nav>
+
+<main>
+  <div id="view"></div>
+  <section class="legend" aria-labelledby="leg"><h2 id="leg">Legenda allergeni</h2><ul id="legend"></ul><p>Per informazioni su allergeni e intolleranze chiedi al personale. I piatti possono contenere tracce di altri allergeni.</p></section>
+</main>
+
+<footer>
+  <strong>Bosforo</strong>
+  Via Garibaldi 88 · Tel. 0123 456789<br><small>Dati di esempio</small>
+  <div class="soc"><a class="fb" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.1 23.7v-8H6.6V12h2.5v-1.6c0-4.1 1.8-6 5.9-6 .8 0 2.1.2 2.6.3v3.3l-1.4-.1c-1.9 0-2.6.7-2.6 2.6V12h3.9l-.7 3.7h-3.2V24C19.4 23.2 24 18.2 24 12 24 5.4 18.6 0 12 0S0 5.4 0 12c0 5.6 3.9 10.4 9.1 11.7Z"/></svg></a><a class="ig" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a><a class="wa" href="https://wa.me/390123456789" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 4.9-1.3A9.9 9.9 0 1 0 12.04 2Zm5.8 14.1c-.25.7-1.45 1.33-2 1.38-.53.05-1.03.24-3.47-.72-2.93-1.16-4.8-4.15-4.95-4.35-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.25.58.83 2.01.9 2.16.08.14.12.31.03.5-.1.2-.14.31-.29.48l-.43.5c-.14.15-.3.31-.13.6.17.3.75 1.24 1.6 2 1.1.98 2.03 1.28 2.32 1.43.29.14.46.12.63-.08.17-.19.73-.85.92-1.14.2-.29.39-.24.65-.14.27.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.7-.18 1.38Z"/></svg></a></div><nav class="flinks" aria-label="Contatti"><a href="tel:+390123456789">📞 Chiama</a><a href="https://maps.google.com/?q=Via+Garibaldi+88" target="_blank" rel="noopener">📍 Dove siamo</a><a href="https://www.google.com/maps" target="_blank" rel="noopener">⭐ Lascia una recensione</a></nav>
+</footer>
+
+<script>
+(function () {
+'use strict';
+/*DSM:DATA*/
+var eur = function (v) { return new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'}).format(v); };
+var $ = function (s) { return document.querySelector(s); };
+var cur = MENU[0].id, fmt = 0;
+function als(a) { return a.length ? a.map(function (k) { return '<span class="al" title="' + AL[k][1] + '" aria-label="' + AL[k][1] + '">' + AL[k][0] + '</span>'; }).join('') : '<span class="none">Nessun allergene dichiarato</span>'; }
+function render(bump) {
+  var c = MENU.filter(function (x) { return x.id === cur; })[0], w = c.t.split(' ');
+  $('#view').innerHTML = '<div class="sh"><h2>' + w[0] + (w[1] ? ' <em>' + w.slice(1).join(' ') + '</em>' : '') + '</h2><small>' + c.s + '</small></div><div class="grid">' + c.items.map(function (it, i) {
+    var pr = it.fp ? '<span class="price' + (bump ? ' bump' : '') + '">' + eur(it.fp[fmt]) + '<small>' + FORMATI[fmt][1].toLowerCase() + '</small></span>' : '<span class="price">' + eur(it.p) + '</span>';
+    return '<article class="card" style="animation-delay:' + (bump ? 0 : i * 50) + 'ms"><div class="row"><div class="em" aria-hidden="true">' + it.e + '</div><div><h3>' + it.n + '</h3>' + (it.t || []).map(function (t) { return '<span class="tag ' + t + '">' + TAGS[t] + '</span>'; }).join('') + '</div></div><p>' + it.d + (it.fp ? ', ' + FORMATI_D[fmt] : '') + '</p><div class="bot"><div class="als">' + als(it.a) + '</div>' + pr + '</div></article>';
+  }).join('') + '</div>';
+  $('#cats').innerHTML = MENU.map(function (x) { return '<button class="cat" role="tab" data-id="' + x.id + '" aria-selected="' + (x.id === cur) + '">' + x.t + '</button>'; }).join('');
+  $('#seg').innerHTML = FORMATI.map(function (f, i) { return '<button data-f="' + i + '" aria-pressed="' + (i === fmt) + '"><span aria-hidden="true">' + f[0] + '</span>' + f[1] + '</button>'; }).join('');
+}
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.id) { cur = b.dataset.id; render(); var top = $('.fmt').getBoundingClientRect().top + scrollY; if (scrollY > top) window.scrollTo(0, top); }
+  else if (b.dataset.f) { fmt = +b.dataset.f; render(true); }
+});
+$('#legend').innerHTML = Object.keys(AL).map(function (k) { return '<li><span class="al">' + AL[k][0] + '</span>' + AL[k][1] + '</li>'; }).join('');
+render();
+})();
+</script>
+</body>
+</html>

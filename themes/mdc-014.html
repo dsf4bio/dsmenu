@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#120d0a">
+<title>Fuoco &amp; Brace · Modello di menu digitale (esempio) | DS Service</title>
+<meta name="description" content="Atmosfera scura ed elegante, fumo che sale dal piatto, specialità che scorrono e scheda di ogni piatto. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="DS Service · Menu digitali">
+<meta property="og:title" content="Fuoco &amp; Brace · Modello di menu digitale (esempio) | DS Service">
+<meta property="og:description" content="Atmosfera scura ed elegante, fumo che sale dal piatto, specialità che scorrono e scheda di ogni piatto. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:url" content="https://dsfabio.com/demo-fuoco-brace">
+<meta property="og:image" content="https://dsfabio.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/fonts/fraunces-inter.css">
+<style>
+:root{--bg:#120d0a;--bg2:#1a130f;--card:#211812;--card2:#2a1f17;--txt:#f6ece2;--sub:#bba996;--fire:#ff6a2b;--ember:#ffb347;--wine:#d0324f;--leaf:#7bc96f;--line:rgba(255,236,220,.09);--soc-bg:#2a1f17}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{background:var(--bg);color:var(--txt);font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.5;overflow-x:clip;-webkit-tap-highlight-color:transparent}
+body.locked{overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:8px}
+.serif{font-family:Fraunces,Georgia,serif}
+.demo-bar{position:relative;z-index:20;background:#000;color:var(--ember);text-align:center;font-size:.75rem;font-weight:700;letter-spacing:.04em;padding:6px 10px}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:100svh;display:grid;place-items:center;overflow:hidden;background:radial-gradient(120% 70% at 50% 100%,#3a1a0c 0%,var(--bg) 60%)}
+#smoke{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4}
+.hero-inner{position:relative;z-index:3;text-align:center;padding:40px 20px 100px;display:flex;flex-direction:column;align-items:center}
+.kicker{font-size:.78rem;letter-spacing:.25em;text-transform:uppercase;color:var(--ember);margin-bottom:10px}
+.title{font-family:Fraunces,Georgia,serif;font-weight:800;font-size:clamp(3rem,15vw,7rem);line-height:.9;letter-spacing:-.02em}
+.title .line{display:block;overflow:hidden;padding-bottom:.06em}
+.title .amp{font-style:italic;color:var(--fire);font-size:.6em;line-height:1;overflow:visible}
+.title .ch{display:inline-block}
+.plate-wrap{position:relative;width:min(62vw,280px);aspect-ratio:1;margin:26px 0 30px}
+.glow{position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(255,106,43,.45),transparent 65%);filter:blur(10px);animation:pulse 3.2s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.08);opacity:.7}}
+.plate{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#fbf6f0 0 44%,#e9dfd3 46% 50%,#fbf6f0 52% 64%,#d8ccbf 66% 68%,#f4ede5 70%);box-shadow:0 30px 60px rgba(0,0,0,.6),inset 0 -8px 20px rgba(0,0,0,.12)}
+.plate .food{font-size:clamp(5rem,30vw,9rem);line-height:1;filter:drop-shadow(0 10px 12px rgba(0,0,0,.35));animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:5;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-hint span{width:1px;height:34px;background:linear-gradient(var(--ember),transparent);animation:drip 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* ---------- PULSANTE FUOCO ---------- */
+.btn-fire{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 28px;border-radius:999px;font-weight:700;color:#1b0d05;text-decoration:none;background:linear-gradient(110deg,var(--ember),var(--fire),var(--wine),var(--fire),var(--ember));background-size:300% 100%;animation:flow 6s linear infinite;box-shadow:0 10px 30px rgba(255,106,43,.35);overflow:hidden;transition:transform .2s}
+.btn-fire::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);animation:shine 3.5s ease-in-out infinite;pointer-events:none}
+@keyframes flow{to{background-position:300% 0}}
+@keyframes shine{60%,100%{transform:translateX(120%)}}
+.btn-fire:active{transform:scale(.96)}
+
+/* ---------- SPECIALITÀ (scroll orizzontale) ---------- */
+.specials{position:relative;padding:60px 0 50px;background:linear-gradient(var(--bg),var(--bg2))}
+.sec-head{padding:0 20px 20px;max-width:1100px;margin:0 auto}
+.eyebrow{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--fire)}
+.h2{font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,8vw,3.4rem);line-height:1.05}
+.hscroll{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.js-pin .hscroll{overflow:visible;scroll-snap-type:none}
+.htrack{display:flex;gap:16px;padding:6px 20px 10px;width:max-content}
+.spec{scroll-snap-align:center;width:min(78vw,340px);flex:0 0 auto;background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:26px;padding:22px;position:relative;overflow:hidden;cursor:pointer}
+.spec::before{content:"";position:absolute;width:220px;height:220px;right:-60px;top:-60px;background:radial-gradient(circle,rgba(255,106,43,.35),transparent 70%);pointer-events:none}
+.spec h3{font-family:Fraunces,Georgia,serif;font-size:1.5rem;line-height:1.15}
+.spec p{color:var(--sub);font-size:.9rem;margin:4px 0 14px}
+.spec-foot{display:flex;justify-content:space-between;align-items:center}
+.num{position:absolute;left:18px;top:10px;font-family:Fraunces,Georgia,serif;font-size:3.2rem;font-weight:800;color:rgba(255,255,255,.07);line-height:1}
+
+/* ---------- PIATTO (disegnato in CSS) ---------- */
+.dish-plate{--s:78px;flex:0 0 auto;width:var(--s);height:var(--s);border-radius:50%;display:grid;place-items:center;margin:0 auto;background:radial-gradient(circle at 50% 45%,#fbf6f0 0 46%,#e6dbcf 48% 52%,#f7f0e8 54% 66%,#cfc2b4 68% 70%,#efe6dc 72%);box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.dish-plate span{font-size:calc(var(--s) * .5);line-height:1}
+.spec .dish-plate{margin-bottom:18px}
+
+/* ---------- NAV CATEGORIE ---------- */
+.menu{position:relative;padding-bottom:30px}
+.cats{position:sticky;top:0;z-index:30;background:rgba(18,13,10,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.cats-track{position:relative;display:flex;gap:4px;overflow-x:auto;padding:10px 14px;scrollbar-width:none;max-width:1100px;margin:0 auto}
+.cats-track::-webkit-scrollbar{display:none}
+.cat{position:relative;z-index:1;flex:0 0 auto;padding:9px 16px;border-radius:999px;font-weight:600;font-size:.92rem;color:var(--sub);transition:color .3s}
+.cat[aria-current="true"]{color:#1b0d05}
+.pill{position:absolute;z-index:0;top:10px;left:0;height:calc(100% - 20px);width:0;border-radius:999px;background:linear-gradient(110deg,var(--ember),var(--fire));box-shadow:0 6px 18px rgba(255,106,43,.35);transition:transform .45s cubic-bezier(.7,0,.2,1),width .45s cubic-bezier(.7,0,.2,1)}
+
+/* ---------- SEZIONI E CARD ---------- */
+.sec{position:relative;isolation:isolate;max-width:760px;margin:0 auto;padding:48px 16px 6px}
+.sec-title{position:relative;font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,9vw,3rem);margin-bottom:18px}
+.ghost{position:absolute;left:-10px;top:50%;transform:translateY(-55%);font-size:2.6em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(255,180,120,.14);pointer-events:none;z-index:-1}
+.dish{display:flex;align-items:center;gap:14px;padding:14px;margin-bottom:12px;background:linear-gradient(150deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:22px;cursor:pointer;transition:border-color .3s}
+@media (hover:hover){.dish:hover{border-color:rgba(255,140,70,.4)}}
+.dish-body{flex:1;min-width:0}
+.dish h3{font-size:1.02rem;font-weight:700;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.dish p{font-size:.84rem;color:var(--sub);margin-top:2px}
+.dish-side{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.price{font-weight:700;color:var(--ember);white-space:nowrap}
+.add{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:1.35rem;font-weight:700;background:rgba(255,106,43,.14);color:var(--ember);border:1px solid rgba(255,140,70,.35);transition:background .25s,color .25s,transform .2s}
+.add.on{background:var(--fire);color:#1b0d05}
+.add:active{transform:scale(.88)}
+.add::after{content:attr(data-n);position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;border-radius:10px;background:var(--wine);color:#fff;font-size:.66rem;display:grid;place-items:center;padding:0 4px;transform:scale(0);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.add.on::after{transform:scale(1)}
+.tag{font-size:.66rem;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.tag.veg{background:rgba(123,201,111,.15);color:var(--leaf)}
+.tag.hot{background:rgba(208,50,79,.2);color:#ff8095}
+.tag.new{background:rgba(255,179,71,.16);color:var(--ember)}
+.als{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.al{width:24px;height:24px;border-radius:50%;display:inline-grid;place-items:center;font-size:.78rem;background:rgba(255,255,255,.07)}
+.al-none{font-size:.72rem;color:var(--sub)}
+
+/* ---------- LEGENDA / FOOTER / CTA ---------- */
+.legend{max-width:760px;margin:20px auto 0;padding:0 16px}
+.legend-box{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px}
+.legend h2{font-family:Fraunces,Georgia,serif;font-size:1.3rem;margin-bottom:12px}
+.legend ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px 12px;font-size:.85rem}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend p{font-size:.78rem;color:var(--sub);margin-top:12px}
+footer{text-align:center;padding:36px 18px 30px;color:var(--sub);font-size:.85rem}
+.links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px}
+.links a{text-decoration:none;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--txt);font-weight:600;font-size:.82rem}
+.cta{background:linear-gradient(160deg,#2a140a,#120d0a);text-align:center;padding:50px 20px 60px;border-top:1px solid var(--line)}
+.cta p{color:var(--sub);max-width:460px;margin:10px auto 22px}
+.back{display:block;margin-top:18px;color:var(--ember);font-weight:700;text-decoration:none}
+
+/* ---------- LA MIA SCELTA (pulsante flottante + pannello) ---------- */
+.fly{position:fixed;left:0;top:0;z-index:60;pointer-events:none;font-size:2rem;line-height:1}
+.spark{position:fixed;left:-3px;top:-3px;width:6px;height:6px;border-radius:50%;background:var(--ember);z-index:60;pointer-events:none;box-shadow:0 0 8px var(--fire)}
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(5,3,2,.7);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s .35s}
+.overlay.open{opacity:1;visibility:visible;transition:opacity .35s}
+.sheet{position:fixed;z-index:51;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;max-height:88svh;overflow:auto;overscroll-behavior:contain;background:var(--bg2);border:1px solid var(--line);border-bottom:0;border-radius:28px 28px 0 0;padding:26px 20px calc(26px + env(safe-area-inset-bottom));transform:translateY(105%);visibility:hidden;transition:transform .5s cubic-bezier(.2,.9,.2,1),visibility 0s .5s}
+.sheet.open{transform:none;visibility:visible;transition:transform .5s cubic-bezier(.2,.9,.2,1)}
+.sheet.instant{transition:none}
+.grab{width:44px;height:5px;border-radius:9px;background:rgba(255,255,255,.18);margin:-12px auto 16px}
+.x{position:absolute;top:12px;right:14px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);font-size:1.4rem;line-height:1}
+.detail{text-align:center}
+.detail .dish-plate{margin:6px auto 18px}
+.detail h2{font-family:Fraunces,Georgia,serif;font-size:1.9rem;line-height:1.15}
+.detail p{color:var(--sub);margin:8px 0 14px}
+.tags-row{display:flex;justify-content:center;gap:6px;margin-top:8px}
+.al-row{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:16px}
+.al-chip{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.07)}
+.d-price{font-size:1.4rem;margin-bottom:16px}
+.choice h2{font-family:Fraunces,Georgia,serif;font-size:1.7rem;margin-bottom:6px}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.row .em{font-size:1.7rem}
+.row .nm{flex:1;font-weight:600;line-height:1.3}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);font-weight:700}
+.tot{display:flex;justify-content:space-between;font-size:1.15rem;font-weight:700;padding:16px 0}
+.note{font-size:.82rem;color:var(--sub);text-align:center;margin-bottom:6px}
+.ghost-btn{display:block;margin:12px auto 0;color:var(--sub);text-decoration:underline;font-size:.85rem}
+
+/* ---------- View Transitions (piatto che si ingrandisce) ---------- */
+::view-transition-group(plate){animation-duration:.55s;animation-timing-function:cubic-bezier(.2,.9,.2,1)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.35s}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  #smoke{display:none}
+}
+.soc{display:flex;justify-content:center;gap:12px;margin:18px 0 6px}
+.soc a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--soc-bg,#222);color:var(--soc-fg,#fff);transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s;text-decoration:none}
+.soc a:hover{transform:translateY(-4px) scale(1.06);box-shadow:0 10px 22px rgba(0,0,0,.25)}
+.soc a.fb{background:#1877F2;color:#fff}.soc a.wa{background:#25D366;color:#fff}
+.soc a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%);color:#fff}
+.soc svg{width:23px;height:23px}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
+.flinks a{text-decoration:underline;text-underline-offset:3px;color:inherit;opacity:.85}
+</style>
+</head>
+<body>
+
+
+<header class="hero" id="top">
+  <canvas id="smoke" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <p class="kicker" data-dsm-opt="KICKER">__DSM_KICKER__</p>
+    <h1 class="title" aria-label="__DSM_NAME__">__DSM_TITLE_LINES__</h1>
+    <div class="plate-wrap" id="plate-wrap" aria-hidden="true"><div class="glow"></div><div class="plate"><span class="food">__DSM_HERO_EMOJI__</span></div></div>
+    <a class="btn-fire" href="#menu" data-scroll>🔥 Sfoglia il menu</a>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">Scorri <span></span></div>
+</header>
+
+<section class="specials" id="specials" aria-labelledby="sp-t">
+  <div class="sec-head"><p class="eyebrow">Consigliati dallo chef</p><h2 class="h2" id="sp-t">Specialità della casa</h2></div>
+  <div class="hscroll"><div class="htrack" id="htrack"></div></div>
+</section>
+
+<main class="menu" id="menu">
+  <nav class="cats" aria-label="Categorie del menu"><div class="cats-track" id="cats-track"><span class="pill" id="pill" aria-hidden="true"></span></div></nav>
+  <div id="secs"></div>
+</main>
+
+<section class="legend" aria-labelledby="leg-t">
+  <div class="legend-box">
+    <h2 id="leg-t">Legenda allergeni</h2>
+    <ul id="legend"></ul>
+    <p>Per informazioni su allergeni e intolleranze chiedi al personale. I piatti possono contenere tracce di altri allergeni.</p>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Fuoco &amp; Brace</strong><br>Via Roma 1 · Tel. 0123 456789<br><small>Dati di esempio</small></p>
+  <div class="soc"><a class="fb" href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.1 23.7v-8H6.6V12h2.5v-1.6c0-4.1 1.8-6 5.9-6 .8 0 2.1.2 2.6.3v3.3l-1.4-.1c-1.9 0-2.6.7-2.6 2.6V12h3.9l-.7 3.7h-3.2V24C19.4 23.2 24 18.2 24 12 24 5.4 18.6 0 12 0S0 5.4 0 12c0 5.6 3.9 10.4 9.1 11.7Z"/></svg></a><a class="ig" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg></a><a class="wa" href="https://wa.me/390123456789" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 4.9-1.3A9.9 9.9 0 1 0 12.04 2Zm5.8 14.1c-.25.7-1.45 1.33-2 1.38-.53.05-1.03.24-3.47-.72-2.93-1.16-4.8-4.15-4.95-4.35-.14-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.25.58.83 2.01.9 2.16.08.14.12.31.03.5-.1.2-.14.31-.29.48l-.43.5c-.14.15-.3.31-.13.6.17.3.75 1.24 1.6 2 1.1.98 2.03 1.28 2.32 1.43.29.14.46.12.63-.08.17-.19.73-.85.92-1.14.2-.29.39-.24.65-.14.27.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.7-.18 1.38Z"/></svg></a></div><nav class="flinks" aria-label="Contatti"><a href="tel:+390123456789">📞 Chiama</a><a href="https://maps.google.com/?q=Via+Roma+1" target="_blank" rel="noopener">📍 Dove siamo</a><a href="https://www.google.com/maps" target="_blank" rel="noopener">⭐ Lascia una recensione</a></nav>
+</footer>
+
+
+<div class="overlay" id="overlay"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-t" data-lenis-prevent>
+  <div class="grab"></div>
+  <button class="x" aria-label="Chiudi">×</button>
+  <div id="sheet-c"></div>
+</div>
+
+<noscript><p style="padding:20px;text-align:center">Attiva JavaScript per vedere il menu.</p></noscript>
+
+<script src="assets/vendor/gsap-3.12.5.min.js"></script>
+<script src="assets/vendor/ScrollTrigger-3.12.5.min.js"></script>
+<script src="assets/vendor/lenis-1.1.20.min.js"></script>
+<script>
+(function () {
+'use strict';
+/*DSM:DATA*/
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hasG = !!(window.gsap && window.ScrollTrigger);
+const $ = (s, c) => (c || document).querySelector(s);
+const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+const eur = v => new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'}).format(v);
+const ITEMS = {};
+MENU.forEach(c => c.items.forEach((it, i) => { it.id = c.id + '-' + i; ITEMS[it.id] = it; }));
+
+const alHTML = a => a.length ? a.map(k => `<span class="al" title="${AL[k][1]}" aria-label="${AL[k][1]}">${AL[k][0]}</span>`).join('') : '<span class="al-none">Nessun allergene dichiarato</span>';
+const tagHTML = t => (t || []).map(k => `<span class="tag ${k}">${TAGS[k]}</span>`).join('');
+
+/* ---------- Render ---------- */
+$('#secs').innerHTML = MENU.map(c => `
+<section class="sec" id="${c.id}" aria-labelledby="t-${c.id}">
+  <h2 class="sec-title" id="t-${c.id}"><span class="ghost" aria-hidden="true">${c.label}</span>${c.e} ${c.label}</h2>
+  ${c.items.map(it => `
+  <article class="dish" data-id="${it.id}" tabindex="0" aria-label="${it.n}, ${eur(it.p)}. Apri i dettagli">
+    <div class="dish-plate" aria-hidden="true"><span>${it.e}</span></div>
+    <div class="dish-body"><h3>${it.n} ${tagHTML(it.t)}</h3><p>${it.d}</p><div class="als">${alHTML(it.a)}</div></div>
+    <div class="dish-side"><span class="price">${eur(it.p)}</span></div>
+  </article>`).join('')}
+</section>`).join('');
+
+const tops = Object.values(ITEMS).filter(i => i.top);
+$('#htrack').innerHTML = tops.map((it, i) => `
+<article class="spec" data-id="${it.id}" tabindex="0" aria-label="${it.n}, ${eur(it.p)}. Apri i dettagli">
+  <span class="num" aria-hidden="true">0${i + 1}</span>
+  <div class="dish-plate" style="--s:150px" aria-hidden="true"><span>${it.e}</span></div>
+  <h3>${it.n}</h3><p>${it.d}</p>
+  <div class="spec-foot"><span class="price">${eur(it.p)}</span></div>
+</article>`).join('');
+
+const track = $('#cats-track'), pill = $('#pill');
+track.insertAdjacentHTML('beforeend', MENU.map(c => `<button class="cat" data-target="${c.id}" aria-current="false">${c.e} ${c.label}</button>`).join(''));
+$('#legend').innerHTML = Object.keys(AL).map(k => `<li><span class="al">${AL[k][0]}</span> ${AL[k][1]}</li>`).join('');
+
+/* ---------- Smooth scroll (Lenis) ---------- */
+let lenis = null;
+if (window.Lenis && !reduced) {
+  lenis = new Lenis({lerp: 0.1});
+  if (hasG) {
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    const loop = t => { lenis.raf(t); requestAnimationFrame(loop); };
+    requestAnimationFrame(loop);
+  }
+}
+const nav = $('.cats');
+function scrollToEl(el) {
+  if (!el) return;
+  const off = el.id === 'menu' ? 0 : -(nav.offsetHeight + 6);
+  if (lenis) lenis.scrollTo(el, {offset: off, duration: 1.2});
+  else window.scrollTo({top: el.getBoundingClientRect().top + scrollY + off, behavior: reduced ? 'auto' : 'smooth'});
+}
+
+/* ---------- Categoria attiva + pillola che scorre ---------- */
+const catBtns = $$('.cat');
+let activeId = null;
+function setActive(id) {
+  if (id === activeId) return;
+  activeId = id;
+  catBtns.forEach(b => b.setAttribute('aria-current', b.dataset.target === id ? 'true' : 'false'));
+  movePill();
+}
+function movePill() {
+  const b = track.querySelector(`[data-target="${activeId}"]`);
+  if (!b) return;
+  pill.style.width = b.offsetWidth + 'px';
+  pill.style.transform = `translateX(${b.offsetLeft}px)`;
+  track.scrollTo({left: b.offsetLeft - (track.clientWidth - b.offsetWidth) / 2, behavior: reduced ? 'auto' : 'smooth'});
+}
+setActive(MENU[0].id);
+addEventListener('resize', movePill);
+const secIO = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && setActive(e.target.id)), {rootMargin: '-40% 0px -55% 0px'});
+$$('.sec').forEach(s => secIO.observe(s));
+
+function syncUI() {}
+
+/* ---------- Pannello (dettaglio piatto / la mia scelta) ---------- */
+const overlay = $('#overlay'), sheet = $('#sheet'), sc = $('#sheet-c');
+let lastFocus = null, current = null;
+const canVT = () => !!document.startViewTransition && !reduced;
+function lock(on) { document.body.classList.toggle('locked', on); if (lenis) on ? lenis.stop() : lenis.start(); }
+function showSheet(html, instant) { sc.innerHTML = html; sheet.classList.toggle('instant', !!instant); sheet.classList.add('open'); overlay.classList.add('open'); lock(true); syncUI(); }
+function hideSheet(instant) { sheet.classList.toggle('instant', !!instant); sheet.classList.remove('open'); overlay.classList.remove('open'); lock(false); }
+const focusX = () => $('.x', sheet).focus({preventScroll: true});
+const inView = el => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+
+function detailHTML(it) {
+  return `<div class="detail">
+    <div class="dish-plate" id="d-plate" style="--s:min(56vw,220px)" aria-hidden="true"><span>${it.e}</span></div>
+    <h2 id="sheet-t">${it.n}</h2>${it.t ? `<div class="tags-row">${tagHTML(it.t)}</div>` : ''}
+    <p>${it.d}</p>
+    <div class="al-row">${it.a.length ? it.a.map(k => `<span class="al-chip">${AL[k][0]} ${AL[k][1]}</span>`).join('') : '<span class="al-none">Nessun allergene dichiarato</span>'}</div>
+    <div class="d-price price">${eur(it.p)}</div>
+  </div>`;
+}
+function openDetail(card) {
+  const it = ITEMS[card.dataset.id], plate = $('.dish-plate', card);
+  lastFocus = card; current = {plate};
+  if (!canVT()) { showSheet(detailHTML(it)); focusX(); return; }
+  plate.style.viewTransitionName = 'plate';
+  document.startViewTransition(() => {
+    plate.style.viewTransitionName = '';
+    showSheet(detailHTML(it), true);
+    $('#d-plate').style.viewTransitionName = 'plate';
+  }).finished.finally(() => { const d = $('#d-plate'); if (d) d.style.viewTransitionName = ''; focusX(); });
+}
+function closeSheet() {
+  if (!sheet.classList.contains('open')) return;
+  const d = $('#d-plate'), target = current && current.plate;
+  const done = () => { if (lastFocus) lastFocus.focus({preventScroll: true}); current = null; };
+  if (d && target && canVT() && inView(target)) {
+    d.style.viewTransitionName = 'plate';
+    document.startViewTransition(() => {
+      d.style.viewTransitionName = '';
+      hideSheet(true);
+      target.style.viewTransitionName = 'plate';
+    }).finished.finally(() => { target.style.viewTransitionName = ''; done(); });
+  } else { hideSheet(); done(); }
+}
+
+/* ---------- Click e tastiera ---------- */
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (t.closest('.x') || t === overlay) { closeSheet(); return; }
+  const card = t.closest('.dish, .spec');
+  if (card) { openDetail(card); return; }
+  const cat = t.closest('.cat');
+  if (cat) { scrollToEl(document.getElementById(cat.dataset.target)); return; }
+  const sl = t.closest('[data-scroll]');
+  if (sl) { e.preventDefault(); scrollToEl($(sl.getAttribute('href'))); }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeSheet(); return; }
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.dish, .spec')) { e.preventDefault(); openDetail(e.target); }
+});
+syncUI();
+
+/* ---------- Fumo che sale dal piatto (Canvas 2D) ---------- */
+function startSmoke(canvas, plateEl) {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const sprite = document.createElement('canvas'); sprite.width = sprite.height = 128;
+  const s = sprite.getContext('2d'), g = s.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, 'rgba(255,244,232,.20)'); g.addColorStop(.45, 'rgba(235,220,205,.09)'); g.addColorStop(1, 'rgba(220,200,190,0)');
+  s.fillStyle = g; s.fillRect(0, 0, 128, 128);
+  let w = 0, h = 0, ox = 0, oy = 0, raf = 0, on = false, vis = false, frame = 0;
+  const parts = [], N = innerWidth < 600 ? 26 : 42;
+  function origin() {
+    const cr = canvas.getBoundingClientRect(), pr = plateEl.getBoundingClientRect();
+    ox = pr.left - cr.left + pr.width / 2; oy = pr.top - cr.top + pr.height * .42;
+  }
+  function resize() {
+    const dpr = Math.min(devicePixelRatio || 1, 1.5);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); origin();
+  }
+  function spawn(p) {
+    p = p || {};
+    p.x = ox + (Math.random() - .5) * 60; p.y = oy + (Math.random() - .5) * 20;
+    p.vx = (Math.random() - .5) * .3; p.vy = -(.45 + Math.random() * .6);
+    p.r = 18 + Math.random() * 22; p.life = 0; p.max = 220 + Math.random() * 180; p.seed = Math.random() * 100;
+    return p;
+  }
+  resize();
+  for (let i = 0; i < N; i++) {
+    const p = spawn(), age = Math.random() * p.max;
+    p.life = age; p.x += p.vx * age; p.y += p.vy * age; p.r += .22 * age; parts.push(p);
+  }
+  function tick() {
+    if (++frame % 8 === 0) origin();
+    ctx.clearRect(0, 0, w, h);
+    for (const p of parts) {
+      p.life++; p.x += p.vx + Math.sin((p.life + p.seed * 10) * .02) * .35; p.y += p.vy; p.r += .22;
+      if (p.life >= p.max || p.y + p.r < 0) { spawn(p); continue; }
+      const t = p.life / p.max;
+      ctx.globalAlpha = t < .15 ? t / .15 : Math.max(0, 1 - (t - .15) / .85);
+      ctx.drawImage(sprite, p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
+    }
+    ctx.globalAlpha = 1;
+    raf = requestAnimationFrame(tick);
+  }
+  const play = () => { if (!on && vis && !document.hidden) { on = true; raf = requestAnimationFrame(tick); } };
+  const pause = () => { on = false; cancelAnimationFrame(raf); };
+  new IntersectionObserver(es => { vis = es[0].isIntersecting; vis ? play() : pause(); }).observe(canvas);
+  document.addEventListener('visibilitychange', () => document.hidden ? pause() : play());
+  addEventListener('resize', resize);
+}
+if (!reduced) startSmoke($('#smoke'), $('#plate-wrap'));
+
+/* ---------- Animazioni GSAP + ScrollTrigger ---------- */
+if (hasG && !reduced) {
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ignoreMobileResize: true});
+
+  $$('.title .line:not(.amp)').forEach(l => { l.innerHTML = Array.from(l.textContent).map(c => `<span class="ch">${c}</span>`).join(''); });
+  gsap.from('.title .ch', {yPercent: 110, rotate: 8, duration: 1, ease: 'expo.out', stagger: .05, delay: .15});
+  gsap.from('.title .amp', {scale: 0, rotate: -30, duration: .9, ease: 'back.out(2)', delay: .5});
+  gsap.from('.kicker', {y: 20, opacity: 0, duration: .8, delay: .1});
+  gsap.from('.plate-wrap', {scale: .4, opacity: 0, rotate: -90, duration: 1.4, ease: 'expo.out', delay: .3});
+  gsap.from('.hero .btn-fire', {y: 30, opacity: 0, duration: .8, delay: .8});
+
+  gsap.to('.plate-wrap', {yPercent: 35, scale: .7, rotate: 60, ease: 'none', scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}});
+  gsap.to('.title', {yPercent: -40, opacity: .2, ease: 'none', scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}});
+
+  const sp = $('.specials'), tr = $('#htrack');
+  const amount = () => Math.max(0, tr.scrollWidth - innerWidth);
+  if (amount() > 40) {
+    sp.classList.add('js-pin');
+    const st = {trigger: sp, start: 'top top', end: () => '+=' + amount(), scrub: .8, invalidateOnRefresh: true};
+    gsap.to(tr, {x: () => -amount(), ease: 'none', scrollTrigger: Object.assign({pin: true, anticipatePin: 1}, st)});
+    gsap.to('.spec .dish-plate span', {rotate: 360, ease: 'none', scrollTrigger: Object.assign({}, st)});
+  }
+
+  gsap.set('.dish', {opacity: 0, y: 40});
+  ScrollTrigger.batch('.dish', {
+    start: 'top 92%', once: true,
+    onEnter: b => gsap.to(b, {opacity: 1, y: 0, duration: .7, ease: 'power3.out', stagger: .08, overwrite: true}),
+    onLeave: b => gsap.set(b, {opacity: 1, y: 0})
+  });
+
+  $$('.ghost').forEach(g => gsap.fromTo(g, {xPercent: 10, yPercent: -55}, {xPercent: -25, yPercent: -55, ease: 'none', scrollTrigger: {trigger: g.closest('.sec'), start: 'top bottom', end: 'bottom top', scrub: true}}));
+
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    $$('.btn-fire').forEach(b => {
+      b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); gsap.to(b, {x: (e.clientX - r.left - r.width / 2) * .25, y: (e.clientY - r.top - r.height / 2) * .35, duration: .4}); });
+      b.addEventListener('pointerleave', () => gsap.to(b, {x: 0, y: 0, duration: .7, ease: 'elastic.out(1,.4)'}));
+    });
+  }
+  if (document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
+}
+})();
+</script>
+</body>
+</html>
