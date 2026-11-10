@@ -15,6 +15,11 @@
       "permanent": true
     },
     {
+      "source": "/qr/:token([A-Za-z0-9]{8,16})",
+      "destination": "https://xzhbyxvlrxemujrqatbl.supabase.co/storage/v1/object/public/menu-qr/:token.pdf",
+      "permanent": false
+    },
+    {
       "source": "/themes/:path*",
       "destination": "https://dsfabio.com/modelli",
       "permanent": false
