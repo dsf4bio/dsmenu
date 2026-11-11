@@ -164,10 +164,12 @@ function footer(r) {
     i.reviews && `<a ${fLink(i.reviews)}>⭐ Lascia una recensione</a>`,
     i.website && `<a ${fLink(i.website)}>🌐 Sito web</a>`,
   ].filter(Boolean).join('');
+  // la firma "Menu digitale by DS Service" è sempre l'ultima riga in basso
   return `<footer>
   <strong>${esc(r.name)}</strong>
-  ${line}${line ? '<br>' : ''}<small>Menu digitale by <a href="https://dsfabio.com" target="_blank" rel="noopener">DS Service</a></small>
+  ${line ? `<div class="finfo">${line}</div>` : ''}
   ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="Contatti">${links}</nav>` : ''}
+  <small class="fby" style="display:block;margin-top:14px;opacity:.75">Menu digitale by <a href="https://dsfabio.com" target="_blank" rel="noopener">DS Service</a></small>
 </footer>`;
 }
 
