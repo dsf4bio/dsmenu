@@ -139,22 +139,30 @@ function header(name, r) {
 const ICON = {
   fb: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.1 23.7v-8H6.6V12h2.5v-1.6c0-4.1 1.9-6 5.9-6l1.6.1v3.3h-1.3c-1.6 0-2.1.6-2.1 2.1V12h3.3l-.6 3.7h-2.7v8a12 12 0 1 0-4.1 0z"/></svg>',
   ig: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>',
+  tt: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a8 8 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7z"/></svg>',
   wa: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.3 4.8 4.9-1.3A9.9 9.9 0 1 0 12.04 2zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1a17 17 0 0 1-1.7-.6 13.4 13.4 0 0 1-5.1-4.5c-.4-.5-1.3-1.7-1.3-3.3s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2.1 1.3 2.4 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3.1.2.1.8-.1 1.4z"/></svg>',
 };
 
+// link del footer: "#" = segnaposto (link non ancora fornito dal locale): icona visibile, nessuna apertura
+const fLink = (u) => (u === '#' ? 'href="#"' : `href="${esc(u)}" target="_blank" rel="noopener"`);
+
 function footer(r) {
   const i = r.info || {};
-  const line = [i.address, i.phone ? `Tel. ${i.phone}` : ''].filter(Boolean).map(esc).join(' · ');
+  const line = [i.address, i.phone ? `Tel. ${i.phone}` : '', i.hours].filter(Boolean).map(esc).join(' · ');
+  const wa = digits(i.whatsapp).replace('+', '');
+  const mapsUrl = i.maps && i.maps !== '#' ? i.maps
+    : i.address ? `https://maps.google.com/?q=${encodeURIComponent([i.address, r.city].filter(Boolean).join(', '))}` : i.maps;
   const soc = [
-    i.facebook && `<a class="fb" href="${esc(i.facebook)}" target="_blank" rel="noopener" aria-label="Facebook">${ICON.fb}</a>`,
-    i.instagram && `<a class="ig" href="${esc(i.instagram)}" target="_blank" rel="noopener" aria-label="Instagram">${ICON.ig}</a>`,
-    i.whatsapp && `<a class="wa" href="https://wa.me/${esc(digits(i.whatsapp).replace('+', ''))}" target="_blank" rel="noopener" aria-label="WhatsApp">${ICON.wa}</a>`,
+    i.facebook && `<a class="fb" ${fLink(i.facebook)} aria-label="Facebook">${ICON.fb}</a>`,
+    i.instagram && `<a class="ig" ${fLink(i.instagram)} aria-label="Instagram">${ICON.ig}</a>`,
+    i.tiktok && `<a class="tt" ${fLink(i.tiktok)} aria-label="TikTok">${ICON.tt}</a>`,
+    wa && `<a class="wa" href="https://wa.me/${esc(wa)}" target="_blank" rel="noopener" aria-label="WhatsApp">${ICON.wa}</a>`,
   ].filter(Boolean).join('');
   const links = [
     i.phone && `<a href="tel:${esc(digits(i.phone))}">📞 Chiama</a>`,
-    (i.maps || i.address) && `<a href="${esc(i.maps || `https://maps.google.com/?q=${encodeURIComponent([i.address, r.city].filter(Boolean).join(', '))}`)}" target="_blank" rel="noopener">📍 Dove siamo</a>`,
-    i.reviews && `<a href="${esc(i.reviews)}" target="_blank" rel="noopener">⭐ Lascia una recensione</a>`,
-    i.website && `<a href="${esc(i.website)}" target="_blank" rel="noopener">🌐 Sito web</a>`,
+    mapsUrl && `<a ${fLink(mapsUrl)}>📍 Dove siamo</a>`,
+    i.reviews && `<a ${fLink(i.reviews)}>⭐ Lascia una recensione</a>`,
+    i.website && `<a ${fLink(i.website)}>🌐 Sito web</a>`,
   ].filter(Boolean).join('');
   return `<footer>
   <strong>${esc(r.name)}</strong>
