@@ -11,8 +11,13 @@ si gestiscono dal gestionale (Supabase, migrazione 026): qui ci sono solo i temi
 - `/anteprima/<token>` – anteprima di una bozza (link segreto, mai in cache, non indicizzata).
 - `themes/mdc-XXX.html` – i temi (gli stessi modelli di dsfabio.com). Dei modelli si usano
   la grafica e il codice: piatti, intestazione e piè di pagina vengono sostituiti con i dati del locale.
-  I temi mdc-005 … mdc-015 si rigenerano dai modelli con `python3 tools/prepara_temi.py ../dsfabio`
-  (mdc-014 = Fuoco & Brace, mdc-015 = Sakura Neon): toglie i dati di fantasia e mette i segnaposto.
+  I temi mdc-005 … mdc-021 si rigenerano dai modelli con `python3 tools/prepara_temi.py ../dsfabio`
+  (mdc-014 = Fuoco & Brace, mdc-015 = Sakura Neon; mdc-016 … mdc-021 = Aura, Il Focolare, Vesuvio,
+  La Piadaia, Zucchero Velo, The Copper Fox, dalle pagine mdc-014 … mdc-019 di dsfabio.com):
+  toglie i dati di fantasia e mette i segnaposto.
+- `assets/piatti.js` – piatti illustrati e animati dei temi mdc-016 … mdc-021 e scheda del piatto:
+  il disegno si sceglie dal nome del piatto (pizza, pasta, birra, cornetto…); se il locale ha caricato
+  la foto si vede la foto, se il nome non dice nulla si vede l'emoji del piatto. Copiato dallo script.
 - `assets/fonts`, `assets/vendor`, `favicon.svg` – caratteri, librerie e icona usati dai temi.
 
 Stati di una pagina:

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#c4532d">
+<title>La Piadaia · Modello di menu digitale (esempio) | DS Service</title>
+<meta name="description" content="Piadineria romagnola: piadina che si gira sul testo, categorie su un mazzo di carte da far scorrere col dito e piadine animate con allergeni. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="DS Service · Menu digitali">
+<meta property="og:title" content="La Piadaia · Modello di menu digitale (esempio) | DS Service">
+<meta property="og:description" content="Piadineria con il mazzo di carte da far scorrere per cambiare categoria. Provalo dal telefono, 30 giorni gratis.">
+<meta property="og:url" content="https://dsfabio.com/mdc-017">
+<meta property="og:image" content="https://dsfabio.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts/fredoka-nunito.css">
+<style>
+:root{--rust:#c4532d;--rust2:#9a3a1c;--linen:#fbf3e3;--linen2:#f3e5c8;--teal:#1f6f6a;--must:#e7a83a;--ink:#3a2418;--sub:#7d6150;
+--pm-bg:#fbf3e3;--pm-ink:#3a2418;--pm-sub:#7d6150;--pm-accent:#c4532d;--pm-accent-ink:#fff;--pm-head:Fredoka,sans-serif;--pm-line:#e6d2ad;--pm-art:radial-gradient(70% 70% at 50% 45%,#fffaf0,#f0d9ae)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{font-family:Nunito,system-ui,sans-serif;color:var(--ink);background:var(--linen);line-height:1.5;overflow-x:clip}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:10px}
+.demo{background:var(--ink);color:#f3d6a8;text-align:center;font-size:.74rem;font-weight:800;padding:7px 12px}
+.fr{font-family:Fredoka,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+.band{height:40px;background-color:var(--linen2);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40' viewBox='0 0 80 40'%3E%3Cg fill='%23c4532d'%3E%3Ccircle cx='20' cy='13' r='4'/%3E%3Ccircle cx='27' cy='13' r='4'/%3E%3Ccircle cx='23.5' cy='19' r='4'/%3E%3Cpath d='M23.5 22v10' stroke='%23c4532d' stroke-width='2'/%3E%3Cpath d='M50 8l10 12-10 12-10-12z'/%3E%3C/g%3E%3C/svg%3E");border-block:3px solid var(--rust)}
+
+/* Testata: piadina sul testo */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center;padding:24px 16px 20px}
+.hero small{font-weight:900;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+.hero h1{font-family:Fredoka,sans-serif;font-weight:700;font-size:clamp(2.8rem,11vw,4.6rem);line-height:.92;color:var(--rust);margin:6px 0 10px}
+.hero p{color:var(--sub);font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.pills span{font-size:.78rem;font-weight:800;padding:5px 11px;border-radius:999px;background:#fff;border:2px solid var(--linen2)}
+.testo{position:relative;width:min(300px,80vw);aspect-ratio:1.1;margin:0 auto;perspective:700px}
+.testo .stone{position:absolute;left:4%;right:4%;bottom:8%;height:30%;border-radius:50%;background:radial-gradient(closest-side,#8b8580,#5a5450);box-shadow:0 18px 30px rgba(0,0,0,.3)}
+.testo .glow{position:absolute;left:14%;right:14%;bottom:14%;height:18%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,140,40,.6),transparent);animation:glow 1.4s ease-in-out infinite alternate}
+@keyframes glow{to{opacity:.4}}
+.disc{position:absolute;left:10%;right:10%;bottom:20%;height:24%;border-radius:50%;background:radial-gradient(circle at 40% 40%,#f6dfa6,#e8c17a);box-shadow:inset 0 -4px 0 rgba(0,0,0,.08);animation:flipD 4s cubic-bezier(.4,0,.2,1) infinite;transform-origin:50% 50%}
+.disc i{position:absolute;border-radius:50%;background:#b77a35;opacity:.65}
+@keyframes flipD{0%,55%{transform:translateY(0) rotateX(0)}70%{transform:translateY(-70px) rotateX(180deg)}85%,100%{transform:translateY(0) rotateX(360deg)}}
+.steam{position:absolute;bottom:42%;width:6px;height:40px;border-radius:6px;background:linear-gradient(transparent,rgba(255,255,255,.9));filter:blur(2px);animation:st 2.6s ease-out infinite}
+@keyframes st{0%{transform:translateY(10px) scaleY(.5);opacity:0}30%{opacity:.8}100%{transform:translateY(-50px) scaleY(1.2);opacity:0}}
+@media (max-width:620px){.hero{grid-template-columns:1fr}.testo{width:240px;margin-top:-6px}}
+
+/* Mazzo di carte */
+.deck-sec{text-align:center;padding:10px 0 4px}
+.deck-sec h2{font-family:Fredoka,sans-serif;font-size:1.2rem}
+.deck-sec p{font-size:.86rem;color:var(--sub);font-weight:700}
+.deck-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px}
+.deck{position:relative;width:min(250px,64vw);aspect-ratio:3/3.6;touch-action:pan-y;user-select:none}
+.cardc{position:absolute;inset:0;border-radius:24px;padding:16px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:space-between;box-shadow:0 14px 30px rgba(90,40,20,.28);transition:transform .45s cubic-bezier(.2,.9,.2,1),opacity .3s;cursor:grab;will-change:transform}
+.cardc:active{cursor:grabbing}
+.cardc .ill{width:78%;flex:1;display:grid;place-items:center}
+.cardc .ill .pa{width:100%}
+.cardc b{font-family:Fredoka,sans-serif;font-size:1.7rem;line-height:1}
+.cardc small{font-weight:800;font-size:.8rem;opacity:.9}
+.cardc .corner{position:absolute;top:12px;left:14px;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.1rem;opacity:.8}
+.cardc .corner.r{left:auto;right:14px;top:auto;bottom:12px;transform:rotate(180deg)}
+.cardc .pat{position:absolute;inset:8px;border-radius:18px;border:2px dashed rgba(255,255,255,.4);pointer-events:none}
+.round{width:48px;height:48px;border-radius:50%;background:#fff;border:2px solid var(--linen2);font-size:1.4rem;font-weight:900;color:var(--rust);box-shadow:0 6px 14px rgba(90,40,20,.15);transition:transform .3s}
+.round:hover{transform:scale(1.1)}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:12px}
+.dots button{width:9px;height:9px;border-radius:9px;background:#e1c9a0;transition:width .3s,background .3s}
+.dots button[aria-current="true"]{width:28px;background:var(--rust)}
+.swipe-hint{display:inline-block;margin-top:8px;font-size:.8rem;font-weight:800;color:var(--teal);animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(8px)}}
+
+/* Prodotti */
+.cat-h{display:flex;align-items:center;gap:10px;margin:26px 0 12px}
+.cat-h h2{font-family:Fredoka,sans-serif;font-size:clamp(1.8rem,6vw,2.4rem);line-height:1;color:var(--rust)}
+.cat-h span{font-size:.8rem;font-weight:800;color:#fff;background:var(--teal);padding:3px 10px;border-radius:999px}
+.items{display:grid;gap:12px;padding-bottom:40px}
+.items.slide{animation:slideIn .5s cubic-bezier(.2,.9,.2,1)}
+@keyframes slideIn{from{opacity:0;transform:translateX(var(--from,40px))}}
+.it{display:flex;gap:14px;align-items:center;text-align:left;width:100%;padding:12px;border-radius:20px;background:#fff;border:2px solid var(--linen2);transition:transform .3s,border-color .3s}
+.it:hover{transform:translateY(-3px);border-color:var(--must)}
+.it .art{flex:0 0 96px;height:96px;border-radius:16px;display:grid;place-items:center;background:var(--linen2);overflow:hidden}
+.it .art .pa{width:96%}
+.it .tx{flex:1;min-width:0}
+.it h3{font-family:Fredoka,sans-serif;font-size:1.25rem;line-height:1.1}
+.it p{color:var(--sub);font-size:.86rem;line-height:1.35;margin:3px 0 6px}
+.it .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.it .al{font-size:.85rem;letter-spacing:2px}
+.it .tg{font-size:.7rem;font-weight:900;color:var(--teal);margin-right:6px}
+.it .pr{flex:0 0 auto;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.15rem;color:#fff;background:var(--rust);padding:2px 12px;border-radius:10px;transform:rotate(-3deg);box-shadow:2px 2px 0 var(--rust2)}
+@media (prefers-reduced-motion:reduce){.disc,.steam,.glow,.swipe-hint{animation:none}.items.slide{animation:none}}
+
+/* Piè di pagina (su dsmenu.it lo compone il server con i dati del locale) */
+footer{text-align:center;padding:30px 18px 34px;font-size:.9rem;line-height:1.5}
+footer strong{display:block;font-size:1.5rem;line-height:1.1;margin-bottom:6px}
+footer .finfo{opacity:.85}
+footer small{opacity:.7}
+.soc{display:flex;justify-content:center;gap:12px;margin:18px 0 6px}
+.soc a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.soc a:hover{transform:translateY(-4px) scale(1.06)}
+.soc a.fb{background:#1877F2}.soc a.wa{background:#25D366}.soc a.tt{background:#111}
+.soc a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)}
+.soc svg{width:22px;height:22px}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
+.flinks a,footer .fby a{color:inherit;text-decoration:underline;text-underline-offset:3px;opacity:.9}
+footer{background:var(--rust);color:#fff}
+footer strong{font-family:Fredoka,sans-serif;font-weight:700}
+.it .art img.pa-photo{width:100%;height:100%;border-radius:0}
+
+/* dsmenu: riquadri con dati di esempio nascosti */
+.dsm-fake{display:none!important}
+</style>
+</head>
+<body>
+<div class="band" aria-hidden="true"></div>
+<header class="wrap hero">
+<div>
+<small data-dsm-opt="KICKER">__DSM_KICKER__</small>
+<h1>__DSM_NAME__</h1>
+<p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p>
+</div>
+<div class="testo" aria-hidden="true"><span class="stone"></span><span class="glow"></span><span class="disc" id="disc"></span><span class="steam" style="left:40%"></span><span class="steam" style="left:52%;animation-delay:.9s"></span><span class="steam" style="left:62%;animation-delay:1.7s"></span></div>
+</header>
+
+<section class="deck-sec wrap" aria-labelledby="dk-t">
+<h2 id="dk-t">Scegli la categoria</h2>
+<p>Trascina la carta o usa le frecce</p>
+<div class="deck-row">
+<button class="round" type="button" id="prev" aria-label="Categoria precedente">‹</button>
+<div class="deck" id="deck" role="group" aria-roledescription="mazzo di carte" aria-label="Categorie del menu"></div>
+<button class="round" type="button" id="next" aria-label="Categoria successiva">›</button>
+</div>
+<div class="dots" id="dots"></div>
+<span class="swipe-hint" aria-hidden="true">👉 scorri</span>
+</section>
+
+<main class="wrap">
+<div class="cat-h"><h2 id="cat-name"></h2><span id="cat-count"></span></div>
+<div class="items" id="items" aria-live="polite"></div>
+</main>
+<div class="band" aria-hidden="true"></div>
+<footer>
+  <strong>La Piadaia</strong>
+  <div class="finfo">Viale Ceccarini 8, Riccione · Tel. 0541 123456</div><small>Dati di esempio</small>
+</footer>
+
+<script src="assets/piatti.js"></script>
+<script>
+(function () {
+'use strict';
+/*DSM:DATA*/
+var $ = function (s) { return document.querySelector(s); };
+var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var deck = $('#deck'), items = $('#items'), dots = $('#dots'), cur = 0;
+
+/* Macchie della piadina in testata */
+var disc = $('#disc'), dh = '';
+for (var i = 0; i < 12; i++) dh += '<i style="left:' + (12 + Math.random() * 72) + '%;top:' + (20 + Math.random() * 56) + '%;width:' + (5 + Math.random() * 8) + 'px;height:' + (3 + Math.random() * 5) + 'px"></i>';
+disc.innerHTML = dh;
+
+/* Carte: colori a rotazione se la categoria non ne ha uno */
+var PAL = ['#c4532d', '#1f6f6a', '#e7a83a', '#7a3b8c', '#3b6fb6', '#b8325a'];
+var plural = function (n) { return n + (n === 1 ? ' proposta' : ' proposte'); };
+deck.innerHTML = M.map(function (c, k) {
+  return '<div class="cardc" data-k="' + k + '" style="background:' + (c.c || PAL[k % PAL.length]) + '"><span class="pat"></span><span class="corner">' + (k + 1) + '</span><span class="corner r">' + (k + 1) + '</span><div class="ill">' + Piatti.catArt(c) + '</div><b>' + c.n + '</b><small>' + plural(c.items.length) + '</small></div>';
+}).join('');
+dots.innerHTML = M.map(function (c, k) { return '<button type="button" aria-label="' + c.n + '"></button>'; }).join('');
+var cards = Array.prototype.slice.call(deck.children);
+
+function layout(dx) {
+  cards.forEach(function (el, k) {
+    var pos = (k - cur + M.length) % M.length;
+    el.style.zIndex = 10 - pos;
+    el.setAttribute('aria-hidden', pos ? 'true' : 'false');
+    if (pos === 0) {
+      el.style.transform = 'translateX(' + (dx || 0) + 'px) rotate(' + ((dx || 0) / 14) + 'deg)';
+      el.style.transition = dx ? 'none' : '';
+    } else {
+      el.style.transition = '';
+      el.style.transform = 'translate(' + (pos * 10) + 'px,' + (pos * 8) + 'px) rotate(' + (pos * 4) + 'deg) scale(' + (1 - pos * .04) + ')';
+    }
+  });
+  Array.prototype.forEach.call(dots.children, function (d, k) { d.setAttribute('aria-current', k === cur ? 'true' : 'false'); });
+}
+function render(dir) {
+  var c = M[cur], list = c.items.map(function (it) { it.cat = c.n; it.catObj = c; return it; });
+  $('#cat-name').innerHTML = c.n; $('#cat-count').textContent = plural(list.length);
+  items.innerHTML = list.map(function (it, k) {
+    return '<button class="it" type="button" data-k="' + k + '"><span class="art">' + Piatti.art(it, c) + '</span><span class="tx"><h3>' + it.n + '</h3>' + (it.d ? '<p>' + it.d + '</p>' : '') + '<span class="row"><span>' + ((it.tg || Piatti.label(it)) ? '<span class="tg">' + (it.tg || Piatti.label(it)) + '</span>' : '') + '<span class="al">' + Piatti.alIcons(it.al) + '</span></span><span class="pr">' + Piatti.price(it.p) + '</span></span></span></button>';
+  }).join('');
+  Array.prototype.forEach.call(items.children, function (b) { b.addEventListener('click', function () { Piatti.modal(list, +b.getAttribute('data-k'), b); }); });
+  items.style.setProperty('--from', (dir < 0 ? -40 : 40) + 'px');
+  items.classList.remove('slide'); void items.offsetWidth; items.classList.add('slide');
+}
+/* La carta in cima vola via e finisce in fondo al mazzo */
+function go(dir, fly) {
+  var top = cards[cur];
+  if (fly && !reduced) {
+    top.style.transition = 'transform .35s ease-in';
+    top.style.transform = 'translateX(' + (dir * 320) + 'px) rotate(' + (dir * 24) + 'deg)';
+  }
+  setTimeout(function () {
+    cur = (cur + dir + M.length) % M.length;
+    layout(0); render(dir);
+  }, fly && !reduced ? 260 : 0);
+}
+$('#prev').addEventListener('click', function () { go(-1, true); });
+$('#next').addEventListener('click', function () { go(1, true); });
+dots.addEventListener('click', function (e) { var k = Array.prototype.indexOf.call(dots.children, e.target); if (k >= 0 && k !== cur) { var d = k > cur ? 1 : -1; cur = k; layout(0); render(d); } });
+
+/* Trascinamento */
+var sx = null, dx = 0;
+deck.addEventListener('pointerdown', function (e) { sx = e.clientX; dx = 0; deck.setPointerCapture(e.pointerId); });
+deck.addEventListener('pointermove', function (e) { if (sx === null) return; dx = e.clientX - sx; layout(dx); });
+function end() { if (sx === null) return; sx = null; if (Math.abs(dx) > 70) go(dx < 0 ? 1 : -1, true); else if (Math.abs(dx) < 6) go(1, true); else layout(0); }
+deck.addEventListener('pointerup', end); deck.addEventListener('pointercancel', end);
+deck.tabIndex = 0;
+deck.addEventListener('keydown', function (e) { if (e.key === 'ArrowRight' || e.key === 'Enter') go(1, true); if (e.key === 'ArrowLeft') go(-1, true); });
+layout(0); render(1);
+})();
+</script>
+</body>
+</html>

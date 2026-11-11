@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#d7261e">
+<title>Vesuvio · Modello di menu digitale (esempio) | DS Service</title>
+<meta name="description" content="Pizzeria napoletana: vulcano che sbuffa, categorie su una pizza-ruota che gira, pizze animate e scheda con allergeni. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="DS Service · Menu digitali">
+<meta property="og:title" content="Vesuvio · Modello di menu digitale (esempio) | DS Service">
+<meta property="og:description" content="Pizzeria con la pizza-ruota per scegliere la categoria e pizze animate. Provalo dal telefono, 30 giorni gratis.">
+<meta property="og:url" content="https://dsfabio.com/mdc-016">
+<meta property="og:image" content="https://dsfabio.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts/bowlbyone-inter.css">
+<style>
+:root{--red:#d7261e;--red2:#a91a14;--cream:#fff4e0;--cream2:#fbe6c2;--ink:#2a1610;--sub:#7a5a4a;--green:#2f8a2f;
+--pm-bg:#fff4e0;--pm-ink:#2a1610;--pm-sub:#7a5a4a;--pm-accent:#d7261e;--pm-accent-ink:#fff;--pm-head:"Bowlby One",Impact,sans-serif;--pm-line:#ecd2a8;--pm-art:radial-gradient(70% 70% at 50% 45%,#fff,#f7d9a8)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip;scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.5;overflow-x:clip}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:10px}
+.demo{background:var(--ink);color:#ffd9a8;text-align:center;font-size:.74rem;font-weight:800;padding:7px 12px}
+.bowl{font-family:"Bowlby One",Impact,sans-serif;font-weight:400}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* Testata con il vulcano */
+.hero{position:relative;overflow:hidden;background:var(--red);color:#fff;padding:26px 0 0;background-image:linear-gradient(45deg,rgba(255,255,255,.07) 25%,transparent 25% 75%,rgba(255,255,255,.07) 75%),linear-gradient(45deg,rgba(255,255,255,.07) 25%,transparent 25% 75%,rgba(255,255,255,.07) 75%);background-size:44px 44px;background-position:0 0,22px 22px}
+.hero-in{display:grid;grid-template-columns:1fr 240px;gap:10px;align-items:end}
+.hero small{display:inline-block;font-weight:900;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;background:#fff;color:var(--red);padding:4px 10px;border-radius:6px;transform:rotate(-2deg)}
+.hero h1{font-size:clamp(3.2rem,14vw,6rem);line-height:.9;margin:10px 0 8px;text-shadow:4px 4px 0 var(--red2)}
+.hero p{font-weight:600;max-width:380px;opacity:.95;padding-bottom:22px}
+.oven{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:24px}
+.oven span{font-size:.78rem;font-weight:800;padding:6px 11px;border-radius:999px;background:rgba(0,0,0,.2)}
+.volcano{position:relative;height:200px}
+.volcano svg{position:absolute;bottom:0;left:0;width:100%}
+.puff{position:absolute;left:50%;top:40px;width:34px;height:34px;margin-left:-17px;border-radius:50%;background:#fff;opacity:0;animation:puff 4s ease-out infinite}
+.puff:nth-child(2){animation-delay:1.3s}.puff:nth-child(3){animation-delay:2.6s}
+@keyframes puff{0%{transform:translate(0,30px) scale(.4);opacity:0}20%{opacity:.85}100%{transform:translate(var(--x,20px),-50px) scale(1.8);opacity:0}}
+.lava{animation:lava 1.6s ease-in-out infinite alternate}
+@keyframes lava{to{opacity:.55}}
+@media (max-width:600px){.hero-in{grid-template-columns:1fr 130px}.volcano{height:140px}}
+
+/* Pizza-ruota */
+.wheel-sec{text-align:center;padding:26px 0 8px}
+.wheel-sec h2{font-size:1.15rem;letter-spacing:.04em}
+.wheel-sec p{color:var(--sub);font-size:.9rem}
+.wheel-box{position:relative;width:min(330px,86vw);aspect-ratio:1;margin:12px auto 0}
+.peel{position:absolute;left:50%;top:-14px;z-index:3;width:0;height:0;margin-left:-14px;border:14px solid transparent;border-top:22px solid var(--ink);filter:drop-shadow(0 3px 2px rgba(0,0,0,.3))}
+.wheel{width:100%;height:100%;transition:transform 1s cubic-bezier(.3,1.35,.5,1);transform:rotate(var(--r,0deg));filter:drop-shadow(0 18px 24px rgba(120,40,10,.35))}
+.slice{cursor:pointer;transition:transform .5s cubic-bezier(.3,1.5,.5,1)}
+.slice.on{transform:translate(var(--tx),var(--ty))}
+.slice:focus{outline:none}
+.slice:focus-visible .crust{stroke:var(--green);stroke-width:4}
+.lbl{transform-box:fill-box;transform-origin:50% 50%;transform:rotate(calc(var(--r,0deg) * -1));transition:transform 1s cubic-bezier(.3,1.35,.5,1);pointer-events:none}
+.lbl text{font-family:"Bowlby One",Impact,sans-serif;font-size:15px;fill:#fff;paint-order:stroke;stroke:#7a1a10;stroke-width:4px;stroke-linejoin:round}
+.lbl .em{font-size:26px;stroke:none}
+.hint{margin-top:10px;font-size:.8rem;color:var(--sub);font-weight:700}
+
+/* Pizze */
+.list-head{display:flex;align-items:center;gap:12px;margin:26px 0 14px;scroll-margin-top:20px}
+.list-head h2{font-size:clamp(1.8rem,7vw,2.6rem);line-height:1;color:var(--red)}
+.list-head span{flex:1;height:4px;border-radius:4px;background:repeating-linear-gradient(90deg,var(--red) 0 12px,transparent 12px 20px)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding-bottom:40px}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
+.pz{position:relative;display:flex;gap:14px;align-items:center;text-align:left;padding:14px;border-radius:22px;background:#fff;box-shadow:0 10px 26px rgba(120,40,10,.12);border:2px solid transparent;transition:transform .4s cubic-bezier(.2,.9,.2,1),border-color .3s;animation:pop .6s cubic-bezier(.3,1.5,.5,1) both;animation-delay:calc(var(--k) * 70ms)}
+@keyframes pop{from{opacity:0;transform:scale(.85) translateY(20px)}}
+.pz:hover{transform:translateY(-4px) rotate(-.5deg);border-color:var(--red)}
+.pz .art{flex:0 0 110px;width:110px;height:110px;display:grid;place-items:center}
+.pz .art .pa{width:100%}
+.pz:hover .pa-spin{animation-duration:4s}
+.pz h3{font-family:"Bowlby One",Impact,sans-serif;font-weight:400;font-size:1.2rem;line-height:1.1}
+.pz p{color:var(--sub);font-size:.86rem;line-height:1.35;margin:4px 0 8px}
+.pz .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.pz .al{font-size:.85rem;letter-spacing:2px}
+.pz .pr{font-family:"Bowlby One",Impact,sans-serif;font-size:1.1rem;background:var(--red);color:#fff;padding:3px 12px;border-radius:999px;white-space:nowrap}
+.badge{position:absolute;top:-8px;left:14px;font-size:.68rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:6px;background:var(--green);color:#fff;transform:rotate(-3deg)}
+.badge.hot{background:#ff8a00}
+.back{position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:30;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:1.6rem;background:var(--red);box-shadow:0 10px 24px rgba(120,40,10,.4);transform:scale(0);transition:transform .4s cubic-bezier(.3,1.5,.5,1)}
+.back.show{transform:scale(1)}
+@media (prefers-reduced-motion:reduce){.puff,.lava{animation:none}.wheel,.lbl{transition:none}.pz{animation:none}}
+
+/* Piè di pagina (su dsmenu.it lo compone il server con i dati del locale) */
+footer{text-align:center;padding:30px 18px 34px;font-size:.9rem;line-height:1.5}
+footer strong{display:block;font-size:1.5rem;line-height:1.1;margin-bottom:6px}
+footer .finfo{opacity:.85}
+footer small{opacity:.7}
+.soc{display:flex;justify-content:center;gap:12px;margin:18px 0 6px}
+.soc a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.soc a:hover{transform:translateY(-4px) scale(1.06)}
+.soc a.fb{background:#1877F2}.soc a.wa{background:#25D366}.soc a.tt{background:#111}
+.soc a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)}
+.soc svg{width:22px;height:22px}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
+.flinks a,footer .fby a{color:inherit;text-decoration:underline;text-underline-offset:3px;opacity:.9}
+footer{background:var(--ink);color:#ffd9a8}
+footer strong{font-family:"Bowlby One",Impact,sans-serif;font-weight:400;color:#fff}
+.pz .art img.pa-photo{width:100%;height:100%}
+
+/* dsmenu: riquadri con dati di esempio nascosti */
+.dsm-fake{display:none!important}
+</style>
+</head>
+<body>
+<header class="hero">
+<div class="wrap hero-in">
+<div>
+<small data-dsm-opt="KICKER">__DSM_KICKER__</small>
+<h1 class="bowl">__DSM_NAME__</h1>
+<p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p>
+</div>
+<div class="volcano" aria-hidden="true">
+<span class="puff" style="--x:-30px"></span><span class="puff" style="--x:24px"></span><span class="puff" style="--x:-6px"></span>
+<svg viewBox="0 0 240 150"><path d="M0 150L86 46q34-14 68 0l86 104z" fill="#5a2a1c"/><path d="M86 46q34-14 68 0l-12 14q-22-8-44 0z" fill="#3b1a10"/><path class="lava" d="M104 52q16-6 32 0l-6 30q-4 10-8 0l-2-12-4 26q-4 8-6-2l-2-20-6 10q-4 4-4-4z" fill="#ffb627"/><path d="M0 150L60 84l26 24 20-14 30 26 26-20 78 50z" fill="#3b1a10" opacity=".55"/></svg>
+</div>
+</div>
+</header>
+
+<section class="wheel-sec wrap" aria-labelledby="wh-t">
+<h2 class="bowl" id="wh-t">Gira la pizza 🍕</h2>
+<p>Tocca uno spicchio per scegliere la categoria</p>
+<div class="wheel-box"><span class="peel" aria-hidden="true"></span><svg class="wheel" id="wheel" viewBox="-160 -160 320 320" role="group" aria-label="Categorie del menu"></svg></div>
+<div class="hint" id="hint"></div>
+</section>
+
+<main class="wrap">
+<div class="list-head" id="list-head"><h2 class="bowl" id="cat-name"></h2><span aria-hidden="true"></span></div>
+<div class="grid" id="grid"></div>
+</main>
+<button class="back" id="back" type="button" aria-label="Torna alla pizza delle categorie">🍕</button>
+<footer>
+  <strong>Vesuvio</strong>
+  <div class="finfo">Via Toledo 210, Napoli · Tel. 081 123456</div><small>Dati di esempio</small>
+</footer>
+
+<script src="assets/piatti.js"></script>
+<script>
+(function () {
+'use strict';
+/*DSM:DATA*/
+var $ = function (s) { return document.querySelector(s); };
+var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var wheel = $('#wheel'), grid = $('#grid'), cur = -1, rot = 0;
+
+/* Disegna gli spicchi */
+var R = 150, Ri = 128, n = M.length, step = 360 / n, h = '';
+function pt(a, r) { var t = (a - 90) * Math.PI / 180; return [Math.cos(t) * r, Math.sin(t) * r]; }
+/* Stile dello spicchio dal nome della categoria (rosse, bianche, fritti, bevande) */
+function look(c) {
+  if (c.top) return c.top;
+  var t = String(c.n).toLowerCase();
+  if (/bianc/.test(t)) return 'white';
+  if (/fritt|antipast|stuzzich|snack/.test(t)) return 'fritti';
+  if (/bevand|bere|bibit|birr|vin|drink|cocktail|caff|dolc|dessert/.test(t)) return 'drink';
+  return 'basil';
+}
+M.forEach(function (c, i) {
+  c.top = look(c); c.em = c.em || c.e || '🍕';
+  var a0 = i * step - step / 2, a1 = i * step + step / 2, mid = i * step;
+  var p0 = pt(a0, R), p1 = pt(a1, R), q0 = pt(a0, Ri), q1 = pt(a1, Ri), m = pt(mid, 92), off = pt(mid, 14);
+  var sauce = c.top === 'white' ? '#f7ecd2' : c.top === 'fritti' ? '#e7a43a' : c.top === 'drink' ? '#f2b630' : '#cf3a26';
+  var tops = '';
+  for (var k = 0; k < 4; k++) {
+    var tp = pt(mid + (k - 1.5) * step / 6, 50 + (k % 2) * 34);
+    tops += c.top === 'drink' ? '<circle cx="' + tp[0].toFixed(1) + '" cy="' + tp[1].toFixed(1) + '" r="4" fill="#fff" opacity=".6"/>' :
+      '<circle cx="' + tp[0].toFixed(1) + '" cy="' + tp[1].toFixed(1) + '" r="' + (c.top === 'fritti' ? 7 : 11) + '" fill="' + (c.top === 'fritti' ? '#b8732f' : '#fbf1d8') + '"/>';
+  }
+  h += '<g class="slice" data-i="' + i + '" tabindex="0" role="button" aria-label="' + c.n + '" style="--tx:' + off[0].toFixed(1) + 'px;--ty:' + off[1].toFixed(1) + 'px">' +
+    '<path class="crust" d="M0 0L' + p0[0].toFixed(1) + ' ' + p0[1].toFixed(1) + 'A' + R + ' ' + R + ' 0 0 1 ' + p1[0].toFixed(1) + ' ' + p1[1].toFixed(1) + 'Z" fill="#d9954a" stroke="#fff4e0" stroke-width="3"/>' +
+    '<path d="M0 0L' + q0[0].toFixed(1) + ' ' + q0[1].toFixed(1) + 'A' + Ri + ' ' + Ri + ' 0 0 1 ' + q1[0].toFixed(1) + ' ' + q1[1].toFixed(1) + 'Z" fill="' + sauce + '"/>' + tops +
+    '<g transform="translate(' + m[0].toFixed(1) + ' ' + m[1].toFixed(1) + ')"><g class="lbl"><text class="em" text-anchor="middle" y="-6">' + c.em + '</text><text text-anchor="middle" y="16" style="font-size:' + (c.n.length > 16 ? 10 : c.n.length > 11 ? 12 : 15) + 'px">' + c.n.toUpperCase() + '</text></g></g></g>';
+});
+wheel.innerHTML = h;
+
+function show(i, scroll) {
+  if (i === cur) return; cur = i;
+  /* Ruota la pizza dal lato più corto, così lo spicchio va in alto */
+  var target = -i * step, d = ((target - rot) % 360 + 540) % 360 - 180; rot += d;
+  wheel.style.setProperty('--r', rot + 'deg');
+  Array.prototype.forEach.call(wheel.querySelectorAll('.slice'), function (s, k) { s.classList.toggle('on', k === i); s.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+  var c = M[i], list = c.items.map(function (it) { it.cat = c.n; it.catObj = c; return it; });
+  $('#cat-name').innerHTML = c.em + ' ' + c.n;
+  $('#hint').textContent = list.length + (list.length === 1 ? ' proposta' : ' proposte') + ' · tocca un piatto per i dettagli';
+  grid.innerHTML = list.map(function (it, k) {
+    return '<button class="pz" type="button" style="--k:' + k + '" data-k="' + k + '">' + ((it.b || Piatti.label(it)) ? '<span class="badge' + (it.hot ? ' hot' : '') + '">' + (it.b || Piatti.label(it)) + '</span>' : '') +
+      '<span class="art">' + Piatti.art(it, c) + '</span><span><h3>' + it.n + '</h3>' + (it.d ? '<p>' + it.d + '</p>' : '') + '<span class="row"><span class="al">' + Piatti.alIcons(it.al) + '</span><span class="pr">' + Piatti.price(it.p) + '</span></span></span></button>';
+  }).join('');
+  Array.prototype.forEach.call(grid.children, function (b) { b.addEventListener('click', function () { Piatti.modal(list, +b.getAttribute('data-k'), b); }); });
+  if (scroll) setTimeout(function () { $('#list-head').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'}); }, reduced ? 0 : 700);
+}
+wheel.addEventListener('click', function (e) { var s = e.target.closest('.slice'); if (s) show(+s.getAttribute('data-i'), true); });
+wheel.addEventListener('keydown', function (e) { var s = e.target.closest('.slice'); if (s && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); show(+s.getAttribute('data-i'), true); } });
+show(0, false);
+
+/* Pulsante pizza per tornare alla ruota */
+var back = $('#back'), box = $('.wheel-box');
+back.addEventListener('click', function () { box.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'center'}); });
+if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { back.classList.toggle('show', !es[0].isIntersecting); }).observe(box);
+})();
+</script>
+</body>
+</html>

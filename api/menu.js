@@ -13,10 +13,14 @@ const SUPABASE_URL = process.env.SUPABASE_URL || 'https://xzhbyxvlrxemujrqatbl.s
 // chiave pubblica (publishable): può stare qui, i dati sono protetti dal database
 const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_sfam2xLCQig0550kvfkUdg_yGaU0IA_';
 const SITE = 'https://www.dsmenu.it';
-const THEMES = new Set(Array.from({ length: 15 }, (_, i) => `mdc-${String(i + 1).padStart(3, '0')}`));
+const THEMES = new Set(Array.from({ length: 21 }, (_, i) => `mdc-${String(i + 1).padStart(3, '0')}`));
 // temi preparati con tools/prepara_temi.py: dati e intestazione tramite segnaposto
 const PLACEHOLDER_THEMES = new Set(['mdc-005', 'mdc-006', 'mdc-007', 'mdc-008', 'mdc-009', 'mdc-010',
-  'mdc-011', 'mdc-012', 'mdc-013', 'mdc-014', 'mdc-015']);
+  'mdc-011', 'mdc-012', 'mdc-013', 'mdc-014', 'mdc-015',
+  'mdc-016', 'mdc-017', 'mdc-018', 'mdc-019', 'mdc-020', 'mdc-021']);
+// temi animati con i piatti illustrati di assets/piatti.js (Aura, Il Focolare, Vesuvio,
+// La Piadaia, Zucchero Velo, The Copper Fox): stessi dati, disegno scelto dal nome del piatto
+const ILLUSTRATED_THEMES = new Set(['mdc-016', 'mdc-017', 'mdc-018', 'mdc-019', 'mdc-020', 'mdc-021']);
 const DEFAULT_THEME = 'mdc-001';
 const ALLERGENS = new Set(['glutine', 'crostacei', 'uova', 'pesce', 'arachidi', 'soia', 'latte',
   'frutta', 'sedano', 'senape', 'sesamo', 'solfiti', 'lupini', 'molluschi']);
@@ -173,7 +177,7 @@ function footer(r) {
 </footer>`;
 }
 
-// ---------- temi mdc-005 … mdc-015 (segnaposto) ----------
+// ---------- temi mdc-005 … mdc-021 (segnaposto) ----------
 const AL_JS = "{glutine:['🌾','Glutine'],crostacei:['🦐','Crostacei'],uova:['🥚','Uova'],pesce:['🐟','Pesce'],arachidi:['🥜','Arachidi'],soia:['🫘','Soia'],latte:['🥛','Latte'],frutta:['🌰','Frutta a guscio'],sedano:['🥬','Sedano'],senape:['🟡','Senape'],sesamo:['⚪','Sesamo'],solfiti:['🍷','Solfiti'],lupini:['🌼','Lupini'],molluschi:['🐚','Molluschi']}";
 const HIGHLIGHT = /consigl|speciali|chef|\btop\b|più (scelt|amat|chiest|vendut)|signature|best/i;
 const DRINK_SECTION = /cocktail|drink|spritz|aperitiv|vin[io]|bevand|bibit|bere|birr|distillat|gin|rum|whisk|analcolic|zero|signature|classici|sake|long/i;
@@ -196,6 +200,7 @@ function normalize(name, data) {
         veg: it.diet === 'veg' || it.diet === 'vegan', hot: !!it.spicy, isNew: !!it.new,
         top: labels.some((l) => HIGHLIGHT.test(l)), label: esc(labels[0] || ''), LABEL: esc((labels[0] || '').toUpperCase()),
         dPlain: esc(it.description || ''),
+        emo: esc(it.emoji || s.emoji || fallback), ph: photoOk(it.photo) ? it.photo : '',
         ...(photoOk(it.photo) ? (PHOTO_IN_DESC.has(name)
           ? { d: photoImg(it.photo, it.name, 'dsm-ph-big') + esc(it.description || '') }
           : { e: photoImg(it.photo, it.name, 'dsm-ph') }) : {}),
@@ -274,6 +279,14 @@ function themeData(name, S) {
         items: s.items.map((it, i) => ({ e: it.e, h: (i * 47 + 330) % 360, n: { it: it.n, en: it.n }, d: { it: it.d, en: it.d }, p: it.p, a: it.a, t: tagList(it, ['top', 'hot', 'veg', 'new']) })) })))};\n`;
       break;
     default:
+      if (ILLUSTRATED_THEMES.has(name)) {
+        // forma comune dei temi animati: il disegno del piatto lo sceglie assets/piatti.js
+        out.js = v('M', S.map((s) => ({ n: s.title, s: s.sub, e: s.emoji, items: s.items.map((it) => ({
+          n: it.n, d: it.dPlain, p: it.p, al: it.a, e: it.emo,
+          ...(it.ph ? { ph: it.ph } : {}), ...(it.label ? { lb: it.label } : {}),
+          ...(it.top ? { top: 1 } : {}), ...(it.hot ? { hot: 1 } : {}), ...(it.veg ? { veg: 1 } : {}), ...(it.isNew ? { isNew: 1 } : {}),
+        })) })));
+      }
   }
   return out;
 }
@@ -294,6 +307,8 @@ function fillTheme(name, r, h) {
     HERO_EMOJI: esc(firstEmoji || '🍽️'),
     MONO: esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase()),
     MARQUEE: `${Array(2).fill(S.map((s) => s.TITLE).join(' ✦ ')).join(' ✦ ')} ✦&nbsp;`,
+    // scritta che gira attorno al piatto (tema Aura)
+    RING: esc(Array(3).fill(String(info.kicker || r.name || '').toUpperCase()).join(' · ') + ' ·'),
     TITLE_LINES: words.map((w) => `<span class="line${w === '&' ? ' amp' : ''}" aria-hidden="true">${esc(w)}</span>`).join(''),
     ...vars,
   };

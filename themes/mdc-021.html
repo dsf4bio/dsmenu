@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#14100c">
+<title>The Copper Fox · Modello di menu digitale (esempio) | DS Service</title>
+<meta name="description" content="Pub: insegna al neon che sfarfalla, categorie sulle spine della birra che si tirano e riempiono il bicchiere, birre e piatti animati con allergeni. Modello di menu digitale con QR code: provalo dal telefono, 30 giorni gratis.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="DS Service · Menu digitali">
+<meta property="og:title" content="The Copper Fox · Modello di menu digitale (esempio) | DS Service">
+<meta property="og:description" content="Pub con le spine della birra per cambiare categoria e insegna al neon. Provalo dal telefono, 30 giorni gratis.">
+<meta property="og:url" content="https://dsfabio.com/mdc-019">
+<meta property="og:image" content="https://dsfabio.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/fonts/bigshouldersdisplay-inter.css">
+<style>
+:root{--bg:#14100c;--bg2:#1f1913;--cop:#c87533;--cop2:#e79a5a;--amber:#f2a516;--neon:#3ff2e0;--ink:#f3e7d6;--sub:#b19c86;--line:rgba(243,231,214,.12);
+--pm-bg:#1d1712;--pm-ink:#f3e7d6;--pm-sub:#b19c86;--pm-accent:#f2a516;--pm-accent-ink:#14100c;--pm-head:"Big Shoulders Display",Impact,sans-serif;--pm-line:rgba(243,231,214,.2);--pm-radius:16px;--pm-art:radial-gradient(70% 70% at 50% 45%,#3a2a1c,#14100c)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;overflow-x:clip}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--neon);outline-offset:3px;border-radius:8px}
+.demo{background:var(--cop);color:#14100c;text-align:center;font-size:.74rem;font-weight:800;padding:7px 12px}
+.bs{font-family:"Big Shoulders Display",Impact,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* Muro di mattoni e neon */
+.wall{position:relative;text-align:center;padding:40px 16px 34px;background-color:#2a1a12;background-image:linear-gradient(rgba(20,16,12,.25),rgba(20,16,12,.85)),linear-gradient(335deg,rgba(0,0,0,.25) 23px,transparent 23px),linear-gradient(155deg,rgba(0,0,0,.25) 23px,transparent 23px),linear-gradient(335deg,rgba(0,0,0,.25) 23px,transparent 23px),linear-gradient(155deg,rgba(0,0,0,.25) 23px,transparent 23px);background-size:auto,58px 58px,58px 58px,58px 58px,58px 58px;background-position:0 0,0 2px,4px 35px,29px 31px,34px 6px}
+.wall::after{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 50% 40%,rgba(63,242,224,.14),transparent 70%);pointer-events:none}
+.neon{position:relative;z-index:1;display:inline-block;padding:14px 26px;border:3px solid var(--neon);border-radius:18px;box-shadow:0 0 12px var(--neon),inset 0 0 12px rgba(63,242,224,.5);animation:buzz 6s infinite}
+.neon h1{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:clamp(2.8rem,12vw,5rem);line-height:.9;color:#eafffd;letter-spacing:.04em;text-shadow:0 0 6px #fff,0 0 14px var(--neon),0 0 30px var(--neon),0 0 50px var(--neon)}
+.neon h1 span{color:#ffe1b8;text-shadow:0 0 6px #fff,0 0 14px var(--amber),0 0 30px var(--amber)}
+.neon h1 .f{animation:flick 4s infinite}
+.neon small{display:block;font-weight:800;font-size:.72rem;letter-spacing:.3em;color:var(--neon);text-transform:uppercase;text-shadow:0 0 8px var(--neon)}
+@keyframes buzz{0%,100%{opacity:1}92%{opacity:1}93%{opacity:.6}94%{opacity:1}96%{opacity:.75}97%{opacity:1}}
+@keyframes flick{0%,40%,44%,100%{opacity:1}42%{opacity:.15}43%{opacity:.8}}
+.fox{position:relative;z-index:1;font-size:2.4rem;display:block;margin-top:8px;animation:sway 3s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes sway{50%{transform:rotate(-8deg)}}
+.live{position:relative;z-index:1;display:inline-flex;gap:8px;margin-top:12px;font-size:.8rem;font-weight:700;color:var(--sub)}
+.live b{color:var(--amber)}
+
+/* Spine della birra */
+.bar{position:sticky;top:0;z-index:20;background:linear-gradient(var(--bg) 82%,rgba(20,16,12,0));padding:14px 0 18px}
+.rail{position:relative;max-width:640px;margin:0 auto;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(78px,1fr);gap:6px;padding:0 10px;overflow-x:auto;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rail::before{content:"";position:absolute;left:4%;right:4%;top:68px;height:16px;border-radius:8px;background:linear-gradient(#e2a26b,var(--cop) 40%,#7a4320);box-shadow:0 6px 14px rgba(0,0,0,.5)}
+.tap{position:relative;display:flex;flex-direction:column;align-items:center}
+.handle{position:relative;width:24px;height:64px;border-radius:12px 12px 6px 6px;background:var(--hc,#3a2a1c);box-shadow:inset -4px 0 0 rgba(0,0,0,.25),0 6px 10px rgba(0,0,0,.4);transform-origin:50% 100%;transition:transform .5s cubic-bezier(.3,1.6,.5,1);display:grid;place-items:center}
+.handle::before{content:"";position:absolute;top:-6px;left:2px;right:2px;height:12px;border-radius:50%;background:var(--hc,#3a2a1c);filter:brightness(1.3)}
+.handle i{font-style:normal;font-size:.9rem;writing-mode:vertical-rl;font-family:"Big Shoulders Display",sans-serif;font-weight:900;color:#fff;opacity:.85}
+.tap[aria-pressed="true"] .handle{transform:rotate(26deg)}
+.spout{width:12px;height:22px;margin-top:20px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,#8a4c22,#e79a5a,#8a4c22)}
+.stream{width:4px;height:0;background:var(--amber);border-radius:2px;transition:height .3s}
+.tap.pour .stream{height:26px}
+.glass{position:relative;width:38px;height:48px;margin-top:2px;border:2px solid rgba(255,255,255,.55);border-top:0;border-radius:0 0 8px 8px;overflow:hidden;clip-path:polygon(0 0,100% 0,88% 100%,12% 100%)}
+.glass .liq{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(var(--lc,#f2a516),var(--lc2,#c97a0a));transition:height 1.1s cubic-bezier(.3,.9,.4,1)}
+.glass .foam{position:absolute;left:0;right:0;bottom:0;height:8px;background:#fff7e6;border-radius:4px;transform:translateY(8px);transition:bottom 1.1s cubic-bezier(.3,.9,.4,1),transform .3s}
+.tap[aria-pressed="true"] .liq{height:78%}
+.tap[aria-pressed="true"] .foam{bottom:72%;transform:none}
+.tap b{margin-top:6px;font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:800;font-size:1rem;letter-spacing:.04em;text-transform:uppercase;color:var(--sub);transition:color .3s,text-shadow .3s}
+.tap[aria-pressed="true"] b{color:var(--neon);text-shadow:0 0 10px var(--neon)}
+
+/* Lista */
+.cat-h{display:flex;align-items:end;justify-content:space-between;gap:10px;border-bottom:2px solid var(--cop);padding-bottom:8px;margin:18px 0 14px}
+.cat-h h2{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:clamp(2.4rem,9vw,3.6rem);line-height:.9;text-transform:uppercase;color:var(--cop2)}
+.cat-h p{color:var(--sub);font-size:.85rem;text-align:right;max-width:260px}
+.list{display:grid;gap:10px;padding-bottom:44px}
+.list.go .row{animation:drop .5s cubic-bezier(.2,.9,.2,1) both;animation-delay:calc(var(--k) * 80ms)}
+@keyframes drop{from{opacity:0;transform:translateY(-14px)}}
+.row{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:12px 14px;border-radius:16px;background:var(--bg2);border:1px solid var(--line);transition:border-color .3s,transform .3s,background .3s}
+.row:hover{border-color:var(--cop);transform:translateX(4px);background:#251d16}
+.row .art{flex:0 0 84px;height:84px;display:grid;place-items:center;border-radius:14px;background:radial-gradient(circle at 50% 55%,#3a2a1c,transparent 72%)}
+.row .art .pa{height:84px;width:auto}
+.row .tx{flex:1;min-width:0}
+.row h3{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:800;font-size:1.45rem;line-height:1;letter-spacing:.02em;text-transform:uppercase}
+.row p{color:var(--sub);font-size:.85rem;line-height:1.35;margin:4px 0 6px}
+.row .meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.row .al{font-size:.85rem;letter-spacing:2px}
+.abv{display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;color:var(--amber)}
+.abv i{display:block;width:70px;height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden}
+.abv i::after{content:"";display:block;height:100%;width:var(--abv);background:linear-gradient(90deg,var(--amber),var(--cop));border-radius:6px;animation:fillB 1s .3s cubic-bezier(.2,.9,.2,1) both}
+@keyframes fillB{from{width:0}}
+.row .pr{flex:0 0 auto;font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;font-size:1.6rem;color:var(--amber)}
+.tagx{display:inline-block;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:6px;border:1px solid var(--neon);color:var(--neon);margin-left:6px;vertical-align:middle}
+@media (max-width:520px){.row .art{flex-basis:70px;height:70px}.row .art .pa{height:70px}.cat-h{flex-direction:column;align-items:start}.cat-h p{text-align:left}.rail::before{top:68px}}
+@media (prefers-reduced-motion:reduce){.neon,.neon h1 .f,.fox{animation:none}.list.go .row{animation:none}}
+
+/* Piè di pagina (su dsmenu.it lo compone il server con i dati del locale) */
+footer{text-align:center;padding:30px 18px 34px;font-size:.9rem;line-height:1.5}
+footer strong{display:block;font-size:1.5rem;line-height:1.1;margin-bottom:6px}
+footer .finfo{opacity:.85}
+footer small{opacity:.7}
+.soc{display:flex;justify-content:center;gap:12px;margin:18px 0 6px}
+.soc a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.soc a:hover{transform:translateY(-4px) scale(1.06)}
+.soc a.fb{background:#1877F2}.soc a.wa{background:#25D366}.soc a.tt{background:#111}
+.soc a.ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%)}
+.soc svg{width:22px;height:22px}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
+.flinks a,footer .fby a{color:inherit;text-decoration:underline;text-underline-offset:3px;opacity:.9}
+footer{border-top:1px solid var(--line);color:var(--sub)}
+footer strong{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.row .art img.pa-photo{height:84px;width:84px}
+@media (max-width:520px){.row .art img.pa-photo{height:70px;width:70px}}
+
+/* dsmenu: riquadri con dati di esempio nascosti */
+.dsm-fake{display:none!important}
+.neon h1{text-transform:uppercase}
+</style>
+</head>
+<body>
+<header class="wall">
+<div class="neon"><small data-dsm-opt="KICKER">__DSM_KICKER__</small><h1>__DSM_NAME_A__<span>__DSM_NAME_B__</span></h1></div>
+<span class="fox" aria-hidden="true">🦊</span>
+</header>
+
+<nav class="bar" aria-label="Categorie del menu"><div class="rail" id="rail"></div></nav>
+
+<main class="wrap">
+<div class="cat-h"><h2 id="cat-name"></h2><p id="cat-desc"></p></div>
+<div class="list" id="list" aria-live="polite"></div>
+</main>
+<footer>
+  <strong>The Copper Fox</strong>
+  <div class="finfo">Via dei Mille 18, Bologna · Tel. 051 123456</div><small>Dati di esempio</small>
+</footer>
+
+<script src="assets/piatti.js"></script>
+<script>
+(function () {
+'use strict';
+/*DSM:DATA*/
+var $ = function (s) { return document.querySelector(s); };
+var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var rail = $('#rail'), list = $('#list'), cur = -1;
+/* Colori delle spine a rotazione e scritta sulla leva, se la categoria non li ha */
+var TAPS = [['#7a2a1a', '#f2a516', '#c97a0a'], ['#2f4f2a', '#c8532a', '#8a3a1a'], ['#8a6a1a', '#ffd24a', '#e0a020'], ['#1a4a6a', '#ff5c8a', '#c22a5a'], ['#4a2a6a', '#b48cff', '#7a4ad0'], ['#1a5a4a', '#5ce0b0', '#1a9a7a']];
+M.forEach(function (c, k) {
+  var t = TAPS[k % TAPS.length];
+  c.hc = c.hc || t[0]; c.lc = c.lc || t[1]; c.lc2 = c.lc2 || t[2];
+  if (!c.ic) { var w = String(c.n).replace(/&[a-z#0-9]+;/gi, ' ').split(/\s+/).filter(function (x) { return x.length > 2; })[0] || String(c.n); c.ic = c.e || w.slice(0, 7).toUpperCase(); }
+});
+rail.innerHTML = M.map(function (c, k) {
+  return '<button class="tap" type="button" aria-pressed="false" data-i="' + k + '" style="--hc:' + c.hc + ';--lc:' + c.lc + ';--lc2:' + c.lc2 + '"><span class="handle" aria-hidden="true"><i>' + c.ic + '</i></span><span class="spout" aria-hidden="true"></span><span class="stream" aria-hidden="true"></span><span class="glass" aria-hidden="true"><span class="liq"></span><span class="foam"></span></span><b>' + c.n + '</b></button>';
+}).join('');
+
+function render(i) {
+  var c = M[i], items = c.items.map(function (it) { it.cat = c.n; it.catObj = c; return it; });
+  $('#cat-name').innerHTML = c.n; $('#cat-desc').innerHTML = c.s || c.d || '';
+  list.innerHTML = items.map(function (it, k) {
+    return '<button class="row" type="button" style="--k:' + k + '" data-k="' + k + '"><span class="art">' + Piatti.art(it, c) + '</span><span class="tx"><h3>' + it.n + ((it.tag || Piatti.label(it)) ? '<span class="tagx">' + (it.tag || Piatti.label(it)) + '</span>' : '') + '</h3>' + (it.d ? '<p>' + it.d + '</p>' : '') + '<span class="meta">' +
+      (it.abv ? '<span class="abv" title="Gradazione alcolica"><i style="--abv:' + Math.min(100, it.abv / 10 * 100) + '%"></i>' + it.abv.toFixed(1).replace('.', ',') + '% vol</span>' : '') + '<span class="al">' + Piatti.alIcons(it.al) + '</span></span></span><span class="pr">' + Piatti.price(it.p) + '</span></button>';
+  }).join('');
+  list.classList.remove('go'); void list.offsetWidth; list.classList.add('go');
+  Array.prototype.forEach.call(list.children, function (b) { b.addEventListener('click', function () { Piatti.modal(items, +b.getAttribute('data-k'), b); }); });
+}
+/* Tiri la leva: scende la birra, si riempie il bicchiere, poi cambia il menu */
+function show(i) {
+  if (i === cur) return; cur = i;
+  var taps = rail.children;
+  Array.prototype.forEach.call(taps, function (t, k) { t.setAttribute('aria-pressed', k === i ? 'true' : 'false'); t.classList.remove('pour'); });
+  if (!reduced) { taps[i].classList.add('pour'); setTimeout(function () { taps[i].classList.remove('pour'); }, 1100); }
+  setTimeout(function () { render(i); }, reduced ? 0 : 350);
+}
+rail.addEventListener('click', function (e) { var t = e.target.closest('.tap'); if (t) show(+t.getAttribute('data-i')); });
+show(0);
+})();
+</script>
+</body>
+</html>
