@@ -27,6 +27,9 @@ var CSS = [
 '.pa{display:block;width:100%;height:auto;overflow:visible}',
 'img.pa-photo{aspect-ratio:1;object-fit:cover;border-radius:22%;box-shadow:0 10px 24px rgba(0,0,0,.25)}',
 '.pm-art img.pa-photo{border-radius:20px}',
+'img.pa-3d{aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(0,0,0,.22));animation:pa3d 4.5s ease-in-out infinite}',
+'@keyframes pa3d{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}',
+'@media (prefers-reduced-motion:reduce){img.pa-3d{animation:none}}',
 '.pa [class*="pa-"]{transform-box:fill-box}',
 '.pa-steam{fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;opacity:0;transform-origin:50% 100%;animation:pa-steam 3.2s ease-in-out infinite}',
 '@keyframes pa-steam{0%{opacity:0;transform:translateY(8px) scaleY(.7)}30%{opacity:.6}100%{opacity:0;transform:translateY(-30px) scaleY(1.2)}}',
@@ -611,8 +614,38 @@ function variant(key, t) {
 
 /* Disegno da mostrare per un piatto: foto del locale, disegno scelto, indovinato o emoji */
 var PHOTO_OK = /^https:\/\/[A-Za-z0-9.-]+\/storage\/v1\/object\/public\/menu-photos\/[0-9a-f-]{36}\/[A-Za-z0-9_-]{6,40}\.(webp|jpg|jpeg|png)$/;
+/* ---------- Immagini 3D (Microsoft Fluent Emoji 3D, licenza MIT) ----------
+   Attive nei temi che impostano Piatti.style3d = true (prima di disegnare).
+   File in assets/emoji3d/<codice>.webp accanto a questo script. */
+var F3D = {};
+'1f32d 1f32e 1f32f 1f330 1f331 1f336 1f33d 1f33f 1f344 1f344-200d-1f7eb 1f345 1f346 1f347 1f348 1f349 1f34a 1f34b 1f34b-200d-1f7e9 1f34c 1f34d 1f34e 1f34f 1f350 1f351 1f352 1f353 1f354 1f355 1f356 1f357 1f358 1f359 1f35a 1f35b 1f35c 1f35d 1f35e 1f35f 1f360 1f361 1f362 1f363 1f364 1f365 1f366 1f367 1f368 1f369 1f36a 1f36b 1f36c 1f36d 1f36e 1f36f 1f370 1f371 1f372 1f373 1f374 1f375 1f376 1f377 1f378 1f379 1f37a 1f37b 1f37c 1f37d 1f37e 1f37f 1f382 1f3fa 1f404 1f40c 1f414 1f416 1f419 1f41d 1f41f 1f420 1f423 1f4a7 1f525 1f52a 1f942 1f943 1f944 1f950 1f951 1f952 1f953 1f954 1f955 1f956 1f957 1f958 1f959 1f95a 1f95b 1f95c 1f95d 1f95e 1f95f 1f960 1f961 1f962 1f963 1f964 1f965 1f966 1f967 1f968 1f969 1f96a 1f96b 1f96c 1f96d 1f96e 1f96f 1f980 1f986 1f990 1f991 1f99e 1f9aa 1f9c0 1f9c1 1f9c2 1f9c3 1f9c4 1f9c5 1f9c6 1f9c7 1f9c8 1f9c9 1f9ca 1f9cb 1fad0 1fad1 1fad2 1fad3 1fad4 1fad5 1fad6 1fad7 1fad8 1fad9 1fada 1fadb 2615'.split(' ').forEach(function (k) { F3D[k] = 1; });
+var F3D_BASE = (function () {
+  try { var src = (document.currentScript && document.currentScript.src) || ''; if (src) return src.replace(/[^\/]*$/, '') + 'emoji3d/'; } catch (e) {}
+  return '/assets/emoji3d/';
+})();
+/* Disegno → emoji 3D che lo rappresenta */
+var KEY_EMOJI = {pasta: '🍝', risotto: '🍚', zuppa: '🍲', lasagna: '🍝', tagliata: '🥩', pesce: '🐟', insalata: '🥗', pizza: '🍕',
+  fritti: '🍤', piadina: '🫓', crescione: '🥟', rotolo: '🌯', caffe: '☕', cappuccino: '☕', cornetto: '🥐', torta: '🍰',
+  cannolo: '🧁', macaron: '🍪', spremuta: '🍊', birra: '🍺', cocktail: '🍸', vino: '🍷', spritz: '🍹', burger: '🍔',
+  patatine: '🍟', alette: '🍗', tiramisu: '🍰', pannacotta: '🍮', tagliere: '🧀'};
+function f3dCode(e) {
+  var out = [];
+  Array.from(String(e || '')).forEach(function (ch) { var c = ch.codePointAt(0); if (c !== 0xfe0f) out.push(c.toString(16)); });
+  var k = out.join('-');
+  return F3D[k] ? k : (out.length && F3D[out[0]] ? out[0] : null);
+}
+function img3d(e) {
+  var k = f3dCode(e);
+  return k ? '<img class="pa pa-3d" src="' + F3D_BASE + k + '.webp" alt="" loading="lazy" decoding="async">' : '';
+}
+function art3d(it, cat) {
+  var text = [it.n, it.d].join(' '), key = it.art || guess(it.n) || guess(text) || (cat ? guess(cat.n || cat.title) : null);
+  return img3d(it.e) || (key && img3d(KEY_EMOJI[key])) || (cat && img3d(cat.e)) || '';
+}
+
 function art(it, cat) {
   if (it.ph && PHOTO_OK.test(it.ph)) return '<img class="pa pa-photo" src="' + it.ph + '" alt="" loading="lazy" decoding="async">';
+  if (window.Piatti && window.Piatti.style3d) { var a3 = art3d(it, cat); if (a3) return a3; }
   if (it.art) return svg(it.art, it.o);
   var text = [it.n, it.d].join(' '), key = guess(it.n) || guess(text) || (cat ? guess(cat.n || cat.title) : null);
   if (key) return svg(key, variant(key, text));
@@ -620,6 +653,10 @@ function art(it, cat) {
 }
 /* Disegno per una categoria: quello scelto, oppure quello del primo piatto */
 function catArt(c) {
+  if (window.Piatti && window.Piatti.style3d) {
+    var c3 = img3d(c.e) || (guess(c.n) && img3d(KEY_EMOJI[guess(c.n)])) || ((c.items || [])[0] ? art3d(c.items[0], c) : '');
+    if (c3) return c3;
+  }
   if (c.ic) return svg(c.ic[0], c.ic[1]);
   var k = guess(c.n), first = (c.items || [])[0];
   if (k) return svg(k, variant(k, c.n));
