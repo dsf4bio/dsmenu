@@ -58,8 +58,12 @@ const PHOTO_RE = new RegExp(`^${SUPABASE_URL.replace(/[.]/g, '\\.')}/storage/v1/
 const PHOTO_IN_DESC = new Set(['mdc-001', 'mdc-004', 'mdc-005', 'mdc-012']);
 const photoOk = (u) => typeof u === 'string' && PHOTO_RE.test(u);
 // logo del locale (migrazione 046 del gestionale): stessa cartella delle foto
-const logoImg = (u, style) => (photoOk(u) ? `<img class="dsm-logo" src="${esc(u)}" alt="Logo" decoding="async" style="${style}">` : '');
-const MONO_LOGO = 'width:100%;height:100%;object-fit:contain;border-radius:inherit;padding:10%;box-sizing:border-box';
+// tondo con l'anello colorato, come la foto profilo nelle storie di Instagram
+const STORY_RING = 'linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)';
+const logoImg = (u, size) => (photoOk(u)
+  ? `<span class="dsm-logo" style="display:inline-block;box-sizing:border-box;width:${size};height:${size};aspect-ratio:1;padding:3px;border-radius:50%;background:${STORY_RING};flex:0 0 auto;vertical-align:middle"><img src="${esc(u)}" alt="Logo" decoding="async" style="display:block;box-sizing:border-box;width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #fff;background:#fff"></span>`
+  : '');
+const MONO_LOGO = '100%';
 const photoImg = (u, alt, cls) => `<img class="${cls}" src="${esc(u)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
 const PHOTO_CSS = `<style>
 img.dsm-ph{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;max-width:none}
@@ -173,7 +177,7 @@ function footer(r) {
   ].filter(Boolean).join('');
   // la firma "Menu digitale by DS Service" è sempre l'ultima riga in basso
   return `<footer>
-  ${logoImg(i.logo, 'display:block;max-width:132px;max-height:88px;width:auto;height:auto;margin:0 auto 12px;object-fit:contain')}
+  ${i.logo && photoOk(i.logo) ? `<div style="margin:0 auto 12px">${logoImg(i.logo, '92px')}</div>` : ''}
   <strong>${esc(r.name)}</strong>
   ${line ? `<div class="finfo">${line}</div>` : ''}
   ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="Contatti">${links}</nav>` : ''}
