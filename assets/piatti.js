@@ -226,23 +226,37 @@ D.insalata = function () {
 };
 
 D.pizza = function (o) {
-  var sauce = o.white ? '#f6ead0' : '#cf3a26', r = rng(o.seed || 9), h = '<ellipse cx="100" cy="176" rx="74" ry="10" fill="#000" opacity=".16"/>';
-  h += '<g class="pa-spin">';
-  h += '<circle cx="100" cy="100" r="80" fill="#d9954a"/><circle cx="100" cy="100" r="80" fill="none" stroke="#b8732f" stroke-width="3" stroke-dasharray="3 9" opacity=".6"/>';
-  h += '<circle cx="100" cy="100" r="67" fill="' + sauce + '"/>';
-  for (var i = 0; i < 9; i++) {
-    var a = i / 9 * 6.28 + r(), d = 18 + r() * 34;
-    h += '<g class="pa-bub" style="animation-delay:' + (r() * 2.4).toFixed(2) + 's"><circle cx="' + (100 + Math.cos(a) * d).toFixed(1) + '" cy="' + (100 + Math.sin(a) * d).toFixed(1) + '" r="' + (9 + r() * 6).toFixed(1) + '" fill="' + (o.white ? '#fffaf0' : '#fbf1d8') + '"/></g>';
+  /* Sempre uno spicchio: la pizza intera è tonda come il piatto e si legge male */
+  var sauce = o.white ? '#f6ead0' : '#cf3a26', r = rng(o.seed || 9), id = o.id + 'c';
+  var CX = 100, CY = 184, A = 0.42;
+  function pt(rad, ang) { return (CX + Math.sin(ang) * rad).toFixed(1) + ' ' + (CY - Math.cos(ang) * rad).toFixed(1); }
+  function wedge(rad, a) { return 'M' + CX + ' ' + CY + 'L' + pt(rad, -a) + 'A' + rad + ' ' + rad + ' 0 0 1 ' + pt(rad, a) + 'Z'; }
+  function at(rad, ang) { return 'translate(' + pt(rad, ang).replace(' ', ' ') + ')'; }
+  var h = '<ellipse cx="100" cy="184" rx="52" ry="8" fill="#000" opacity=".16"/>';
+  h += '<defs><clipPath id="' + id + '"><path d="' + wedge(134, A - .05) + '"/></clipPath></defs>';
+  h += '<g class="pa-sway">';
+  h += '<path d="' + wedge(156, A) + '" fill="#d9954a" stroke="#b8732f" stroke-width="2" stroke-linejoin="round"/>';
+  h += '<path d="M' + pt(156, -A) + 'A156 156 0 0 1 ' + pt(156, A) + '" fill="none" stroke="#b8732f" stroke-width="3" stroke-dasharray="3 9" opacity=".6"/>';
+  h += '<path d="' + wedge(136, A - .05) + '" fill="' + sauce + '"/>';
+  h += '<g clip-path="url(#' + id + ')">';
+  for (var i = 0; i < 6; i++) {
+    var ra = 40 + r() * 86, an = (r() - .5) * .62;
+    h += '<g class="pa-bub" style="animation-delay:' + (r() * 2.4).toFixed(2) + 's"><circle cx="' + pt(ra, an).split(' ')[0] + '" cy="' + pt(ra, an).split(' ')[1] + '" r="' + (9 + r() * 5).toFixed(1) + '" fill="' + (o.white ? '#fffaf0' : '#fbf1d8') + '"/></g>';
   }
-  if (o.top === 'salame') for (var s = 0; s < 8; s++) { var b = s / 8 * 6.28, e = 24 + (s % 2) * 22; h += '<circle cx="' + (100 + Math.cos(b) * e).toFixed(1) + '" cy="' + (100 + Math.sin(b) * e).toFixed(1) + '" r="9" fill="#a8261c"/><circle cx="' + (102 + Math.cos(b) * e).toFixed(1) + '" cy="' + (98 + Math.sin(b) * e).toFixed(1) + '" r="1.6" fill="#f4c7b8"/>'; }
-  if (o.top === 'funghi') for (var f = 0; f < 7; f++) { var c = f / 7 * 6.28, q = 22 + (f % 2) * 24; h += '<path transform="translate(' + (100 + Math.cos(c) * q).toFixed(1) + ' ' + (100 + Math.sin(c) * q).toFixed(1) + ')" d="M-7 0a7 6 0 0 1 14 0zM-2 0h4v6h-4z" fill="#8a5a3b"/>'; }
-  if (o.top === 'verdure') for (var v = 0; v < 10; v++) { var w = v / 10 * 6.28, z = 20 + (v % 3) * 14; h += '<rect transform="translate(' + (100 + Math.cos(w) * z).toFixed(1) + ' ' + (100 + Math.sin(w) * z).toFixed(1) + ') rotate(' + (v * 37) + ')" x="-8" y="-2" width="16" height="4" rx="2" fill="' + ['#f2b705', '#3f9a3a', '#e5392b'][v % 3] + '"/>'; }
-  if (o.top === 'olive') for (var l = 0; l < 7; l++) { var m = l / 7 * 6.28; h += '<circle cx="' + (100 + Math.cos(m) * 36).toFixed(1) + '" cy="' + (100 + Math.sin(m) * 36).toFixed(1) + '" r="5" fill="#2a2a2a"/><circle cx="' + (100 + Math.cos(m) * 36).toFixed(1) + '" cy="' + (100 + Math.sin(m) * 36).toFixed(1) + '" r="2" fill="#c0392b"/>'; }
-  if (o.top === 'crudo') for (var p = 0; p < 6; p++) { var t = p / 6 * 6.28; h += '<path transform="translate(' + (100 + Math.cos(t) * 34).toFixed(1) + ' ' + (100 + Math.sin(t) * 34).toFixed(1) + ') rotate(' + p * 60 + ')" d="M-12 -4q12-10 24 0q-12 12-24 0z" fill="#e6918a"/>'; }
-  if (o.basil !== false) for (var k = 0; k < 4; k++) { var u = k / 4 * 6.28 + .4; h += '<path transform="translate(' + (100 + Math.cos(u) * 26).toFixed(1) + ' ' + (100 + Math.sin(u) * 26).toFixed(1) + ') rotate(' + k * 80 + ')" d="M0 0c6-8 16-8 20 0-6 6-14 6-20 0z" fill="#2f8a2f"/>'; }
-  for (var x = 0; x < 3; x++) h += '<path d="M100 100L' + (100 + Math.cos(x * 1.047) * 80).toFixed(1) + ' ' + (100 + Math.sin(x * 1.047) * 80).toFixed(1) + 'M100 100L' + (100 - Math.cos(x * 1.047) * 80).toFixed(1) + ' ' + (100 - Math.sin(x * 1.047) * 80).toFixed(1) + '" stroke="#7a3a12" stroke-opacity=".18" stroke-width="1.5"/>';
+  var spots = [[56, -.12], [80, .14], [102, -.2], [118, .1], [92, -.02], [124, -.08]];
+  spots.forEach(function (q, k) {
+    var tr = at(q[0], q[1]);
+    if (o.top === 'salame') h += '<g transform="' + tr + '"><circle r="9" fill="#a8261c"/><circle cx="2" cy="-2" r="1.6" fill="#f4c7b8"/></g>';
+    else if (o.top === 'funghi') h += '<path transform="' + tr + '" d="M-7 0a7 6 0 0 1 14 0zM-2 0h4v6h-4z" fill="#8a5a3b"/>';
+    else if (o.top === 'verdure') h += '<rect transform="' + tr + ' rotate(' + (k * 37) + ')" x="-8" y="-2" width="16" height="4" rx="2" fill="' + ['#f2b705', '#3f9a3a', '#e5392b'][k % 3] + '"/>';
+    else if (o.top === 'olive') { if (k < 5) h += '<g transform="' + tr + '"><circle r="5" fill="#2a2a2a"/><circle r="2" fill="#c0392b"/></g>'; }
+    else if (o.top === 'crudo') { if (k < 4) h += '<path transform="' + tr + ' rotate(' + k * 60 + ')" d="M-12 -4q12-10 24 0q-12 12-24 0z" fill="#e6918a"/>'; }
+  });
+  if (o.basil !== false) [[70, .1], [110, -.12], [126, .16]].forEach(function (q, k) { h += '<path transform="' + at(q[0], q[1]) + ' rotate(' + (k * 80 - 30) + ')" d="M0 0c6-8 16-8 20 0-6 6-14 6-20 0z" fill="#2f8a2f"/>'; });
   h += '</g>';
-  h += steam([76, 100, 124], 30);
+  h += '<path class="pa-stretch" d="M100 172q-3 6 0 12" stroke="' + (o.white ? '#fffaf0' : '#fbf1d8') + '" stroke-width="5" fill="none" stroke-linecap="round"/>';
+  h += '</g>';
+  h += steam([82, 118], 30);
   return h;
 };
 
