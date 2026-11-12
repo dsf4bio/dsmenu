@@ -57,6 +57,9 @@ async function rpc(fn, args) {
 const PHOTO_RE = new RegExp(`^${SUPABASE_URL.replace(/[.]/g, '\\.')}/storage/v1/object/public/menu-photos/[0-9a-f-]{36}/[A-Za-z0-9_-]{6,40}\\.(webp|jpg|jpeg|png)$`);
 const PHOTO_IN_DESC = new Set(['mdc-001', 'mdc-004', 'mdc-005', 'mdc-012']);
 const photoOk = (u) => typeof u === 'string' && PHOTO_RE.test(u);
+// logo del locale (migrazione 046 del gestionale): stessa cartella delle foto
+const logoImg = (u, style) => (photoOk(u) ? `<img class="dsm-logo" src="${esc(u)}" alt="Logo" decoding="async" style="${style}">` : '');
+const MONO_LOGO = 'width:100%;height:100%;object-fit:contain;border-radius:inherit;padding:10%;box-sizing:border-box';
 const photoImg = (u, alt, cls) => `<img class="${cls}" src="${esc(u)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
 const PHOTO_CSS = `<style>
 img.dsm-ph{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;max-width:none}
@@ -114,7 +117,7 @@ function header(name, r) {
     <h1>${n}</h1>
     ${info.tagline ? `<p>${esc(info.tagline)}</p>` : ''}
   </div>
-  <div class="blob" aria-hidden="true">${esc(info.monogram || '🥕')}</div>
+  <div class="blob" aria-hidden="true">${logoImg(info.logo, MONO_LOGO) || esc(info.monogram || '🥕')}</div>
 </header>`;
   }
   if (name === 'mdc-004') {
@@ -130,7 +133,7 @@ function header(name, r) {
   ${addr ? `<p class="addr">${addr}</p>` : ''}
 </header>`;
   }
-  const mono = esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase());
+  const mono = logoImg(info.logo, MONO_LOGO) || esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase());
   return `<header class="hero">
   <div class="mono" aria-hidden="true">${mono}</div>
   ${info.kicker ? `<p class="kick">${esc(info.kicker)}</p>` : ''}
@@ -170,6 +173,7 @@ function footer(r) {
   ].filter(Boolean).join('');
   // la firma "Menu digitale by DS Service" è sempre l'ultima riga in basso
   return `<footer>
+  ${logoImg(i.logo, 'display:block;max-width:132px;max-height:88px;width:auto;height:auto;margin:0 auto 12px;object-fit:contain')}
   <strong>${esc(r.name)}</strong>
   ${line ? `<div class="finfo">${line}</div>` : ''}
   ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="Contatti">${links}</nav>` : ''}
@@ -305,7 +309,7 @@ function fillTheme(name, r, h) {
     TAGLINE: esc(info.tagline || ''),
     HOURS: esc(info.hours || ''),
     HERO_EMOJI: esc(firstEmoji || '🍽️'),
-    MONO: esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase()),
+    MONO: logoImg(info.logo, MONO_LOGO) || esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase()),
     MARQUEE: `${Array(2).fill(S.map((s) => s.TITLE).join(' ✦ ')).join(' ✦ ')} ✦&nbsp;`,
     // scritta che gira attorno al piatto (tema Aura)
     RING: esc(Array(3).fill(String(info.kicker || r.name || '').toUpperCase()).join(' · ') + ' ·'),
