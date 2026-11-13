@@ -30,6 +30,8 @@ var CSS = [
 'img.pa-3d{aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(0,0,0,.22));animation:pa3d 4.5s ease-in-out infinite}',
 '@keyframes pa3d{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}',
 '@media (prefers-reduced-motion:reduce){img.pa-3d{animation:none}}',
+'svg.pa-emo{overflow:visible;filter:drop-shadow(0 8px 8px rgba(0,0,0,.18));animation:pa3d 4.5s ease-in-out infinite}',
+'@media (prefers-reduced-motion:reduce){svg.pa-emo{animation:none}}',
 '.pa [class*="pa-"]{transform-box:fill-box}',
 '.pa-steam{fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;opacity:0;transform-origin:50% 100%;animation:pa-steam 3.2s ease-in-out infinite}',
 '@keyframes pa-steam{0%{opacity:0;transform:translateY(8px) scaleY(.7)}30%{opacity:.6}100%{opacity:0;transform:translateY(-30px) scaleY(1.2)}}',
@@ -643,8 +645,23 @@ function art3d(it, cat) {
   return img3d(it.e) || (key && img3d(KEY_EMOJI[key])) || (cat && img3d(cat.e)) || '';
 }
 
+/* ---------- Emoji grandi (temi con Piatti.styleEmoji = true) ----------
+   L'emoji del piatto (scelta nel gestionale o da Robert), altrimenti indovinata
+   dal nome, dalla descrizione o dalla categoria: sempre il prodotto giusto. */
+function emoFor(it, cat) {
+  var text = [it.n, it.d].join(' ');
+  var k = guess(it.n) || guess(text);
+  var ck = cat ? guess(cat.n || cat.title) : null;
+  return it.e || (k && KEY_EMOJI[k]) || (cat && cat.e) || (ck && KEY_EMOJI[ck]) || '🍽️';
+}
+function emo(e) {
+  return '<svg class="pa pa-emo" viewBox="0 0 200 200" aria-hidden="true"><text x="100" y="146" text-anchor="middle" font-size="128" '
+    + 'font-family="Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,sans-serif">' + e + '</text></svg>';
+}
+
 function art(it, cat) {
   if (it.ph && PHOTO_OK.test(it.ph)) return '<img class="pa pa-photo" src="' + it.ph + '" alt="" loading="lazy" decoding="async">';
+  if (window.Piatti && window.Piatti.styleEmoji) return emo(emoFor(it, cat));
   if (window.Piatti && window.Piatti.style3d) { var a3 = art3d(it, cat); if (a3) return a3; }
   if (it.art) return svg(it.art, it.o);
   var text = [it.n, it.d].join(' '), key = guess(it.n) || guess(text) || (cat ? guess(cat.n || cat.title) : null);
@@ -653,6 +670,10 @@ function art(it, cat) {
 }
 /* Disegno per una categoria: quello scelto, oppure quello del primo piatto */
 function catArt(c) {
+  if (window.Piatti && window.Piatti.styleEmoji) {
+    var ck = guess(c.n), first = (c.items || [])[0];
+    return emo(c.e || (ck && KEY_EMOJI[ck]) || (first ? emoFor(first, c) : '🍽️'));
+  }
   if (window.Piatti && window.Piatti.style3d) {
     var c3 = img3d(c.e) || (guess(c.n) && img3d(KEY_EMOJI[guess(c.n)])) || ((c.items || [])[0] ? art3d(c.items[0], c) : '');
     if (c3) return c3;
