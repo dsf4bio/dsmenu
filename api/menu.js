@@ -440,13 +440,16 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
   <div class="dsm-card">
     <div class="ico" aria-hidden="true" id="dsm-ico">🍽️</div>
     <div id="dsm-guest">
-      <h1 id="dsm-pause-t">Il menu digitale è in pausa</h1>
-      <p>Il menu di <strong>${n}</strong> al momento non è disponibile online. Chiedi pure al personale: sarà felice di aiutarti!</p>
+      <h1 id="dsm-pause-t">${r.ended ? 'Il menu digitale non è più attivo' : 'Il menu digitale è in pausa'}</h1>
+      <p>Il menu di <strong>${n}</strong> ${r.ended ? 'non è più disponibile online' : 'al momento non è disponibile online'}. Chiedi pure al personale: sarà felice di aiutarti!</p>
       <div class="sep"></div>
       ${r.service
         // pausa per un problema del servizio: niente pagamento, il titolare contatta l'assistenza
         ? `<p class="own">Sei il titolare? Per riattivarlo contatta l'assistenza: <a href="mailto:${esc(contact)}">${esc(contact)}</a></p>`
-        : '<button type="button" class="link" id="dsm-open">Sei il titolare? Area riservata</button>'}
+        : r.ended
+          // disdetta: niente richiesta di pagamento in vista, ma il titolare può ripartire quando vuole
+          ? '<button type="button" class="link" id="dsm-open">Sei il titolare e vuoi riattivarlo?</button>'
+          : '<button type="button" class="link" id="dsm-open">Sei il titolare? Area riservata</button>'}
     </div>
     <div class="own">
       <form id="dsm-form" hidden novalidate>
