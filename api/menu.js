@@ -387,6 +387,7 @@ function pausedPage(r) {
     return simplePage(`${r.name}`, 'Il menu digitale è momentaneamente in pausa. Chiedi pure al personale: ti aspettiamo!', 200).html;
   }
   const n = esc(r.name);
+  const contact = /^[^@\s<>"]+@[^@\s<>"]+$/.test(String(r.contact || '')) ? r.contact : 'info@dsfabio.com';
   const overlay = `
 <style>
 html,body{overflow:hidden!important;height:100%!important}
@@ -394,13 +395,13 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
 #dsm-pause{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:20px;
   background:rgba(250,246,238,.55);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#2b2420;
   -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);overflow:auto}
-#dsm-pause *{box-sizing:border-box;text-shadow:none;font-family:inherit;text-transform:none;letter-spacing:normal;-webkit-text-stroke:0;filter:none}
+#dsm-pause *{box-sizing:border-box;text-shadow:none;font-family:inherit;text-transform:none;letter-spacing:normal;-webkit-text-stroke:0;filter:none;opacity:1;transform:none;animation:none;visibility:visible}
 #dsm-pause *::before,#dsm-pause *::after{content:none!important}
-#dsm-pause .card{width:100%;max-width:400px;background:#fffdf9;border-radius:22px;padding:28px 24px 22px;text-align:center;
+#dsm-pause .dsm-card{width:100%;max-width:400px;background:#fffdf9;border-radius:22px;padding:28px 24px 22px;text-align:center;
   box-shadow:0 18px 50px rgba(43,36,32,.22),0 2px 6px rgba(43,36,32,.08)}
 #dsm-pause .ico{width:56px;height:56px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:#f3ebdd;font-size:26px}
 #dsm-pause h1{font-size:1.35rem;line-height:1.25;margin:0 0 8px;font-weight:700;letter-spacing:-.01em;color:#2b2420;background:none;padding:0}
-#dsm-pause p{margin:0;color:#6b5f57}
+#dsm-pause p{margin:0;color:#6b5f57;display:block;-webkit-line-clamp:unset;overflow:visible}
 #dsm-pause .sep{height:1px;background:#eee4d6;margin:20px 0 16px}
 #dsm-pause .own{font-size:.93rem}
 #dsm-pause button,#dsm-pause input{font:inherit}
@@ -417,11 +418,11 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
 #dsm-pause .hello{font-weight:700;color:#8a5a2b;margin-bottom:4px!important}
 #dsm-pause .lead{margin:0 0 14px!important}
 #dsm-pause form h1,#dsm-pause #dsm-renew h1{text-align:left}
-#dsm-pause .back{display:block;margin:12px auto 0;font-weight:500;color:#8b7f76}
+#dsm-pause .back{display:block;margin:12px auto 0;font-weight:500;color:#8b7f76;position:static;backface-visibility:visible;-webkit-backface-visibility:visible;background:none;padding:4px;width:auto;height:auto;inset:auto}
 #dsm-pause .perks{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px}
 #dsm-pause .perks li{position:relative;padding-left:28px;color:#4b403a;font-size:.95rem;line-height:1.4}
 #dsm-pause .perks li::before{content:"✓"!important;position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:#e7f6ec;color:#1f7a3a;font-weight:800;font-size:12px;display:grid;place-items:center}
-#dsm-pause .price{text-align:center;border:1.5px solid #eadfce;border-radius:14px;padding:12px;margin-bottom:4px;background:#fffaf2}
+#dsm-pause .price{color:#2b2420;text-align:center;border:1.5px solid #eadfce;border-radius:14px;padding:12px;margin-bottom:4px;background:#fffaf2}
 #dsm-pause .price b{font-size:1.9rem;color:#2b2420}
 #dsm-pause .price span{color:#6b5f57}
 #dsm-pause .price small{display:block;color:#8a5a2b;font-weight:600;font-size:.85rem;margin-top:2px}
@@ -433,15 +434,19 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
 #dsm-pause .ok{color:#1f7a3a;font-size:.88rem;margin-top:8px}
 #dsm-pause .by{margin-top:18px;font-size:.75rem;color:#a0948a}
 #dsm-pause .by a{color:inherit}
+#dsm-pause p.own a{color:#8a5a2b;font-weight:700}
 </style>
 <div id="dsm-pause" role="dialog" aria-modal="true" aria-labelledby="dsm-pause-t">
-  <div class="card">
+  <div class="dsm-card">
     <div class="ico" aria-hidden="true" id="dsm-ico">🍽️</div>
     <div id="dsm-guest">
       <h1 id="dsm-pause-t">Il menu digitale è in pausa</h1>
       <p>Il menu di <strong>${n}</strong> al momento non è disponibile online. Chiedi pure al personale: sarà felice di aiutarti!</p>
       <div class="sep"></div>
-      <button type="button" class="link" id="dsm-open">Sei il titolare? Area riservata</button>
+      ${r.service
+        // pausa per un problema del servizio: niente pagamento, il titolare contatta l'assistenza
+        ? `<p class="own">Sei il titolare? Per riattivarlo contatta l'assistenza: <a href="mailto:${esc(contact)}">${esc(contact)}</a></p>`
+        : '<button type="button" class="link" id="dsm-open">Sei il titolare? Area riservata</button>'}
     </div>
     <div class="own">
       <form id="dsm-form" hidden novalidate>
@@ -479,6 +484,7 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
   Array.prototype.forEach.call(document.body.children, function (el) {
     if (el.id !== 'dsm-pause' && el.tagName !== 'SCRIPT' && el.tagName !== 'STYLE') { el.setAttribute('aria-hidden', 'true'); el.inert = true; }
   });
+  if (!$('dsm-open')) return; // pausa per un problema del servizio: nessuna area titolare
   // il messaggio per i clienti del locale resta solo nella prima schermata
   $('dsm-open').addEventListener('click', function () {
     $('dsm-guest').hidden = true; $('dsm-ico').textContent = '🔑'; $('dsm-form').hidden = false; $('dsm-code').focus();
