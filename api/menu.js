@@ -70,6 +70,18 @@ img.dsm-ph{width:100%;height:100%;object-fit:cover;display:block;border-radius:i
 .pic{position:relative;overflow:hidden}.pic>img.dsm-ph{position:absolute;inset:0}
 img.dsm-ph-big{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin:6px 0 10px}
 </style>`;
+// etichette dei piatti (migrazione 060 del gestionale): accanto al nome, colorate in tutti i modelli;
+// "esaurito" rende il piatto sbiadito
+const FLAG_INFO = { esaurito: 'Esaurito', novita: 'Novità', offerta: 'In offerta', consigliato: 'Consigliato', stagione: 'Di stagione', ultimi: 'Ultimi pezzi' };
+const flagsHtml = (it) => (Array.isArray(it?.flags) ? it.flags : []).filter((k) => FLAG_INFO[k]).slice(0, 4)
+  .map((k) => ` <span class="dsm-flag dsm-f-${k}${k === 'esaurito' ? ' dsm-so' : ''}">${FLAG_INFO[k]}</span>`).join('');
+const hasFlags = (data) => (data?.sections || []).some((s) => (s.items || []).some((i) => flagsHtml(i)));
+const FLAG_CSS = `<style>
+.dsm-flag{display:inline-block;vertical-align:middle;margin:0 0 0 6px;padding:2px 8px;border-radius:999px;font:700 .62em/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.02em;color:#fff;white-space:nowrap;text-transform:none;font-style:normal;-webkit-text-fill-color:#fff;text-shadow:none}
+.dsm-f-esaurito{background:#6b7280}.dsm-f-novita{background:#16a34a}.dsm-f-offerta{background:#dc2626}
+.dsm-f-consigliato{background:#d97706}.dsm-f-stagione{background:#0d9488}.dsm-f-ultimi{background:#ea580c}
+:is(article,li,button,.card,.item,.it,.dish):has(.dsm-so):not(:has(:is(article,li,button,.card,.item,.it,.dish) .dsm-so)){opacity:.55;filter:grayscale(.7)}
+</style>`;
 const hasPhotos = (data) => (data?.sections || []).some((s) => (s.items || []).some((i) => photoOk(i.photo)));
 
 function toTheme(name, data) {
@@ -80,7 +92,7 @@ function toTheme(name, data) {
                   da: num(s.from, 0), a: num(s.to, 24), items: [] };
     sec.items = (Array.isArray(s.items) ? s.items : []).map((it) => {
       const labels = (Array.isArray(it.labels) ? it.labels : []).map(esc);
-      const o = { n: esc(it.name), d: esc(it.description || ''), p: num(it.price, 0),
+      const o = { n: esc(it.name) + flagsHtml(it), d: esc(it.description || ''), p: num(it.price, 0),
                   a: (Array.isArray(it.allergens) ? it.allergens : []).filter((x) => ALLERGENS.has(x)),
                   e: esc(it.emoji || '') };
       if (name === 'mdc-001') o.t = [...(DIET[it.diet] ? [DIET[it.diet]] : []), ...labels];
@@ -210,7 +222,7 @@ function normalize(name, data) {
     sec.items = (Array.isArray(s.items) ? s.items : []).map((it) => {
       const labels = (Array.isArray(it.labels) ? it.labels : []).map(String);
       return {
-        n: esc(it.name), d: esc(it.description || ''), p: num(it.price, 0),
+        n: esc(it.name) + flagsHtml(it), d: esc(it.description || ''), p: num(it.price, 0),
         a: (Array.isArray(it.allergens) ? it.allergens : []).filter((x) => ALLERGENS.has(x)),
         e: esc(it.emoji || s.emoji || fallback),
         veg: it.diet === 'veg' || it.diet === 'vegan', hot: !!it.spicy, isNew: !!it.new,
@@ -345,6 +357,7 @@ function render(r, { preview = false } = {}) {
   const placeholders = PLACEHOLDER_THEMES.has(name);
   const { MENU, TASTING, NOTE } = placeholders ? {} : toTheme(name, r.data);
   if (hasPhotos(r.data)) h = h.replace('</head>', () => `${PHOTO_CSS}\n</head>`);
+  if (hasFlags(r.data)) h = h.replace('</head>', () => `${FLAG_CSS}\n</head>`);
   const url = `${SITE}/${r.slug}`;
   const title = `${r.name} · Menu${r.city ? ` · ${r.city}` : ''}`;
   const desc = [r.info?.tagline, `Il menu di ${r.name}${r.city ? ` a ${r.city}` : ''}: piatti, prezzi e allergeni sempre aggiornati.`]

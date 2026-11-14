@@ -172,7 +172,7 @@ function show(i) {
   var list = c.items.map(function (it) { it.cat = c.n; it.catObj = c; return it; });
   grid.innerHTML = list.map(function (it, k) {
     var tag = (it.tags && it.tags[0]) || Piatti.label(it);
-    return '<button class="card" type="button" data-k="' + k + '" aria-label="' + it.n + ', ' + Piatti.price(it.p) + '">' +
+    return '<button class="card" type="button" data-k="' + k + '" aria-label="' + it.n.replace(/<[^>]*>/g, '') + ', ' + Piatti.price(it.p) + '">' +
       '<div class="pic"><span class="ic">' + Piatti.art(it, c) + '</span></div>' +
       (tag ? '<span class="tag">' + tag + '</span>' : '') + '<span class="plus" aria-hidden="true">+</span>' +
       '<div class="body"><h3>' + it.n + '</h3>' + (it.d ? '<p>' + it.d + '</p>' : '') + '<div class="row"><span class="al">' + Piatti.alIcons(it.al) + '</span><span class="price">' + Piatti.price(it.p) + '</span></div></div></button>';

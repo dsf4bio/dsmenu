@@ -244,7 +244,7 @@ $('#secs').innerHTML = MENU.map(c => `
 <section class="sec" id="${c.id}" aria-labelledby="t-${c.id}">
   <h2 class="sec-title" id="t-${c.id}"><span class="ghost" aria-hidden="true">${c.label}</span>${c.e} ${c.label}</h2>
   ${c.items.map(it => `
-  <article class="dish" data-id="${it.id}" tabindex="0" aria-label="${it.n}, ${eur(it.p)}. Apri i dettagli">
+  <article class="dish" data-id="${it.id}" tabindex="0" aria-label="${it.n.replace(/<[^>]*>/g, "")}, ${eur(it.p)}. Apri i dettagli">
     <div class="dish-plate" aria-hidden="true"><span>${it.e}</span></div>
     <div class="dish-body"><h3>${it.n} ${tagHTML(it.t)}</h3><p>${it.d}</p><div class="als">${alHTML(it.a)}</div></div>
     <div class="dish-side"><span class="price">${eur(it.p)}</span></div>
@@ -253,7 +253,7 @@ $('#secs').innerHTML = MENU.map(c => `
 
 const tops = Object.values(ITEMS).filter(i => i.top);
 $('#htrack').innerHTML = tops.map((it, i) => `
-<article class="spec" data-id="${it.id}" tabindex="0" aria-label="${it.n}, ${eur(it.p)}. Apri i dettagli">
+<article class="spec" data-id="${it.id}" tabindex="0" aria-label="${it.n.replace(/<[^>]*>/g, "")}, ${eur(it.p)}. Apri i dettagli">
   <span class="num" aria-hidden="true">0${i + 1}</span>
   <div class="dish-plate" style="--s:150px" aria-hidden="true"><span>${it.e}</span></div>
   <h3>${it.n}</h3><p>${it.d}</p>
