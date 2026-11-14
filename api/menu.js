@@ -351,6 +351,14 @@ function fillTheme(name, r, h) {
 }
 
 // ---------- pagina del menu ----------
+// Visite: ogni telefono conta una volta al giorno per menu (la pagina è in cache,
+// quindi il conteggio parte dal telefono e non dal server). Niente dati personali.
+function viewBeacon(slug) {
+  return `<script>(function(){try{var k='dsm-v-'+${json(slug)}+'-'+new Date().toISOString().slice(0,10);if(localStorage.getItem(k))return;localStorage.setItem(k,'1')}catch(e){}
+if(/bot|crawl|spider|slurp|preview|lighthouse|headless/i.test(navigator.userAgent||''))return;
+setTimeout(function(){try{fetch(${json(SUPABASE_URL)}+'/rest/v1/rpc/menu_view_hit',{method:'POST',keepalive:true,headers:{apikey:${json(SUPABASE_KEY)},'Content-Type':'application/json'},body:JSON.stringify({p_slug:${json(slug)}})}).catch(function(){})}catch(e){}},1500)})();</script>\n`;
+}
+
 function render(r, { preview = false } = {}) {
   const name = THEMES.has(r.theme) ? r.theme : DEFAULT_THEME;
   let h = theme(name);
@@ -394,6 +402,7 @@ function render(r, { preview = false } = {}) {
 
   if (!placeholders) h = h.replace(/<header[\s\S]*?<\/header>/, () => header(name, r));
   h = h.replace(/<footer>[\s\S]*?<\/footer>/, () => footer(r));
+  if (!preview) h = h.replace(/<\/body>/i, () => `${viewBeacon(r.slug)}</body>`);
   return h;
 }
 
