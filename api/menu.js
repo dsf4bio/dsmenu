@@ -72,14 +72,14 @@ img.dsm-ph-big{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:
 </style>`;
 // etichette dei piatti (migrazione 060 del gestionale): accanto al nome, colorate in tutti i modelli;
 // "esaurito" rende il piatto sbiadito
-const FLAG_INFO = { esaurito: 'Esaurito', novita: 'Novità', offerta: 'In offerta', consigliato: 'Consigliato', stagione: 'Di stagione', ultimi: 'Ultimi pezzi' };
+const FLAG_INFO = { esaurito: 'Esaurito', novita: 'Novità', offerta: 'In offerta', consigliato: 'Consigliato', stagione: 'Di stagione' };
 const flagsHtml = (it) => (Array.isArray(it?.flags) ? it.flags : []).filter((k) => FLAG_INFO[k]).slice(0, 4)
   .map((k) => ` <span class="dsm-flag dsm-f-${k}${k === 'esaurito' ? ' dsm-so' : ''}">${FLAG_INFO[k]}</span>`).join('');
 const hasFlags = (data) => (data?.sections || []).some((s) => (s.items || []).some((i) => flagsHtml(i)));
 const FLAG_CSS = `<style>
 .dsm-flag{display:inline-block;vertical-align:middle;margin:0 0 0 6px;padding:2px 8px;border-radius:999px;font:700 .62em/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.02em;color:#fff;white-space:nowrap;text-transform:none;font-style:normal;-webkit-text-fill-color:#fff;text-shadow:none}
 .dsm-f-esaurito{background:#6b7280}.dsm-f-novita{background:#16a34a}.dsm-f-offerta{background:#dc2626}
-.dsm-f-consigliato{background:#d97706}.dsm-f-stagione{background:#0d9488}.dsm-f-ultimi{background:#ea580c}
+.dsm-f-consigliato{background:#d97706}.dsm-f-stagione{background:#0d9488}
 :is(article,li,button,.card,.item,.it,.dish):has(.dsm-so):not(:has(:is(article,li,button,.card,.item,.it,.dish) .dsm-so)){opacity:.55;filter:grayscale(.7)}
 </style>`;
 const hasPhotos = (data) => (data?.sections || []).some((s) => (s.items || []).some((i) => photoOk(i.photo)));
