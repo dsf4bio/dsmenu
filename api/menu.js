@@ -78,8 +78,8 @@ const flagsHtml = (it) => (Array.isArray(it?.flags) ? it.flags : []).filter((k) 
 const hasFlags = (data) => (data?.sections || []).some((s) => (s.items || []).some((i) => flagsHtml(i)));
 const FLAG_CSS = `<style>
 .dsm-flag{display:inline-block;vertical-align:middle;margin:0 0 0 6px;padding:2px 8px;border-radius:999px;font:700 .62em/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.02em;color:#fff;white-space:nowrap;text-transform:none;font-style:normal;-webkit-text-fill-color:#fff;text-shadow:none}
-.dsm-f-esaurito{background:#6b7280}.dsm-f-novita{background:#16a34a}.dsm-f-offerta{background:#dc2626}
-.dsm-f-consigliato{background:#d97706}.dsm-f-stagione{background:#0d9488}
+.dsm-f-esaurito{background:#6b7280}.dsm-f-novita{background:#7c3aed}.dsm-f-offerta{background:#16a34a}
+.dsm-f-consigliato{background:#2563eb}.dsm-f-stagione{background:#ea580c}
 :is(article,li,button,.card,.item,.it,.dish):has(.dsm-so):not(:has(:is(article,li,button,.card,.item,.it,.dish) .dsm-so)){opacity:.55;filter:grayscale(.7)}
 </style>`;
 const hasPhotos = (data) => (data?.sections || []).some((s) => (s.items || []).some((i) => photoOk(i.photo)));
