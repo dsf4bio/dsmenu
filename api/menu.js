@@ -157,6 +157,13 @@ const ICON = {
 // link del footer: "#" = segnaposto (link non ancora fornito dal locale): icona visibile, nessuna apertura
 const fLink = (u) => (u === '#' ? 'href="#"' : `href="${esc(u)}" target="_blank" rel="noopener"`);
 
+// dicitura sugli allergeni: sempre in fondo a ogni menu, con qualsiasi modello
+const ALLERGEN_NOTICE = '<p class="fallergeni" role="note" style="max-width:600px;margin:16px auto 0;padding-top:12px;'
+  + 'border-top:1px solid currentColor;border-top-color:rgba(127,127,127,.35);font-size:.78rem;line-height:1.5;opacity:.88">'
+  + '<b>⚠️ Allergeni</b> (Reg. UE 1169/2011): gli allergeni sono indicati per ogni piatto. '
+  + 'Se hai allergie o intolleranze alimentari chiedi sempre al personale prima di ordinare: '
+  + 'i piatti possono contenere tracce di altri allergeni per contaminazione durante la preparazione.</p>';
+
 function footer(r) {
   const i = r.info || {};
   const line = [i.address, i.phone ? `Tel. ${i.phone}` : '', i.hours].filter(Boolean).map(esc).join(' · ');
@@ -181,6 +188,7 @@ function footer(r) {
   <strong>${esc(r.name)}</strong>
   ${line ? `<div class="finfo">${line}</div>` : ''}
   ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="Contatti">${links}</nav>` : ''}
+  ${ALLERGEN_NOTICE}
   <small class="fby" style="display:block;margin-top:14px;opacity:.75">Menu digitale by <a href="https://dsfabio.com" target="_blank" rel="noopener">DS Service</a></small>
 </footer>`;
 }
@@ -474,7 +482,7 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
         </ul>
         <div class="price" id="dsm-price" hidden><b id="dsm-price-y"></b><span> / anno</span><small id="dsm-price-m"></small></div>
         <a class="btn btn-go" id="dsm-pay" href="#">Riattiva ora il menu</a>
-        <div class="hint trust">🔒 Pagamento sicuro con Stripe · ricevuta via email<br>Rinnovo annuale, disdici quando vuoi fino a 30 giorni prima</div>
+        <div class="hint trust">🔒 Pagamento sicuro con Stripe · ricevuta via email</div>
       </div>
     </div>
     <div class="by">Menu digitale by <a href="https://dsfabio.com" target="_blank" rel="noopener">DS Service</a> · <a href="https://dsfabio.com/assistenza" target="_blank" rel="noopener">Assistenza</a></div>
