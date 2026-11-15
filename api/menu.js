@@ -366,7 +366,9 @@ function fillTheme(name, r, h) {
 const BRAND_LOOK = {
   'mdc-001': { at: 'header.hero', rgb: '250,246,238', a: 0.62, tx: 'lt', logo: false },
   'mdc-002': { at: 'header.top', rgb: '20,14,12', a: 0.42, tx: 'dk', logo: 'span.badge',
-    css: '.top.dsm-cov{background:#1c1411;border-radius:0 0 30px 30px}.top.dsm-cov::before,.top.dsm-cov .pizza{display:none}'
+    // con la copertina: niente rosso, foto scurita che in basso sfuma nel colore della pagina
+    css: '.top.dsm-cov{background:var(--cream);padding-bottom:150px}.top.dsm-cov::before,.top.dsm-cov .pizza{display:none}'
+      + '.top.dsm-cov>.dsm-cov-bg{-webkit-mask-image:linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%);mask-image:linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%)}'
       + '.top.dsm-cov h1{text-shadow:0 3px 22px rgba(0,0,0,.55)}.top.dsm-cov .dsm-hlogo{margin-top:16px}' },
   'mdc-003': { at: 'header.top', rgb: '255,250,242', a: 0.62, tx: 'lt', logo: false },
   'mdc-004': { at: 'header.top', rgb: '18,18,20', a: 0.5, tx: 'dk', logo: 'div.brand',
@@ -387,8 +389,9 @@ const BRAND_LOOK = {
   'mdc-016': { at: 'header.hero', rgb: '52,62,22', a: 0.5, tx: 'dk', logo: false, top: true },
   'mdc-017': { at: 'header.top', rgb: '40,22,12', a: 0.46, tx: 'dk', logo: 'div.plank' },
   'mdc-018': { at: 'header.hero', rgb: '20,14,12', a: 0.42, tx: 'dk', logo: 'small',
-    css: '.hero.dsm-cov{background:#1c1411;border-radius:0 0 30px 30px;padding-top:34px}.hero.dsm-cov .volcano{display:none}'
-      + '.hero.dsm-cov .hero-in{grid-template-columns:1fr}.hero.dsm-cov h1{text-shadow:0 3px 22px rgba(0,0,0,.55)}.hero.dsm-cov p{padding-bottom:30px}' },
+    css: '.hero.dsm-cov{background:var(--cream);padding-top:34px}.hero.dsm-cov .volcano{display:none}.hero.dsm-cov .hero-in{grid-template-columns:1fr;padding-bottom:100px}.hero.dsm-cov .oven span{background:rgba(28,20,17,.82)}'
+      + '.hero.dsm-cov>.dsm-cov-bg{-webkit-mask-image:linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%);mask-image:linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%)}'
+      + '.hero.dsm-cov h1{text-shadow:0 3px 22px rgba(0,0,0,.55)}.hero.dsm-cov p{padding-bottom:22px}' },
   'mdc-019': { at: 'header.hero', rgb: '250,243,228', a: 0.6, tx: 'lt', logo: 'small' },
   'mdc-020': { at: 'header.hero', rgb: '253,238,242', a: 0.58, tx: 'lt', logo: 'small' },
   'mdc-021': { at: 'header.wall', rgb: '16,10,8', a: 0.5, tx: 'dk', logo: 'div.neon' },
