@@ -354,40 +354,67 @@ function fillTheme(name, r, h) {
 }
 
 // ---------- logo e copertina nell'intestazione (tutti i modelli) ----------
-// at: l'elemento dell'intestazione (tag.classe) dietro cui va la copertina, schiarita o scurita
-// col colore del modello perché il testo resti leggibile; logo: 'h1' = tondo sopra al nome,
-// false = il modello ha già il suo tondo (monogramma) dove va il logo. Stessa tabella in
-// dsfabio/attiva.html (anteprima con logo e copertina del ristoratore): tenerle uguali.
-const dk = (rgb, a = 0.74, b = 0.6) => `linear-gradient(180deg,rgba(${rgb},${a}),rgba(${rgb},${b}))`;
-const lt = (rgb) => dk(rgb, 0.8, 0.7);
+// Tabella condivisa con dsfabio/attiva.html (anteprima nel modulo): tenerle uguali.
+//  at    intestazione (tag.classe) dietro cui va la copertina
+//  rgb,a velo sopra la foto: colore del modello e opacità (0.45 = 45%: la foto si vede, il testo resta leggibile)
+//  tx    'dk' testo chiaro su velo scuro, 'lt' testo scuro su velo chiaro: ombra/alone dietro ai testi
+//  logo  dove va il tondo col logo: prima di questo elemento (di solito la riga sopra al nome), se no prima del nome;
+//        false = il modello ha già un tondo (monogramma) dove va il logo
+//  h1    false = niente ombra sul nome (scritte a gradiente o al neon, l'ombra le sporcherebbe)
+//  top   copertina solo nella parte alta su telefono (Aura: sotto c'è il piatto)
+//  css   ritocchi del modello quando c'è la copertina
 const BRAND_LOOK = {
-  'mdc-001': { at: 'header.hero', tint: lt('250,246,238'), logo: false },
-  'mdc-002': { at: 'header.top', tint: dk('196,32,38', 0.8, 0.7), logo: 'h1' },
-  'mdc-003': { at: 'header.top', tint: lt('255,250,242'), logo: false },
-  'mdc-004': { at: 'header.top', tint: dk('20,20,22', 0.8, 0.72), logo: 'h1' },
-  'mdc-005': { at: 'header.top', tint: dk('58,36,22', 0.78, 0.66), logo: 'h1' },
-  'mdc-006': { at: 'header.top', tint: dk('16,72,140', 0.72, 0.6), logo: 'h1' },
-  'mdc-007': { at: 'header.top', tint: dk('20,18,16', 0.8, 0.7), logo: 'h1' },
-  'mdc-008': { at: 'header.hero', tint: dk('20,12,10', 0.78, 0.66), logo: 'h1' },
-  'mdc-009': { at: 'header.hero', tint: dk('8,22,40', 0.78, 0.66), logo: 'h1' },
-  'mdc-010': { at: 'section.build', tint: lt('255,212,64'), logo: 'h1' },
-  'mdc-011': { at: 'header.hero', tint: dk('16,16,16', 0.78, 0.68), logo: 'h1' },
-  'mdc-012': { at: 'header.hero', tint: lt('250,240,222'), logo: 'h1' },
-  'mdc-013': { at: 'header.hero', tint: dk('14,30,70', 0.78, 0.68), logo: 'h1' },
-  'mdc-014': { at: 'header.hero', tint: dk('20,40,30', 0.76, 0.64), logo: 'h1' },
-  'mdc-015': { at: 'header.top', tint: dk('40,16,70', 0.78, 0.7), logo: false },
-  'mdc-016': { at: 'header.hero', tint: 'linear-gradient(165deg,rgba(70,82,31,.72),rgba(38,46,15,.5))', logo: false, top: true },
-  'mdc-017': { at: 'header.top', tint: dk('46,26,14', 0.76, 0.64), logo: 'h1' },
-  'mdc-018': { at: 'header.hero', tint: dk('196,32,38', 0.8, 0.7), logo: 'h1' },
-  'mdc-019': { at: 'header.hero', tint: lt('250,243,228'), logo: 'h1' },
-  'mdc-020': { at: 'header.hero', tint: lt('253,236,240'), logo: 'h1' },
-  'mdc-021': { at: 'header.wall', tint: dk('18,12,10', 0.78, 0.68), logo: 'h1' },
+  'mdc-001': { at: 'header.hero', rgb: '250,246,238', a: 0.62, tx: 'lt', logo: false },
+  'mdc-002': { at: 'header.top', rgb: '20,14,12', a: 0.42, tx: 'dk', logo: 'span.badge',
+    css: '.top.dsm-cov{background:#1c1411;border-radius:0 0 30px 30px}.top.dsm-cov::before,.top.dsm-cov .pizza{display:none}'
+      + '.top.dsm-cov h1{text-shadow:0 3px 22px rgba(0,0,0,.55)}.top.dsm-cov .dsm-hlogo{margin-top:16px}' },
+  'mdc-003': { at: 'header.top', rgb: '255,250,242', a: 0.62, tx: 'lt', logo: false },
+  'mdc-004': { at: 'header.top', rgb: '18,18,20', a: 0.5, tx: 'dk', logo: 'div.brand',
+    css: '.top.dsm-cov{max-width:none;padding-left:max(20px,calc(50% - 360px));padding-right:max(20px,calc(50% - 360px))}' },
+  'mdc-005': { at: 'header.top', rgb: '52,32,20', a: 0.5, tx: 'dk', logo: 'p.est' },
+  'mdc-006': { at: 'header.top', rgb: '12,52,104', a: 0.46, tx: 'dk', logo: 'p.kick' },
+  'mdc-007': { at: 'header.top', rgb: '18,16,14', a: 0.5, tx: 'dk', logo: 'span.badge' },
+  'mdc-008': { at: 'header.hero', rgb: '18,10,8', a: 0.5, tx: 'dk', logo: 'span.temp' },
+  'mdc-009': { at: 'header.hero', rgb: '6,18,34', a: 0.5, tx: 'dk', logo: 'div.hero-grid', h1: false,
+    css: '.hero>.dsm-hlogo{position:relative;max-width:960px;margin:0 auto 16px}@media (max-width:720px){.hero>.dsm-hlogo{text-align:center}}' },
+  'mdc-010': { at: 'section.build', rgb: '255,210,60', a: 0.6, tx: 'lt', logo: 'h1' },
+  'mdc-011': { at: 'header.hero', rgb: '14,14,14', a: 0.5, tx: 'dk', logo: 'span.est' },
+  'mdc-012': { at: 'header.hero', rgb: '250,240,222', a: 0.62, tx: 'lt', logo: 'div.hero-grid',
+    css: '.hero>.dsm-hlogo{max-width:960px;margin:0 auto 16px}@media (max-width:760px){.hero>.dsm-hlogo{text-align:center}}' },
+  'mdc-013': { at: 'header.hero', rgb: '12,26,62', a: 0.5, tx: 'dk', logo: 'h1' },
+  'mdc-014': { at: 'header.hero', rgb: '16,34,26', a: 0.48, tx: 'dk', logo: 'p.kicker' },
+  'mdc-015': { at: 'header.top', rgb: '34,14,60', a: 0.55, tx: 'dk', logo: false, h1: false },
+  'mdc-016': { at: 'header.hero', rgb: '52,62,22', a: 0.5, tx: 'dk', logo: false, top: true },
+  'mdc-017': { at: 'header.top', rgb: '40,22,12', a: 0.46, tx: 'dk', logo: 'div.plank' },
+  'mdc-018': { at: 'header.hero', rgb: '20,14,12', a: 0.42, tx: 'dk', logo: 'small',
+    css: '.hero.dsm-cov{background:#1c1411;border-radius:0 0 30px 30px;padding-top:34px}.hero.dsm-cov .volcano{display:none}'
+      + '.hero.dsm-cov .hero-in{grid-template-columns:1fr}.hero.dsm-cov h1{text-shadow:0 3px 22px rgba(0,0,0,.55)}.hero.dsm-cov p{padding-bottom:30px}' },
+  'mdc-019': { at: 'header.hero', rgb: '250,243,228', a: 0.6, tx: 'lt', logo: 'small' },
+  'mdc-020': { at: 'header.hero', rgb: '253,238,242', a: 0.58, tx: 'lt', logo: 'small' },
+  'mdc-021': { at: 'header.wall', rgb: '16,10,8', a: 0.5, tx: 'dk', logo: 'div.neon' },
 };
 const BRAND_CSS = '<style>:where(.dsm-cov){position:relative}.dsm-cov{isolation:isolate}'
-  + '.dsm-cov>.dsm-cov-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;background:var(--dsm-tint),var(--dsm-cover) center center/cover no-repeat}'
-  // modelli con il piatto sotto al nome (Aura): su telefono la copertina sta solo nella parte alta e sfuma
-  + '@media (max-width:760px){.dsm-cov-top>.dsm-cov-bg{bottom:auto;height:min(60%,560px);-webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent)}}'
-  + '.dsm-hlogo{margin:0 0 12px;line-height:0}</style>';
+  // foto + velo; in basso sfuma nello sfondo del modello, così non c'è uno stacco netto
+  + '.dsm-cov>.dsm-cov-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;'
+  + 'background:linear-gradient(var(--dsm-tint),var(--dsm-tint)),var(--dsm-cover) center center/cover no-repeat;'
+  + '-webkit-mask-image:linear-gradient(180deg,#000 0,#000 52%,rgba(0,0,0,.45) 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 0,#000 52%,rgba(0,0,0,.45) 78%,transparent 100%)}'
+  + '@media (max-width:760px){.dsm-cov-top>.dsm-cov-bg{bottom:auto;height:min(62%,580px)}}'
+  // testi sempre leggibili sulla foto
+  + '.dsm-cov-dk p,.dsm-cov-dk small,.dsm-cov-dk .kick,.dsm-cov-dk .kicker,.dsm-cov-dk .est{text-shadow:0 1px 3px rgba(0,0,0,.6),0 2px 16px rgba(0,0,0,.45)}'
+  + ':where(.dsm-cov-dk:not(.dsm-cov-noh1)) h1{text-shadow:0 2px 4px rgba(0,0,0,.35),0 4px 24px rgba(0,0,0,.45)}'
+  + '.dsm-cov-lt p,.dsm-cov-lt small,.dsm-cov-lt .kick,.dsm-cov-lt .kicker{text-shadow:0 0 2px rgba(255,255,255,.9),0 0 14px rgba(255,255,255,.85)}'
+  + ':where(.dsm-cov-lt:not(.dsm-cov-noh1)) h1{text-shadow:0 0 18px rgba(255,255,255,.85)}'
+  // tondo col logo: allineato come il testo del modello (a sinistra o al centro), sopra alla riga del nome
+  + '.dsm-hlogo{margin:0 0 14px;line-height:0}.dsm-hlogo .dsm-logo{width:64px!important;height:64px!important}'
+  + '@media (max-width:600px){.dsm-hlogo .dsm-logo{width:56px!important;height:56px!important}}</style>';
+
+// apertura del primo elemento "tag.classe" (o "tag") dopo la posizione from
+function findTag(h, sel, from = 0) {
+  const [tag, cls] = sel.split('.');
+  const re = new RegExp(cls ? `<${tag}\\b[^>]*\\bclass="[^"]*\\b${cls}\\b[^"]*"[^>]*>` : `<${tag}\\b[^>]*>`, 'g');
+  re.lastIndex = from;
+  return re.exec(h);
+}
 
 function brandHeader(name, info, h) {
   const cfg = BRAND_LOOK[name];
@@ -395,23 +422,24 @@ function brandHeader(name, info, h) {
   const cover = photoOk(info.cover) ? info.cover : null;
   const logo = cfg.logo && photoOk(info.logo) ? info.logo : null;
   if (!cover && !logo) return h;
-  const [tag, cls] = cfg.at.split('.');
-  const m = new RegExp(`<${tag}\\b[^>]*\\bclass="([^"]*\\b${cls}\\b[^"]*)"[^>]*>`).exec(h);
+  const m = findTag(h, cfg.at);
   if (!m) return h;
   let open = m[0];
   let after = '';
   if (cover) {
-    open = open.replace(/class="([^"]*)"/, (x, c) => `class="${c} dsm-cov${cfg.top ? ' dsm-cov-top' : ''}"`)
-      .replace(/>$/, ` style="--dsm-tint:${cfg.tint};--dsm-cover:url(&quot;${esc(cover)}&quot;)">`);
+    open = open.replace(/class="([^"]*)"/, (x, c) => `class="${c} dsm-cov dsm-cov-${cfg.tx}${cfg.top ? ' dsm-cov-top' : ''}${cfg.h1 === false ? ' dsm-cov-noh1' : ''}"`)
+      .replace(/>$/, ` style="--dsm-tint:rgba(${cfg.rgb},${cfg.a});--dsm-cover:url(&quot;${esc(cover)}&quot;)">`);
     after = '<span class="dsm-cov-bg" aria-hidden="true"></span>';
   }
   let rest = h.slice(m.index + m[0].length);
   if (logo) {
-    const i = rest.search(/<h1\b/);
-    if (i >= 0) rest = `${rest.slice(0, i)}<div class="dsm-hlogo">${logoImg(logo, '64px')}</div>${rest.slice(i)}`;
+    const h1 = rest.search(/<h1\b/);
+    const k = cfg.logo !== 'h1' ? findTag(rest, cfg.logo) : null;
+    const at = k && h1 >= 0 && k.index < h1 ? k.index : h1;
+    if (at >= 0) rest = `${rest.slice(0, at)}<div class="dsm-hlogo">${logoImg(logo, '64px')}</div>${rest.slice(at)}`;
   }
   h = h.slice(0, m.index) + open + after + rest;
-  return h.replace('</head>', () => `${BRAND_CSS}\n</head>`);
+  return h.replace('</head>', () => `${BRAND_CSS}${cfg.css ? `<style>${cfg.css}</style>` : ''}\n</head>`);
 }
 
 // ---------- pagina del menu ----------
