@@ -15,12 +15,13 @@ const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_sfa
 const SITE = 'https://www.dsmenu.it';
 const THEMES = new Set(Array.from({ length: 21 }, (_, i) => `mdc-${String(i + 1).padStart(3, '0')}`));
 // temi preparati con tools/prepara_temi.py: dati e intestazione tramite segnaposto
-const PLACEHOLDER_THEMES = new Set(['mdc-005', 'mdc-006', 'mdc-007', 'mdc-008', 'mdc-009', 'mdc-010',
+const PLACEHOLDER_THEMES = new Set(['mdc-002', 'mdc-005', 'mdc-006', 'mdc-007', 'mdc-008', 'mdc-009', 'mdc-010',
   'mdc-011', 'mdc-012', 'mdc-013', 'mdc-014', 'mdc-015',
   'mdc-016', 'mdc-017', 'mdc-018', 'mdc-019', 'mdc-020', 'mdc-021']);
 // temi animati con i piatti illustrati di assets/piatti.js (Aura, Il Focolare, Vesuvio,
 // La Piadaia, Zucchero Velo, The Copper Fox): stessi dati, disegno scelto dal nome del piatto
-const ILLUSTRATED_THEMES = new Set(['mdc-016', 'mdc-017', 'mdc-018', 'mdc-019', 'mdc-020', 'mdc-021']);
+// Bella Napoli, Ice Lounge e Smash Lab rifatti (tools/nuovi_modelli.py) usano la stessa forma dei dati
+const ILLUSTRATED_THEMES = new Set(['mdc-002', 'mdc-009', 'mdc-010', 'mdc-016', 'mdc-017', 'mdc-018', 'mdc-019', 'mdc-020', 'mdc-021']);
 const DEFAULT_THEME = 'mdc-001';
 const ALLERGENS = new Set(['glutine', 'crostacei', 'uova', 'pesce', 'arachidi', 'soia', 'latte',
   'frutta', 'sedano', 'senape', 'sesamo', 'solfiti', 'lupini', 'molluschi']);
@@ -243,24 +244,6 @@ function themeData(name, S) {
       out.js = `var AL = ${AL_JS};\nvar TAGS = {hot:'Piccante', veg:'Veg', top:'Consigliata'};\n`
         + v('MENU', S.map((s) => ({ id: s.id, t: s.title, s: s.sub, items: s.items.map((it) => base(it, { e: it.e, t: tagList(it, ['hot', 'veg', 'top']) })) })));
       break;
-    case 'mdc-009': {
-      // "Nel bicchiere ora": solo dalle sezioni di drink (cocktail, vini, bevande…)
-      const drinks = S.filter((s) => DRINK_SECTION.test(s.title)).flatMap((s) => s.items).slice(0, 6).map((it, i) => ({ n: it.n, d: it.dPlain, c: LIQ[i % LIQ.length] }));
-      out.js = `var AL = ${AL_JS};\nvar TASTES = {};\n`
-        + v('MENU', S.map((s) => ({ id: s.id, t: s.title, items: s.items.map((it) => base(it, { e: it.e, g: [], z: 0 })) })))
-        + v('DSM_DRINKS', drinks);
-      out.vars.DRINK_N = drinks[0]?.n || '';
-      out.vars.DRINK_D = drinks[0]?.d || '';
-      out.css = '.tastes{display:none!important}';
-      break;
-    }
-    case 'mdc-010':
-      out.js = `var AL = ${AL_JS};\n`
-        + v('MENU', S.map((s) => ({ id: s.id, t: `${s.emoji || '🍔'} ${s.title}`, s: s.sub, items: s.items.map((it) => {
-          const b = it.top ? 'TOP' : it.hot ? 'HOT' : it.veg ? 'VEG' : it.isNew ? 'NEW' : it.LABEL;
-          return base(it, { e: it.e, ...(b ? { b, bc: it.veg && !it.top && !it.hot ? 'veg' : '' } : {}) });
-        }) })));
-      break;
     case 'mdc-011':
       out.js = `var AL = ${AL_JS};\n`
         + v('MENU', S.map((s) => ({ id: s.id, t: s.title, s: s.sub, items: s.items.map((it) => base(it, { e: it.e, h: it.hot ? 3 : 0, t: it.label || (it.top ? 'Il più scelto' : it.veg ? 'Veg' : '') })) })));
@@ -312,6 +295,7 @@ function fillTheme(name, r, h) {
     HOURS: esc(info.hours || ''),
     HERO_EMOJI: esc(firstEmoji || '🍽️'),
     HDLOGO: hdLogo(r),
+    NOTE: r.data?.extras?.note ? bold(r.data.extras.note) : '',
     MONO: logoImg(info.logo, MONO_LOGO) || esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase()),
     // tema Aura: il tondo in alto c'è sempre, con il logo oppure con l'iniziale del locale finché il logo non c'è
     LOGO: logoImg(info.logo, '76px') || `<span class="dsm-logo dsm-mono" aria-hidden="true" style="display:inline-block;box-sizing:border-box;width:76px;height:76px;padding:3px;border-radius:50%;background:${STORY_RING};vertical-align:middle"><span style="display:grid;place-items:center;width:100%;height:100%;box-sizing:border-box;border-radius:50%;border:3px solid #fff;background:#fffbf2;color:#424e1d;font:600 2rem/1 'Fraunces',Georgia,serif">${esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase())}</span></span>`,
@@ -340,15 +324,15 @@ function fillTheme(name, r, h) {
 // La copertina è uguale in tutti i modelli (tools/copertina.mjs): tondo del logo in alto al centro, nome, slogan.
 const BRAND_LOOK = {
   'mdc-001': { at: 'header.hero', rgb: '250,246,238', a: 0.52, tx: 'lt' },
-  'mdc-002': { at: 'header.top', rgb: '20,14,12', a: 0.32, tx: 'dk' },
+  'mdc-002': { at: 'header.hero', rgb: '16,40,90', a: 0.36, tx: 'dk' },
   'mdc-003': { at: 'header.top', rgb: '255,250,242', a: 0.52, tx: 'lt' },
   'mdc-004': { at: 'header.top', rgb: '18,18,20', a: 0.4, tx: 'dk' },
   'mdc-005': { at: 'header.top', rgb: '52,32,20', a: 0.4, tx: 'dk' },
   'mdc-006': { at: 'header.top', rgb: '12,52,104', a: 0.36, tx: 'dk' },
   'mdc-007': { at: 'header.top', rgb: '18,16,14', a: 0.4, tx: 'dk' },
   'mdc-008': { at: 'header.hero', rgb: '18,10,8', a: 0.4, tx: 'dk' },
-  'mdc-009': { at: 'header.hero', rgb: '6,18,34', a: 0.4, tx: 'dk', h1: false },
-  'mdc-010': { at: 'header.dsm-hdr10', rgb: '255,210,60', a: 0.4, tx: 'lt' },
+  'mdc-009': { at: 'header.hero', rgb: '8,12,28', a: 0.42, tx: 'dk' },
+  'mdc-010': { at: 'header.hero', rgb: '17,17,17', a: 0.36, tx: 'dk' },
   'mdc-011': { at: 'header.hero', rgb: '14,14,14', a: 0.4, tx: 'dk' },
   'mdc-012': { at: 'header.hero', rgb: '250,240,222', a: 0.52, tx: 'lt' },
   'mdc-013': { at: 'header.hero', rgb: '12,26,62', a: 0.4, tx: 'dk' },
