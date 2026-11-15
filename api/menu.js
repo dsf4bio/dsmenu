@@ -149,16 +149,46 @@ const ICON = {
 // link del footer: "#" = segnaposto (link non ancora fornito dal locale): icona visibile, nessuna apertura
 const fLink = (u) => (u === '#' ? 'href="#"' : `href="${esc(u)}" target="_blank" rel="noopener"`);
 
+// ---------- testi del piè di pagina nella lingua del menu (lingua del cliente, migrazione 076) ----------
+const LANGS = ['it', 'en', 'es', 'pt', 'de', 'fr'];
+const menuLang = (r) => (LANGS.includes(r?.lang) ? r.lang : 'it');
+const FOOT = {
+  it: { tel: 'Tel.', call: '📞 Chiama', where: '📍 Dove siamo', review: '⭐ Lascia una recensione', web: '🌐 Sito web', contacts: 'Contatti', vat: 'P.IVA',
+    al: '<b>⚠️ Allergeni</b> (Reg. UE 1169/2011): gli allergeni sono indicati per ogni piatto. Se hai allergie o intolleranze alimentari chiedi sempre al personale prima di ordinare: i piatti possono contenere tracce di altri allergeni per contaminazione durante la preparazione.',
+    by: 'Menu digitale by', want: 'Lo vuoi per il tuo locale?', privacy: 'Privacy',
+    desc: (n, c) => `Il menu di ${n}${c ? ` a ${c}` : ''}: piatti, prezzi e allergeni sempre aggiornati.` },
+  en: { tel: 'Tel.', call: '📞 Call', where: '📍 Find us', review: '⭐ Leave a review', web: '🌐 Website', contacts: 'Contacts', vat: 'VAT',
+    al: '<b>⚠️ Allergens</b> (EU Reg. 1169/2011): allergens are shown for every dish. If you have food allergies or intolerances, always ask the staff before ordering: dishes may contain traces of other allergens due to cross-contamination during preparation.',
+    by: 'Digital menu by', want: 'Want one for your venue?', privacy: 'Privacy',
+    desc: (n, c) => `The menu of ${n}${c ? ` in ${c}` : ''}: dishes, prices and allergens always up to date.` },
+  es: { tel: 'Tel.', call: '📞 Llamar', where: '📍 Dónde estamos', review: '⭐ Deja una reseña', web: '🌐 Sitio web', contacts: 'Contactos', vat: 'NIF/IVA',
+    al: '<b>⚠️ Alérgenos</b> (Reg. UE 1169/2011): los alérgenos se indican en cada plato. Si tienes alergias o intolerancias alimentarias, pregunta siempre al personal antes de pedir: los platos pueden contener trazas de otros alérgenos por contaminación durante la preparación.',
+    by: 'Menú digital by', want: '¿Lo quieres para tu local?', privacy: 'Privacidad',
+    desc: (n, c) => `El menú de ${n}${c ? ` en ${c}` : ''}: platos, precios y alérgenos siempre actualizados.` },
+  pt: { tel: 'Tel.', call: '📞 Ligar', where: '📍 Onde estamos', review: '⭐ Deixe uma avaliação', web: '🌐 Site', contacts: 'Contatos', vat: 'CNPJ/NIF',
+    al: '<b>⚠️ Alérgenos</b> (Reg. UE 1169/2011): os alérgenos estão indicados em cada prato. Se você tem alergias ou intolerâncias alimentares, pergunte sempre à equipe antes de pedir: os pratos podem conter traços de outros alérgenos por contaminação durante o preparo.',
+    by: 'Cardápio digital by', want: 'Quer um para o seu local?', privacy: 'Privacidade',
+    desc: (n, c) => `O cardápio de ${n}${c ? ` em ${c}` : ''}: pratos, preços e alérgenos sempre atualizados.` },
+  de: { tel: 'Tel.', call: '📞 Anrufen', where: '📍 So findest du uns', review: '⭐ Bewertung schreiben', web: '🌐 Website', contacts: 'Kontakt', vat: 'USt-IdNr.',
+    al: '<b>⚠️ Allergene</b> (VO (EU) 1169/2011): Die Allergene sind bei jedem Gericht angegeben. Bei Lebensmittelallergien oder -unverträglichkeiten frag bitte immer vor der Bestellung beim Personal nach: Die Gerichte können durch die Zubereitung Spuren anderer Allergene enthalten.',
+    by: 'Digitale Speisekarte by', want: 'Willst du eine für dein Lokal?', privacy: 'Datenschutz',
+    desc: (n, c) => `Die Speisekarte von ${n}${c ? ` in ${c}` : ''}: Gerichte, Preise und Allergene immer aktuell.` },
+  fr: { tel: 'Tél.', call: '📞 Appeler', where: '📍 Nous trouver', review: '⭐ Laisser un avis', web: '🌐 Site web', contacts: 'Contacts', vat: 'TVA',
+    al: '<b>⚠️ Allergènes</b> (Règl. UE 1169/2011) : les allergènes sont indiqués pour chaque plat. En cas d’allergies ou d’intolérances alimentaires, demandez toujours au personnel avant de commander : les plats peuvent contenir des traces d’autres allergènes par contamination lors de la préparation.',
+    by: 'Menu digital by', want: 'Vous le voulez pour votre établissement ?', privacy: 'Confidentialité',
+    desc: (n, c) => `Le menu de ${n}${c ? ` à ${c}` : ''} : plats, prix et allergènes toujours à jour.` },
+};
+// la pubblicità in fondo al menu porta alla home di dsmenu.it nella stessa lingua
+const adUrl = (lang, slug) => `https://dsmenu.it/${lang === 'it' ? '' : lang}?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(slug || '')}`;
+
 // dicitura sugli allergeni: sempre in fondo a ogni menu, con qualsiasi modello
-const ALLERGEN_NOTICE = '<p class="fallergeni" role="note" style="max-width:600px;margin:16px auto 0;padding-top:12px;'
-  + 'border-top:1px solid currentColor;border-top-color:rgba(127,127,127,.35);font-size:.78rem;line-height:1.5;opacity:.88">'
-  + '<b>⚠️ Allergeni</b> (Reg. UE 1169/2011): gli allergeni sono indicati per ogni piatto. '
-  + 'Se hai allergie o intolleranze alimentari chiedi sempre al personale prima di ordinare: '
-  + 'i piatti possono contenere tracce di altri allergeni per contaminazione durante la preparazione.</p>';
+const allergenNotice = (t) => '<p class="fallergeni" role="note" style="max-width:600px;margin:16px auto 0;padding-top:12px;'
+  + 'border-top:1px solid currentColor;border-top-color:rgba(127,127,127,.35);font-size:.78rem;line-height:1.5;opacity:.88">' + t.al + '</p>';
 
 function footer(r) {
   const i = r.info || {};
-  const line = [i.address, i.phone ? `Tel. ${i.phone}` : '', i.hours].filter(Boolean).map(esc).join(' · ');
+  const lang = menuLang(r), t = FOOT[lang];
+  const line = [i.address, i.phone ? `${t.tel} ${i.phone}` : '', i.hours].filter(Boolean).map(esc).join(' · ');
   const wa = digits(i.whatsapp).replace('+', '');
   const mapsUrl = i.maps && i.maps !== '#' ? i.maps
     : i.address ? `https://maps.google.com/?q=${encodeURIComponent([i.address, r.city].filter(Boolean).join(', '))}` : i.maps;
@@ -169,20 +199,20 @@ function footer(r) {
     wa && `<a class="wa" href="https://wa.me/${esc(wa)}" target="_blank" rel="noopener" aria-label="WhatsApp">${ICON.wa}</a>`,
   ].filter(Boolean).join('');
   const links = [
-    i.phone && `<a href="tel:${esc(digits(i.phone))}">📞 Chiama</a>`,
-    mapsUrl && `<a ${fLink(mapsUrl)}>📍 Dove siamo</a>`,
-    i.reviews && `<a ${fLink(i.reviews)}>⭐ Lascia una recensione</a>`,
-    i.website && `<a ${fLink(i.website)}>🌐 Sito web</a>`,
+    i.phone && `<a href="tel:${esc(digits(i.phone))}">${t.call}</a>`,
+    mapsUrl && `<a ${fLink(mapsUrl)}>${t.where}</a>`,
+    i.reviews && `<a ${fLink(i.reviews)}>${t.review}</a>`,
+    i.website && `<a ${fLink(i.website)}>${t.web}</a>`,
   ].filter(Boolean).join('');
   // la firma "Menu digitale by DS Service" è sempre l'ultima riga in basso
   return `<footer>
   ${i.logo && photoOk(i.logo) ? `<div style="margin:0 auto 12px">${logoImg(i.logo, '92px')}</div>` : ''}
   <strong>${esc(r.name)}</strong>
   ${line ? `<div class="finfo">${line}</div>` : ''}
-  ${i.vat ? `<div class="fvat" style="font-size:.8em;opacity:.8;margin-top:6px">P.IVA ${esc(String(i.vat).replace(/^IT/i, '').replace(/\s+/g, ''))}</div>` : ''}
-  ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="Contatti">${links}</nav>` : ''}
-  ${ALLERGEN_NOTICE}
-  <small class="fby" style="display:block;margin-top:14px;opacity:.75">Menu digitale by <a href="https://dsmenu.it/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">DS Service</a> · <a href="https://dsmenu.it/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">Lo vuoi per il tuo locale?</a> · <a href="https://dsfabio.com/privacy#menu" target="_blank" rel="noopener">Privacy</a></small>
+  ${i.vat ? `<div class="fvat" style="font-size:.8em;opacity:.8;margin-top:6px">${t.vat} ${esc(String(i.vat).replace(/^IT/i, '').replace(/\s+/g, ''))}</div>` : ''}
+  ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="${t.contacts}">${links}</nav>` : ''}
+  ${allergenNotice(t)}
+  <small class="fby" style="display:block;margin-top:14px;opacity:.75">${t.by} <a href="${adUrl(lang, r.slug)}" target="_blank" rel="noopener">DS Service</a> · <a href="${adUrl(lang, r.slug)}" target="_blank" rel="noopener">${t.want}</a> · <a href="https://dsfabio.com/privacy#menu" target="_blank" rel="noopener">${t.privacy}</a></small>
 </footer>`;
 }
 
@@ -400,7 +430,7 @@ function render(r, { preview = false } = {}) {
   if (hasFlags(r.data)) h = h.replace('</head>', () => `${FLAG_CSS}\n</head>`);
   const url = `${SITE}/${r.slug}`;
   const title = `${r.name} · Menu${r.city ? ` · ${r.city}` : ''}`;
-  const desc = [r.info?.tagline, `Il menu di ${r.name}${r.city ? ` a ${r.city}` : ''}: piatti, prezzi e allergeni sempre aggiornati.`]
+  const desc = [r.info?.tagline, FOOT[menuLang(r)].desc(r.name, r.city)]
     .filter(Boolean).join(' · ');
 
   if (placeholders) {
@@ -434,6 +464,8 @@ function render(r, { preview = false } = {}) {
 
   if (!placeholders) h = h.replace(/<header[\s\S]*?<\/header>/, () => header(name, r));
   h = h.replace(/<footer>[\s\S]*?<\/footer>/, () => footer(r));
+  // lingua della pagina = lingua del menu (il browser non propone traduzioni sbagliate)
+  h = h.replace(/<html lang="it"/i, `<html lang="${menuLang(r)}"`);
   h = brandHeader(name, r.info || {}, h);
   if (!preview) h = h.replace(/<\/body>/i, () => `${viewBeacon(r.slug)}</body>`);
   return h;
