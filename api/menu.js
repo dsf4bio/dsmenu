@@ -335,7 +335,8 @@ function fillTheme(name, r, h) {
     HOURS: esc(info.hours || ''),
     HERO_EMOJI: esc(firstEmoji || '🍽️'),
     MONO: logoImg(info.logo, MONO_LOGO) || esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase()),
-    LOGO: logoImg(info.logo, '76px'),
+    // tema Aura: il tondo in alto c'è sempre, con il logo oppure con l'iniziale del locale finché il logo non c'è
+    LOGO: logoImg(info.logo, '76px') || `<span class="dsm-logo dsm-mono" aria-hidden="true" style="display:inline-block;box-sizing:border-box;width:76px;height:76px;padding:3px;border-radius:50%;background:${STORY_RING};vertical-align:middle"><span style="display:grid;place-items:center;width:100%;height:100%;box-sizing:border-box;border-radius:50%;border:3px solid #fff;background:#fffbf2;color:#424e1d;font:600 2rem/1 'Fraunces',Georgia,serif">${esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase())}</span></span>`,
     MARQUEE: `${Array(2).fill(S.map((s) => s.TITLE).join(' ✦ ')).join(' ✦ ')} ✦&nbsp;`,
     // scritta che gira attorno al piatto (tema Aura)
     RING: esc(Array(3).fill(String(info.kicker || r.name || '').toUpperCase()).join(' · ') + ' ·'),
