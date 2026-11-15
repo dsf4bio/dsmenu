@@ -212,7 +212,7 @@ function footer(r) {
   ${i.vat ? `<div class="fvat" style="font-size:.8em;opacity:.8;margin-top:6px">${t.vat} ${esc(String(i.vat).replace(/^IT/i, '').replace(/\s+/g, ''))}</div>` : ''}
   ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="${t.contacts}">${links}</nav>` : ''}
   ${allergenNotice(t)}
-  <small class="fby" style="display:block;margin-top:14px;opacity:.75">${t.by} <a href="${adUrl(lang, r.slug)}" target="_blank" rel="noopener">DS Service</a> · <a href="${adUrl(lang, r.slug)}" target="_blank" rel="noopener">${t.want}</a> · <a href="https://dsfabio.com/privacy#menu" target="_blank" rel="noopener">${t.privacy}</a></small>
+  <small class="fby" style="display:block;margin-top:14px;opacity:.75">${t.by} <a href="${adUrl(lang, r.slug)}" target="_blank" rel="noopener">DS Service</a> · <a href="${adUrl(lang, r.slug)}" target="_blank" rel="noopener">${t.want}</a> · <a href="https://dsfabio.com/${lang === 'it' ? '' : lang + '/'}privacy#menu" target="_blank" rel="noopener">${t.privacy}</a></small>
 </footer>`;
 }
 
