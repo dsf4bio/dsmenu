@@ -65,6 +65,8 @@ const logoImg = (u, size) => (photoOk(u)
   ? `<span class="dsm-logo" style="display:inline-block;box-sizing:border-box;width:${size};height:${size};aspect-ratio:1;padding:3px;border-radius:50%;background:${STORY_RING};flex:0 0 auto;vertical-align:middle"><img src="${esc(u)}" alt="Logo" decoding="async" style="display:block;box-sizing:border-box;width:100%;height:100%;border-radius:50%;object-fit:cover;background:#fff"></span>`
   : '');
 const MONO_LOGO = '100%';
+// slogan sotto il nome: al massimo 60 caratteri (come nel gestionale), così non riempie la copertina
+const slogan = (t) => { const v = String(t || '').replace(/\s+/g, ' ').trim(); return v.length <= 60 ? v : `${v.slice(0, 59).replace(/\s+\S*$/, '')}…`; };
 // tondo con l'iniziale finché il logo non c'è (stesso anello del logo)
 const monoRing = (ch) => `<span class="dsm-logo dsm-mono" aria-hidden="true" style="display:inline-block;box-sizing:border-box;width:100%;height:100%;padding:3px;border-radius:50%;background:${STORY_RING};vertical-align:middle"><span style="display:grid;place-items:center;width:100%;height:100%;box-sizing:border-box;border-radius:50%;border:3px solid #fff;background:#fffbf2;color:#2a1b14;font:700 2.1rem/1 Georgia,'Times New Roman',serif">${esc(ch)}</span></span>`;
 const initial = (r) => (r.info?.monogram || String(r.name || '?').trim().replace(/^the\s+/i, '').charAt(0).toUpperCase() || '?');
@@ -133,7 +135,7 @@ function header(name, r) {
   }
   const cls = name === 'mdc-001' ? 'hero' : 'top';
   return `<header class="${cls} dsm-hdr">
-<div class="dsm-hd"><span class="dsm-hd-logo">${hdLogo(r)}</span><h1>${h1}</h1>${info.tagline ? `<p>${esc(info.tagline)}</p>` : ''}</div>
+<div class="dsm-hd"><span class="dsm-hd-logo">${hdLogo(r)}</span><h1>${h1}</h1>${slogan(info.tagline) ? `<p>${esc(slogan(info.tagline))}</p>` : ''}</div>
 </header>`;
 }
 
@@ -291,7 +293,7 @@ function fillTheme(name, r, h) {
     NAME_A: esc(words.length > 1 ? words.slice(0, -1).join(' ') : words.join(' ')),
     NAME_B: esc(words.length > 1 ? ` ${words[words.length - 1]}` : ''),
     KICKER: esc(info.kicker || ''),
-    TAGLINE: esc(info.tagline || ''),
+    TAGLINE: esc(slogan(info.tagline)),
     HOURS: esc(info.hours || ''),
     HERO_EMOJI: esc(firstEmoji || '🍽️'),
     HDLOGO: hdLogo(r),
