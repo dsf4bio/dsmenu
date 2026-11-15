@@ -69,6 +69,15 @@ em.g,.g{font-style:normal;background:var(--grad);-webkit-background-clip:text;ba
 .checks{display:flex;flex-wrap:wrap;gap:8px 18px;padding:0;margin:0;list-style:none;font-size:.92rem;font-weight:700;color:var(--muted)}
 .checks li::before{content:"✓ ";color:var(--ok)}
 
+/* benvenuto per chi arriva dalla pubblicità in fondo al menu di un cliente */
+.from-menu{position:relative;display:flex;gap:12px;align-items:flex-start;margin:0 0 22px;padding:14px 46px 14px 16px;border-radius:18px;background:#fff;border:1.5px solid #e4dbf7;box-shadow:0 14px 34px -20px rgba(109,74,255,.45);font-size:.97rem;color:var(--muted);animation:fm .5s ease both}
+.from-menu strong{display:block;color:var(--text);font-size:1.04rem;margin-bottom:2px}
+.from-menu>span{font-size:1.5rem;line-height:1}
+.from-menu p{margin:0}
+.from-menu button{position:absolute;top:8px;right:10px;width:32px;height:32px;border:0;border-radius:50%;background:none;color:var(--muted);font-size:1.4rem;line-height:1;cursor:pointer}
+.from-menu button:hover{background:#f3eefc;color:var(--text)}
+@keyframes fm{from{opacity:0;transform:translateY(-8px)}}
+
 /* telefono */
 .stage{display:flex;flex-direction:column;align-items:center;gap:14px}
 .phone{--w:290px;position:relative;width:var(--w);height:calc(var(--w) * 2.07);padding:11px;border-radius:46px;background:#1d1630;box-shadow:0 40px 80px -30px rgba(60,30,120,.55),inset 0 0 0 2px #3a3052}
@@ -334,6 +343,19 @@ function trialHref(model, cta) {
   if (cta && !p.has('utm_content')) p.set('utm_content', 'landing-' + cta);
   return SITE + '/attiva?' + p.toString();
 }
+/* ---------- benvenuto per chi arriva dalla pubblicità in fondo al menu di un cliente ---------- */
+(function () {
+  try {
+    if (new URLSearchParams(location.search).get('utm_source') !== 'dsmenu') return;
+    if (sessionStorage.getItem('dsm-hi-menu') === '1') return;
+  } catch (e) {}
+  var col = document.querySelector('.hero .wrap > div'); if (!col) return;
+  var box = document.createElement('div');
+  box.className = 'from-menu'; box.setAttribute('role', 'note');
+  box.innerHTML = '<span aria-hidden="true">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type="button" aria-label="Chiudi">×</button>';
+  box.querySelector('button').addEventListener('click', function () { box.remove(); try { sessionStorage.setItem('dsm-hi-menu', '1'); } catch (e) {} });
+  col.insertBefore(box, col.firstChild);
+})();
 /* ---------- clic sulla pubblicità in fondo ai menu dei clienti: si conta in Metrics (una volta al giorno per menu) ---------- */
 (function () {
   try {
