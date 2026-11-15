@@ -334,44 +334,41 @@ function fillTheme(name, r, h) {
 // ---------- logo e copertina nell'intestazione (tutti i modelli) ----------
 // Tabella condivisa con dsfabio/attiva.html (anteprima nel modulo): tenerle uguali.
 //  at    intestazione (tag.classe) dietro cui va la copertina
-//  rgb,a velo sopra la foto: colore del modello e opacità (0.45 = 45%: la foto si vede, il testo resta leggibile)
+//  rgb,a velo sopra la foto: colore del modello e opacità (0.40 = 40%: la foto si vede, il testo resta leggibile)
 //  tx    'dk' testo chiaro su velo scuro, 'lt' testo scuro su velo chiaro: ombra/alone dietro ai testi
 //  css   ritocchi del modello quando c'è la copertina
 // La copertina è uguale in tutti i modelli (tools/copertina.mjs): tondo del logo in alto al centro, nome, slogan.
-const FADE = 'linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%)';
 const BRAND_LOOK = {
-  'mdc-001': { at: 'header.hero', rgb: '250,246,238', a: 0.62, tx: 'lt' },
-  'mdc-002': { at: 'header.top', rgb: '20,14,12', a: 0.42, tx: 'dk',
-    // con la copertina: niente rosso a quadri, la foto scurita in basso sfuma nel colore della pagina
-    css: '.top.dsm-cov{background:var(--cream)}.top.dsm-cov::before{display:none}'
-      + `.top.dsm-cov>.dsm-cov-bg{-webkit-mask-image:${FADE};mask-image:${FADE}}.top.dsm-cov .dsm-hd{padding-bottom:120px}` },
-  'mdc-003': { at: 'header.top', rgb: '255,250,242', a: 0.62, tx: 'lt' },
-  'mdc-004': { at: 'header.top', rgb: '18,18,20', a: 0.5, tx: 'dk' },
-  'mdc-005': { at: 'header.top', rgb: '52,32,20', a: 0.5, tx: 'dk' },
-  'mdc-006': { at: 'header.top', rgb: '12,52,104', a: 0.46, tx: 'dk' },
-  'mdc-007': { at: 'header.top', rgb: '18,16,14', a: 0.5, tx: 'dk' },
-  'mdc-008': { at: 'header.hero', rgb: '18,10,8', a: 0.5, tx: 'dk' },
-  'mdc-009': { at: 'header.hero', rgb: '6,18,34', a: 0.5, tx: 'dk', h1: false },
-  'mdc-010': { at: 'header.dsm-hdr10', rgb: '255,210,60', a: 0.5, tx: 'lt' },
-  'mdc-011': { at: 'header.hero', rgb: '14,14,14', a: 0.5, tx: 'dk' },
-  'mdc-012': { at: 'header.hero', rgb: '250,240,222', a: 0.62, tx: 'lt' },
-  'mdc-013': { at: 'header.hero', rgb: '12,26,62', a: 0.5, tx: 'dk' },
-  'mdc-014': { at: 'header.hero', rgb: '16,34,26', a: 0.48, tx: 'dk' },
-  'mdc-015': { at: 'header.top', rgb: '30,12,54', a: 0.5, tx: 'dk', h1: false },
-  'mdc-016': { at: 'header.hero', rgb: '52,62,22', a: 0.5, tx: 'dk' },
-  'mdc-017': { at: 'header.top', rgb: '40,22,12', a: 0.46, tx: 'dk' },
-  'mdc-018': { at: 'header.hero', rgb: '20,14,12', a: 0.42, tx: 'dk',
-    css: '.hero.dsm-cov{background:var(--cream)}'
-      + `.hero.dsm-cov>.dsm-cov-bg{-webkit-mask-image:${FADE};mask-image:${FADE}}.hero.dsm-cov .dsm-hd{padding-bottom:120px}` },
-  'mdc-019': { at: 'header.hero', rgb: '250,243,228', a: 0.6, tx: 'lt' },
-  'mdc-020': { at: 'header.hero', rgb: '253,238,242', a: 0.58, tx: 'lt' },
-  'mdc-021': { at: 'header.wall', rgb: '16,10,8', a: 0.5, tx: 'dk' },
+  'mdc-001': { at: 'header.hero', rgb: '250,246,238', a: 0.52, tx: 'lt' },
+  'mdc-002': { at: 'header.top', rgb: '20,14,12', a: 0.32, tx: 'dk' },
+  'mdc-003': { at: 'header.top', rgb: '255,250,242', a: 0.52, tx: 'lt' },
+  'mdc-004': { at: 'header.top', rgb: '18,18,20', a: 0.4, tx: 'dk' },
+  'mdc-005': { at: 'header.top', rgb: '52,32,20', a: 0.4, tx: 'dk' },
+  'mdc-006': { at: 'header.top', rgb: '12,52,104', a: 0.36, tx: 'dk' },
+  'mdc-007': { at: 'header.top', rgb: '18,16,14', a: 0.4, tx: 'dk' },
+  'mdc-008': { at: 'header.hero', rgb: '18,10,8', a: 0.4, tx: 'dk' },
+  'mdc-009': { at: 'header.hero', rgb: '6,18,34', a: 0.4, tx: 'dk', h1: false },
+  'mdc-010': { at: 'header.dsm-hdr10', rgb: '255,210,60', a: 0.4, tx: 'lt' },
+  'mdc-011': { at: 'header.hero', rgb: '14,14,14', a: 0.4, tx: 'dk' },
+  'mdc-012': { at: 'header.hero', rgb: '250,240,222', a: 0.52, tx: 'lt' },
+  'mdc-013': { at: 'header.hero', rgb: '12,26,62', a: 0.4, tx: 'dk' },
+  'mdc-014': { at: 'header.hero', rgb: '16,34,26', a: 0.38, tx: 'dk' },
+  'mdc-015': { at: 'header.top', rgb: '30,12,54', a: 0.4, tx: 'dk', h1: false },
+  'mdc-016': { at: 'header.hero', rgb: '52,62,22', a: 0.4, tx: 'dk' },
+  'mdc-017': { at: 'header.top', rgb: '40,22,12', a: 0.36, tx: 'dk' },
+  'mdc-018': { at: 'header.hero', rgb: '20,14,12', a: 0.32, tx: 'dk' },
+  'mdc-019': { at: 'header.hero', rgb: '250,243,228', a: 0.5, tx: 'lt' },
+  'mdc-020': { at: 'header.hero', rgb: '253,238,242', a: 0.48, tx: 'lt' },
+  'mdc-021': { at: 'header.wall', rgb: '16,10,8', a: 0.4, tx: 'dk' },
 };
 const BRAND_CSS = '<style>:where(.dsm-cov){position:relative}.dsm-cov{isolation:isolate}'
   // foto + velo; in basso sfuma nello sfondo del modello, così non c'è uno stacco netto
   + '.dsm-cov>.dsm-cov-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;'
   + 'background:linear-gradient(var(--dsm-tint),var(--dsm-tint)),var(--dsm-cover) center center/cover no-repeat;'
-  + '-webkit-mask-image:linear-gradient(180deg,#000 0,#000 45%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.12) 82%,transparent 92%);mask-image:linear-gradient(180deg,#000 0,#000 45%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.12) 82%,transparent 92%)}'
+  + '-webkit-mask-image:linear-gradient(180deg,#000 0,#000 60%,rgba(0,0,0,.55) 80%,rgba(0,0,0,.15) 92%,transparent 100%);mask-image:linear-gradient(180deg,#000 0,#000 60%,rgba(0,0,0,.55) 80%,rgba(0,0,0,.15) 92%,transparent 100%)}'
+  // con la copertina la testata non ha più un suo sfondo: la foto sfuma direttamente nello sfondo della pagina del modello
+  + '.dsm-cov{background:transparent!important;background-image:none!important;box-shadow:none!important}.dsm-cov::before,.dsm-cov::after{display:none!important}'
+  + '.dsm-cov .dsm-hd{padding-bottom:130px!important}@media (max-width:600px){.dsm-cov .dsm-hd{padding-bottom:112px!important}}'
   // testi sempre leggibili sulla foto
   + '.dsm-cov-dk p,.dsm-cov-dk small,.dsm-cov-dk .kick,.dsm-cov-dk .kicker,.dsm-cov-dk .est{text-shadow:0 1px 3px rgba(0,0,0,.6),0 2px 16px rgba(0,0,0,.45)}'
   + ':where(.dsm-cov-dk:not(.dsm-cov-noh1)) h1{text-shadow:0 2px 4px rgba(0,0,0,.35),0 4px 24px rgba(0,0,0,.45)}'
