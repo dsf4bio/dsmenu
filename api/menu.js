@@ -61,7 +61,7 @@ const photoOk = (u) => typeof u === 'string' && PHOTO_RE.test(u);
 // tondo con l'anello colorato, come la foto profilo nelle storie di Instagram
 const STORY_RING = 'linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)';
 const logoImg = (u, size) => (photoOk(u)
-  ? `<span class="dsm-logo" style="display:inline-block;box-sizing:border-box;width:${size};height:${size};aspect-ratio:1;padding:3px;border-radius:50%;background:${STORY_RING};flex:0 0 auto;vertical-align:middle"><img src="${esc(u)}" alt="Logo" decoding="async" style="display:block;box-sizing:border-box;width:100%;height:100%;border-radius:50%;object-fit:contain;padding:9%;border:3px solid #fff;background:#fff"></span>`
+  ? `<span class="dsm-logo" style="display:inline-block;box-sizing:border-box;width:${size};height:${size};aspect-ratio:1;padding:3px;border-radius:50%;background:${STORY_RING};flex:0 0 auto;vertical-align:middle"><img src="${esc(u)}" alt="Logo" decoding="async" style="display:block;box-sizing:border-box;width:100%;height:100%;border-radius:50%;object-fit:cover;background:#fff"></span>`
   : '');
 const MONO_LOGO = '100%';
 // tondo con l'iniziale finché il logo non c'è (stesso anello del logo)
