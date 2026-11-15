@@ -94,34 +94,6 @@ section.blk{padding:56px 0}
 .head p{color:var(--muted);margin:0}
 .card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 60px -28px rgba(60,30,120,.22)}
 
-/* 3 secondi: il menu vero dentro al telefono, comandato passo per passo */
-.how{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center;padding:30px}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.steps li{position:relative;display:flex;gap:14px;padding:16px;border-radius:18px;border:1.5px solid transparent;transition:background .5s,border-color .5s;cursor:pointer;overflow:hidden}
-.steps li .n{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:#d9d2e8;transition:background .5s}
-.steps li b{display:block;font-size:1.05rem}
-.steps li span{color:var(--muted);font-size:.93rem}
-.steps li.on{border-color:#d9cdf3;background:#faf7ff}
-.steps li.on .n{background:linear-gradient(135deg,#7b5cff,#ff3cac)}
-.steps li::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--grad)}
-.steps li.on::after{animation:prog var(--t,3s) linear forwards}
-@keyframes prog{to{width:100%}}
-.demo-phone{--w:270px}
-.cam{position:absolute;inset:0;z-index:3;background:#0d0d10 radial-gradient(60% 40% at 50% 45%,#2b2b33,#0d0d10);display:grid;place-items:center;transition:opacity .8s ease,transform .8s ease}
-.cam.off{opacity:0;transform:scale(1.08);pointer-events:none}
-.vf{position:relative;width:58%;aspect-ratio:1;padding:12px;background:#fff;border-radius:12px;animation:breathe 2.4s ease-in-out infinite}
-@keyframes breathe{50%{transform:scale(1.04)}}
-.vf::before{content:"";position:absolute;left:8%;right:8%;height:2px;top:10%;background:#ff3cac;box-shadow:0 0 12px #ff3cac;animation:laser 1.6s ease-in-out infinite alternate}
-@keyframes laser{to{top:88%}}
-.vf svg{display:block;width:100%;height:auto}
-.toast{position:absolute;left:10px;right:10px;top:42px;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.96);font-size:.78rem;font-weight:700;transform:translateY(-16px);opacity:0;transition:all .5s}
-.cam.found .toast{transform:none;opacity:1}
-.toast small{display:block;color:var(--muted);font-weight:600}
-.tapdot{position:absolute;z-index:4;left:50%;top:62%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(255,255,255,.55);border:2px solid #fff;box-shadow:0 4px 18px rgba(0,0,0,.35);opacity:0;transform:scale(1.6);pointer-events:none}
-.tapdot.go{animation:tap 1s ease forwards}
-@keyframes tap{0%{opacity:0;transform:scale(1.6)}35%{opacity:1;transform:scale(1)}55%{transform:scale(.8)}100%{opacity:0;transform:scale(1.2)}}
-@media (max-width:760px){.how{grid-template-columns:minmax(0,1fr);padding:20px 14px}.how .stage{order:-1}.demo-phone{--w:250px}}
-
 /* pubblicità: telefono + tablet con due menu che scorrono, QR per la prova */
 .promo{position:relative;overflow:hidden;border-radius:30px;padding:40px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:30px;align-items:center;
   background:radial-gradient(60% 70% at 0% 0%,#ffe1f2,transparent 70%),radial-gradient(60% 70% at 100% 100%,#dcefff,transparent 70%),#fff;border:1px solid var(--line);box-shadow:0 30px 70px -30px rgba(60,30,120,.3)}
@@ -207,7 +179,6 @@ footer a:hover{color:var(--text)}
 <div class="wrap">
 <span class="logo">DS <span>Service</span></span>
 <nav aria-label="Navigazione">
-<a class="hide-m" href="#come">Come funziona</a>
 <a class="hide-m" href="#modelli">Modelli</a>
 <a class="btn btn-sm" href="https://dsfabio.com/attiva" data-open data-cta="nav">Prova gratis</a>
 </nav>
@@ -234,34 +205,13 @@ footer a:hover{color:var(--text)}
 <a class="tapcover" id="live-tap" href="https://dsfabio.com/mdc-014" target="_blank" rel="noopener" aria-label="Apri il menu a schermo intero"></a>
 </div></div>
 <div class="models" role="group" aria-label="Cambia modello nel telefono" id="live-models"></div>
-<small>È un menu vero: <span class="hide-touch">scorrilo qui dentro o </span><a id="live-open" href="https://dsfabio.com/mdc-014" target="_blank" rel="noopener">aprilo a schermo intero ↗</a></small>
-</div>
-</div>
-</section>
-
-<!-- 3 SECONDI -->
-<section class="blk" id="come" aria-labelledby="come-t">
-<div class="wrap">
-<div class="head rv"><h2 id="come-t">Guarda cosa succede <em class="g">in 3 secondi</em></h2><p>Dal tavolo al piatto scelto, senza app e senza aspettare il cameriere.</p></div>
-<div class="card how rv">
-<ol class="steps" id="steps">
-<li class="on" data-s="0"><span class="n">1</span><div><b>Inquadra il QR sul tavolo</b><span>Con la fotocamera del telefono. Il QR te lo diamo pronto da stampare.</span></div></li>
-<li data-s="1"><span class="n">2</span><div><b>Il menu si apre all'istante</b><span>Nel tuo stile, con il tuo logo, la tua copertina e i tuoi piatti.</span></div></li>
-<li data-s="2"><span class="n">3</span><div><b>Tocca un piatto</b><span>Descrizione, prezzo e i 14 allergeni chiari. Anche in inglese, tedesco e francese.</span></div></li>
-</ol>
-<div class="stage">
-<div class="phone demo-phone" aria-hidden="true"><div class="screen" id="how-screen" data-src="mdc-014" data-w="390"><div class="notch"></div>
-<img class="shot" src="https://dsfabio.com/assets/anteprime/mdc-014.jpg?v=20261115c" alt="" loading="lazy" width="390" height="808">
-<div class="cam" id="cam"><div class="vf" id="qr-cam"></div><div class="toast"><span style="font-size:1.4rem">🍽️</span><div>dsmenu.it/aura<small>Tocca per aprire il menu</small></div></div></div>
-<span class="tapdot" id="tapdot"></span>
-</div></div>
-</div>
+<small>È un menu vero: <span class="hide-touch">scorrilo anche tu o </span><a id="live-open" href="https://dsfabio.com/mdc-014" target="_blank" rel="noopener">aprilo a schermo intero ↗</a></small>
 </div>
 </div>
 </section>
 
 <!-- PUBBLICITÀ: due menu su telefono e tablet -->
-<section class="blk" aria-labelledby="promo-t" style="padding-top:10px">
+<section class="blk" aria-labelledby="promo-t">
 <div class="wrap">
 <div class="promo rv">
 <div>
@@ -409,9 +359,11 @@ function show(t) {
   $('#live-img').src = IMG(t); $('#live-img').alt = 'Anteprima del menu digitale ' + t.n;
   $('#live-open').href = SITE + '/' + t.s; $('#live-tap').href = SITE + '/' + t.s;
   if (frame) frame.remove(); frame = null;
-  if (reduced || touch) return; // sul telefono basta l'anteprima: il menu si apre a schermo intero
+  if (reduced) return;
+  // il menu vero scorre piano da solo (anche sul telefono: lì un tocco lo apre a schermo intero)
   frame = document.createElement('iframe');
-  frame.title = 'Menu digitale ' + t.n; frame.src = SITE + '/' + t.s + '?anteprima';
+  frame.title = 'Menu digitale ' + t.n; frame.src = SITE + '/' + t.s + '?anteprima&scorri';
+  if (touch) { frame.tabIndex = -1; frame.style.pointerEvents = 'none'; }
   frame.addEventListener('load', function () { this.classList.add('ok'); });
   live.appendChild(frame); fit();
 }
@@ -442,43 +394,6 @@ function lazy(el, fn) {
   var o = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { o.disconnect(); fn(); } }, {rootMargin: '200px'}); o.observe(el);
 }
 function qrSvg(url) { if (!window.qrcode) return ''; var q = qrcode(0, 'M'); q.addData(url); q.make(); return q.createSvgTag({cellSize: 4, margin: 0, scalable: true}); }
-
-/* ---------- 3 SECONDI: QR → il menu vero si apre → tocco su un piatto → la sua scheda vera ---------- */
-(function () {
-  $('#qr-cam').innerHTML = qrSvg(SITE + '/mdc-014');
-  var screen = $('#how-screen'), cam = $('#cam'), dot = $('#tapdot'), steps = $$('#steps li'), f = null, timers = [], run = 0;
-  var send = function (m) { if (f && f.contentWindow) f.contentWindow.postMessage(m, '*'); };
-  var later = function (ms, fn) { timers.push(setTimeout(fn, ms)); };
-  function mark(k, t) { steps.forEach(function (s) { var on = +s.getAttribute('data-s') === k; s.classList.toggle('on', on); s.style.setProperty('--t', t + 'ms'); if (on) { s.classList.remove('on'); void s.offsetWidth; s.classList.add('on'); } }); }
-  function play(from) {
-    timers.forEach(clearTimeout); timers = []; run++;
-    var r = run;
-    send({dsm: 'close'});
-    if (from <= 0) {                        // 1. la fotocamera trova il QR
-      mark(0, 2600); send({dsm: 'scroll', y: 0, ms: 300});
-      cam.classList.remove('off', 'found'); later(900, function () { cam.classList.add('found'); });
-      later(2600, function () { play(1); });
-      return;
-    }
-    if (from === 1) {                        // 2. si apre il menu vero e scorre fino ai piatti
-      mark(1, 3000); cam.classList.add('off', 'found');
-      later(900, function () { send({dsm: 'items', ms: 1600}); });
-      later(3000, function () { play(2); });
-      return;
-    }
-    mark(2, 5200); cam.classList.add('off');  // 3. tocco sul piatto: si apre la sua scheda, come nel menu vero
-    if (!f || !f.classList.contains('ok')) { send({dsm: 'items', ms: 600}); }
-    dot.classList.remove('go'); void dot.offsetWidth; dot.classList.add('go');
-    later(450, function () { send({dsm: 'open'}); });
-    later(5200, function () { if (r === run) play(0); });
-  }
-  steps.forEach(function (s) { s.addEventListener('click', function () { play(+s.getAttribute('data-s')); }); });
-  lazy($('#come'), function () {
-    f = mount(screen);
-    if (reduced) { mark(0, 0); return; }
-    setTimeout(function () { play(0); }, 600);
-  });
-})();
 
 /* ---------- PUBBLICITÀ: QR per la prova e due menu che scorrono da soli ---------- */
 (function () {
