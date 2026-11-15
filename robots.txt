@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /anteprima/
 Disallow: /api/
+Sitemap: https://dsmenu.it/sitemap.xml

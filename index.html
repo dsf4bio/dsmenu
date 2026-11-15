@@ -7,6 +7,13 @@
 <meta name="description" content="Il menu digitale del tuo locale, pronto in 24 ore: oltre 20 stili animati per pizzerie, ristoranti, sushi, bar e pub. Allergeni, più lingue e QR code. Provalo gratis per 30 giorni.">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://dsmenu.it/">
+<link rel="alternate" hreflang="it" href="https://dsmenu.it/">
+<link rel="alternate" hreflang="en" href="https://dsmenu.it/en">
+<link rel="alternate" hreflang="es" href="https://dsmenu.it/es">
+<link rel="alternate" hreflang="pt" href="https://dsmenu.it/pt">
+<link rel="alternate" hreflang="de" href="https://dsmenu.it/de">
+<link rel="alternate" hreflang="fr" href="https://dsmenu.it/fr">
+<link rel="alternate" hreflang="x-default" href="https://dsmenu.it/">
 <meta name="theme-color" content="#fbf8f4">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -68,6 +75,18 @@ em.g,.g{font-style:normal;background:var(--grad);-webkit-background-clip:text;ba
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 18px}
 .checks{display:flex;flex-wrap:wrap;gap:8px 18px;padding:0;margin:0;list-style:none;font-size:.92rem;font-weight:700;color:var(--muted)}
 .checks li::before{content:"✓ ";color:var(--ok)}
+
+/* selettore della lingua */
+.top nav{margin-left:auto}
+.lang{position:relative;flex:0 0 auto}
+.lang summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;height:42px;padding:0 12px;border-radius:12px;background:#fff;border:1px solid var(--line);font-weight:800;font-size:13px;color:var(--text);user-select:none}
+.lang summary::-webkit-details-marker{display:none}
+.lang[open] summary{border-color:var(--violet)}
+.lang-list{position:absolute;right:0;top:calc(100% + 8px);z-index:40;min-width:170px;display:grid;padding:6px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(60,30,120,.18)}
+.lang-list a{padding:10px 12px;border-radius:10px;color:var(--muted);font-weight:700;font-size:14px}
+.lang-list a:hover{background:#f3eefc;color:var(--text)}
+.lang-list a[aria-current]{color:var(--violet);background:#f3eefc}
+@media (max-width:400px){.top .logo{font-size:17px}.lang summary{padding:0 9px}.top .wrap{gap:8px}}
 
 /* benvenuto per chi arriva dalla pubblicità in fondo al menu di un cliente */
 .from-menu{position:relative;display:flex;gap:12px;align-items:flex-start;margin:0 0 22px;padding:14px 46px 14px 16px;border-radius:18px;background:#fff;border:1.5px solid #e4dbf7;box-shadow:0 14px 34px -20px rgba(109,74,255,.45);font-size:.97rem;color:var(--muted);animation:fm .5s ease both}
@@ -191,6 +210,7 @@ footer a:hover{color:var(--text)}
 <a class="hide-m" href="#modelli">Modelli</a>
 <a class="btn btn-sm" href="https://dsfabio.com/attiva" data-open data-cta="nav">Prova gratis</a>
 </nav>
+      <details class="lang"><summary aria-label="Lingua / Language"><span aria-hidden="true">🌐</span> IT</summary><div class="lang-list"><a href="/" hreflang="it" lang="it" aria-current="true">Italiano</a><a href="/en" hreflang="en" lang="en">English</a><a href="/es" hreflang="es" lang="es">Español</a><a href="/pt" hreflang="pt" lang="pt">Português</a><a href="/de" hreflang="de" lang="de">Deutsch</a><a href="/fr" hreflang="fr" lang="fr">Français</a></div></details>
 </div>
 </header>
 
@@ -301,6 +321,8 @@ var $$ = function (s) { return Array.prototype.slice.call(document.querySelector
 var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 var touch = matchMedia('(hover: none)').matches;
 var SITE = 'https://dsfabio.com'; // i menu di esempio vivono su dsfabio.com
+var LANG = (document.documentElement.lang || 'it').slice(0, 2);
+var TRIAL = SITE + (LANG === 'it' ? '' : '/' + LANG) + '/attiva'; // modulo di attivazione nella stessa lingua
 var V = '?v=20261115c';           // versione delle miniature (cambiarla quando si rifanno)
 document.documentElement.classList.add('js');
 $$('[data-year]').forEach(function (e) { e.textContent = new Date().getFullYear(); });
@@ -341,7 +363,7 @@ function trialHref(model, cta) {
   if (model) p.set('modello', model);
   if (!p.has('utm_source')) p.set('utm_source', 'dsmenu-home');
   if (cta && !p.has('utm_content')) p.set('utm_content', 'landing-' + cta);
-  return SITE + '/attiva?' + p.toString();
+  return TRIAL + '?' + p.toString();
 }
 /* ---------- benvenuto per chi arriva dalla pubblicità in fondo al menu di un cliente ---------- */
 (function () {
@@ -431,7 +453,7 @@ function drawGrid(f) {
     return '<article class="card tpl"><a class="pic" href="' + SITE + '/' + t.s + '" target="_blank" rel="noopener" aria-label="Anteprima di ' + ESC(t.n) + '"><img src="' + IMG(t) + '" alt="Menu digitale ' + ESC(t.n) + '" loading="lazy" decoding="async" width="390" height="808"></a>'
       + '<div class="tx"><h3>' + ESC(t.n) + '</h3><span class="tags">' + ESC(t.tg) + '</span><div class="acts">'
       + '<a class="see" href="' + SITE + '/' + t.s + '" target="_blank" rel="noopener">👁 Anteprima</a>'
-      + '<a class="want" href="' + SITE + '/attiva" data-open data-model="' + ESC(t.n) + '" data-cta="modello">Lo voglio</a></div></div></article>';
+      + '<a class="want" href="' + TRIAL + '" data-open data-model="' + ESC(t.n) + '" data-cta="modello">Lo voglio</a></div></div></article>';
   }).join('');
   wire(grid);
 }
