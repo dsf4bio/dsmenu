@@ -349,16 +349,69 @@ function fillTheme(name, r, h) {
   h = h.replace(/__DSM_([A-Z_]+?)__/g, (m, key) => (key in values ? values[key] : ''));
   h = h.replace('/*DSM:DATA*/', () => `/* dati del menu: dal gestionale */\n${js}`);
   if (name === 'mdc-015') h = h.replace('/* dati del menu: dal gestionale */', () => `/* dati del menu: dal gestionale */\nconst DSM_TAG = ${json(values.TAGLINE || values.KICKER)};`);
-  // immagine di copertina (tema Aura): dietro al titolo, scurita perché il testo resti leggibile
-  const coverCss = name === 'mdc-016' && photoOk(info.cover)
-    // la copertina sta dietro al logo e al nome: su telefono solo nella parte alta (sotto c'è il piatto),
-    // così resta centrata e poco tagliata; in fondo sfuma nel verde del tema
-    ? `.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(165deg,rgba(70,82,31,.72),rgba(38,46,15,.5)),url("${esc(info.cover)}") center center/cover no-repeat}`
-      + `.hero>*{position:relative;z-index:1}`
-      + `@media (max-width:760px){.hero::before{bottom:auto;height:min(60%,560px);-webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent)}}`
-    : '';
-  if (css || coverCss) h = h.replace('</head>', () => `<style>${css || ''}${coverCss}</style>\n</head>`);
+  if (css) h = h.replace('</head>', () => `<style>${css}</style>\n</head>`);
   return h;
+}
+
+// ---------- logo e copertina nell'intestazione (tutti i modelli) ----------
+// at: l'elemento dell'intestazione (tag.classe) dietro cui va la copertina, schiarita o scurita
+// col colore del modello perché il testo resti leggibile; logo: 'h1' = tondo sopra al nome,
+// false = il modello ha già il suo tondo (monogramma) dove va il logo. Stessa tabella in
+// dsfabio/attiva.html (anteprima con logo e copertina del ristoratore): tenerle uguali.
+const dk = (rgb, a = 0.74, b = 0.6) => `linear-gradient(180deg,rgba(${rgb},${a}),rgba(${rgb},${b}))`;
+const lt = (rgb) => dk(rgb, 0.8, 0.7);
+const BRAND_LOOK = {
+  'mdc-001': { at: 'header.hero', tint: lt('250,246,238'), logo: false },
+  'mdc-002': { at: 'header.top', tint: dk('196,32,38', 0.8, 0.7), logo: 'h1' },
+  'mdc-003': { at: 'header.top', tint: lt('255,250,242'), logo: false },
+  'mdc-004': { at: 'header.top', tint: dk('20,20,22', 0.8, 0.72), logo: 'h1' },
+  'mdc-005': { at: 'header.top', tint: dk('58,36,22', 0.78, 0.66), logo: 'h1' },
+  'mdc-006': { at: 'header.top', tint: dk('16,72,140', 0.72, 0.6), logo: 'h1' },
+  'mdc-007': { at: 'header.top', tint: dk('20,18,16', 0.8, 0.7), logo: 'h1' },
+  'mdc-008': { at: 'header.hero', tint: dk('20,12,10', 0.78, 0.66), logo: 'h1' },
+  'mdc-009': { at: 'header.hero', tint: dk('8,22,40', 0.78, 0.66), logo: 'h1' },
+  'mdc-010': { at: 'section.build', tint: lt('255,212,64'), logo: 'h1' },
+  'mdc-011': { at: 'header.hero', tint: dk('16,16,16', 0.78, 0.68), logo: 'h1' },
+  'mdc-012': { at: 'header.hero', tint: lt('250,240,222'), logo: 'h1' },
+  'mdc-013': { at: 'header.hero', tint: dk('14,30,70', 0.78, 0.68), logo: 'h1' },
+  'mdc-014': { at: 'header.hero', tint: dk('20,40,30', 0.76, 0.64), logo: 'h1' },
+  'mdc-015': { at: 'header.top', tint: dk('40,16,70', 0.78, 0.7), logo: false },
+  'mdc-016': { at: 'header.hero', tint: 'linear-gradient(165deg,rgba(70,82,31,.72),rgba(38,46,15,.5))', logo: false, top: true },
+  'mdc-017': { at: 'header.top', tint: dk('46,26,14', 0.76, 0.64), logo: 'h1' },
+  'mdc-018': { at: 'header.hero', tint: dk('196,32,38', 0.8, 0.7), logo: 'h1' },
+  'mdc-019': { at: 'header.hero', tint: lt('250,243,228'), logo: 'h1' },
+  'mdc-020': { at: 'header.hero', tint: lt('253,236,240'), logo: 'h1' },
+  'mdc-021': { at: 'header.wall', tint: dk('18,12,10', 0.78, 0.68), logo: 'h1' },
+};
+const BRAND_CSS = '<style>:where(.dsm-cov){position:relative}.dsm-cov{isolation:isolate}'
+  + '.dsm-cov>.dsm-cov-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;background:var(--dsm-tint),var(--dsm-cover) center center/cover no-repeat}'
+  // modelli con il piatto sotto al nome (Aura): su telefono la copertina sta solo nella parte alta e sfuma
+  + '@media (max-width:760px){.dsm-cov-top>.dsm-cov-bg{bottom:auto;height:min(60%,560px);-webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent)}}'
+  + '.dsm-hlogo{margin:0 0 12px;line-height:0}</style>';
+
+function brandHeader(name, info, h) {
+  const cfg = BRAND_LOOK[name];
+  if (!cfg) return h;
+  const cover = photoOk(info.cover) ? info.cover : null;
+  const logo = cfg.logo && photoOk(info.logo) ? info.logo : null;
+  if (!cover && !logo) return h;
+  const [tag, cls] = cfg.at.split('.');
+  const m = new RegExp(`<${tag}\\b[^>]*\\bclass="([^"]*\\b${cls}\\b[^"]*)"[^>]*>`).exec(h);
+  if (!m) return h;
+  let open = m[0];
+  let after = '';
+  if (cover) {
+    open = open.replace(/class="([^"]*)"/, (x, c) => `class="${c} dsm-cov${cfg.top ? ' dsm-cov-top' : ''}"`)
+      .replace(/>$/, ` style="--dsm-tint:${cfg.tint};--dsm-cover:url(&quot;${esc(cover)}&quot;)">`);
+    after = '<span class="dsm-cov-bg" aria-hidden="true"></span>';
+  }
+  let rest = h.slice(m.index + m[0].length);
+  if (logo) {
+    const i = rest.search(/<h1\b/);
+    if (i >= 0) rest = `${rest.slice(0, i)}<div class="dsm-hlogo">${logoImg(logo, '64px')}</div>${rest.slice(i)}`;
+  }
+  h = h.slice(0, m.index) + open + after + rest;
+  return h.replace('</head>', () => `${BRAND_CSS}\n</head>`);
 }
 
 // ---------- pagina del menu ----------
@@ -413,6 +466,7 @@ function render(r, { preview = false } = {}) {
 
   if (!placeholders) h = h.replace(/<header[\s\S]*?<\/header>/, () => header(name, r));
   h = h.replace(/<footer>[\s\S]*?<\/footer>/, () => footer(r));
+  h = brandHeader(name, r.info || {}, h);
   if (!preview) h = h.replace(/<\/body>/i, () => `${viewBeacon(r.slug)}</body>`);
   return h;
 }
