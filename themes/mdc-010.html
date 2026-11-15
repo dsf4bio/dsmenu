@@ -105,12 +105,16 @@ footer strong{font-family:"Bowlby One",sans-serif;font-size:1.9rem;color:var(--b
 .flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:10px;font-size:.85rem}
 .flinks a{text-decoration:underline;text-underline-offset:3px;color:inherit;opacity:.85}
 </style>
+<style id="dsm-hd-css">.dsm-hdr{min-height:0!important;height:auto!important;padding:0!important;display:block!important;max-width:none!important;width:auto!important;margin-left:0!important;margin-right:0!important;text-align:center!important;grid-template-columns:none!important}.dsm-old{display:none!important}.dsm-hd{position:relative;max-width:760px;margin:0 auto;padding:30px 20px 38px;text-align:center}.dsm-hd-logo{display:block;width:84px;height:84px;margin:0 auto 16px;line-height:0}.dsm-hd-logo>.dsm-logo{width:100%!important;height:100%!important}.dsm-hd h1{margin-left:auto!important;margin-right:auto!important;margin-top:0!important;text-align:center!important}.dsm-hd>p{margin:12px auto 0!important;max-width:520px;text-align:center!important;padding:0!important}.dsm-hd small{display:none!important}.dsm-cov .dsm-hd{padding-bottom:96px}@media (max-width:600px){.dsm-hd{padding:26px 18px 32px}.dsm-hd-logo{width:76px;height:76px}.dsm-cov .dsm-hd{padding-bottom:84px}}.dsm-hdr10{background:var(--yel);background-image:radial-gradient(rgba(0,0,0,.09) 2px,transparent 2.5px);background-size:22px 22px}.build .done{display:none!important}.build .stick{grid-template-rows:1fr auto auto!important}</style>
 </head>
 <body>
 
+<header class="dsm-hdr dsm-hdr10">
+<div class="dsm-hd"><span class="dsm-hd-logo">__DSM_HDLOGO__</span><h1 class="logo">__DSM_NAME__<small data-dsm-opt="KICKER">__DSM_KICKER__</small></h1><p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p></div>
+</header>
 <section class="build" id="build" aria-label="Il nostro burger">
   <div class="stick">
-    <h1 class="logo">__DSM_NAME__<small data-dsm-opt="KICKER">__DSM_KICKER__</small></h1>
+    
     <div class="stage" id="stage" aria-hidden="true">
       <div class="layer bun-b" data-step="0"></div>
       <div class="layer lettuce" data-step="1"></div>

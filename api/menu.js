@@ -64,6 +64,11 @@ const logoImg = (u, size) => (photoOk(u)
   ? `<span class="dsm-logo" style="display:inline-block;box-sizing:border-box;width:${size};height:${size};aspect-ratio:1;padding:3px;border-radius:50%;background:${STORY_RING};flex:0 0 auto;vertical-align:middle"><img src="${esc(u)}" alt="Logo" decoding="async" style="display:block;box-sizing:border-box;width:100%;height:100%;border-radius:50%;object-fit:contain;padding:9%;border:3px solid #fff;background:#fff"></span>`
   : '');
 const MONO_LOGO = '100%';
+// tondo con l'iniziale finché il logo non c'è (stesso anello del logo)
+const monoRing = (ch) => `<span class="dsm-logo dsm-mono" aria-hidden="true" style="display:inline-block;box-sizing:border-box;width:100%;height:100%;padding:3px;border-radius:50%;background:${STORY_RING};vertical-align:middle"><span style="display:grid;place-items:center;width:100%;height:100%;box-sizing:border-box;border-radius:50%;border:3px solid #fff;background:#fffbf2;color:#2a1b14;font:700 2.1rem/1 Georgia,'Times New Roman',serif">${esc(ch)}</span></span>`;
+const initial = (r) => (r.info?.monogram || String(r.name || '?').trim().replace(/^the\s+/i, '').charAt(0).toUpperCase() || '?');
+// tondo in alto al centro della copertina: logo intero dentro al tondo, o l'iniziale
+const hdLogo = (r) => logoImg(r.info?.logo, '100%') || monoRing(initial(r));
 const photoImg = (u, alt, cls) => `<img class="${cls}" src="${esc(u)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
 const PHOTO_CSS = `<style>
 img.dsm-ph{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;max-width:none}
@@ -117,45 +122,17 @@ function toTheme(name, data) {
 
 // ---------- intestazione e piè di pagina ----------
 function header(name, r) {
+  // copertina uguale in tutti i modelli: tondo del logo, nome, slogan (vedi tools/copertina.mjs)
   const info = r.info || {};
   const n = esc(r.name);
-  if (name === 'mdc-002') {
-    return `<header class="top">
-  ${info.kicker ? `<span class="badge">${esc(info.kicker)}</span>` : ''}
-  <h1>${n}</h1>
-  ${info.tagline ? `<p>${esc(info.tagline)}</p>` : ''}
-  <span class="pizza" aria-hidden="true">🍕</span>
-</header>`;
-  }
-  if (name === 'mdc-003') {
-    return `<header class="top">
-  <div>
-    <h1>${n}</h1>
-    ${info.tagline ? `<p>${esc(info.tagline)}</p>` : ''}
-  </div>
-  <div class="blob" aria-hidden="true">${logoImg(info.logo, MONO_LOGO) || esc(info.monogram || '🥕')}</div>
-</header>`;
-  }
+  let h1 = n;
   if (name === 'mdc-004') {
     const w = String(r.name || '').trim().split(/\s+/);
-    const h1 = w.length > 1 ? `${esc(w.slice(0, -1).join(' '))}<br><span>${esc(w[w.length - 1])}</span>` : n;
-    const stamp = String(info.kicker || '').split('·').map((x) => esc(x.trim())).filter(Boolean).join('<br>');
-    const addr = [info.address, info.hours].filter(Boolean).map(esc).join(' · ');
-    return `<header class="top">
-  <div class="brand">
-    <h1>${h1}</h1>
-    ${stamp ? `<div class="stamp mono" aria-hidden="true">${stamp}</div>` : ''}
-  </div>
-  ${addr ? `<p class="addr">${addr}</p>` : ''}
-</header>`;
+    if (w.length > 1) h1 = `${esc(w.slice(0, -1).join(' '))}<br><span>${esc(w[w.length - 1])}</span>`;
   }
-  const mono = logoImg(info.logo, MONO_LOGO) || esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase());
-  return `<header class="hero">
-  <div class="mono" aria-hidden="true">${mono}</div>
-  ${info.kicker ? `<p class="kick">${esc(info.kicker)}</p>` : ''}
-  <h1>${n}</h1>
-  ${info.tagline ? `<p>${esc(info.tagline)}</p>` : ''}
-  <div class="orn" aria-hidden="true">✦</div>
+  const cls = name === 'mdc-001' ? 'hero' : 'top';
+  return `<header class="${cls} dsm-hdr">
+<div class="dsm-hd"><span class="dsm-hd-logo">${hdLogo(r)}</span><h1>${h1}</h1>${info.tagline ? `<p>${esc(info.tagline)}</p>` : ''}</div>
 </header>`;
 }
 
@@ -175,16 +152,6 @@ const ALLERGEN_NOTICE = '<p class="fallergeni" role="note" style="max-width:600p
   + '<b>⚠️ Allergeni</b> (Reg. UE 1169/2011): gli allergeni sono indicati per ogni piatto. '
   + 'Se hai allergie o intolleranze alimentari chiedi sempre al personale prima di ordinare: '
   + 'i piatti possono contenere tracce di altri allergeni per contaminazione durante la preparazione.</p>';
-
-// loghi larghi (scritte): nel tondo diventerebbero minuscoli, quindi diventano una targhetta
-// arrotondata alta come il tondo; nei tondi dei modelli (monogramma) restano interi nel tondo
-const WIDE_LOGO = '<style>.dsm-logo.dsm-wide{max-width:72vw;border-radius:18px!important}'
-  + '.dsm-logo.dsm-wide img{border-radius:15px!important;padding:5px 9px!important}</style>'
-  + '<script>(function(){document.querySelectorAll(".dsm-logo img").forEach(function(i){'
-  + 'if(!i.closest(".dsm-hlogo,footer,.hero-logo"))return;'
-  + 'function f(){var r=i.naturalWidth/i.naturalHeight,s=i.parentNode;if(!(r>1.3))return;'
-  + 's.classList.add("dsm-wide");s.style.setProperty("width",Math.round(Math.min(s.offsetHeight*r*.9,240))+"px","important")}'
-  + 'if(i.complete)f();else i.addEventListener("load",f)})})();</script>';
 
 function footer(r) {
   const i = r.info || {};
@@ -211,7 +178,7 @@ function footer(r) {
   ${line ? `<div class="finfo">${line}</div>` : ''}
   ${i.vat ? `<div class="fvat" style="font-size:.8em;opacity:.8;margin-top:6px">P.IVA ${esc(String(i.vat).replace(/^IT/i, '').replace(/\s+/g, ''))}</div>` : ''}
   ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="Contatti">${links}</nav>` : ''}
-  ${ALLERGEN_NOTICE}${i.logo && photoOk(i.logo) ? WIDE_LOGO : ''}
+  ${ALLERGEN_NOTICE}
   <small class="fby" style="display:block;margin-top:14px;opacity:.75">Menu digitale by <a href="https://dsfabio.com/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">DS Service</a> · <a href="https://dsfabio.com/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">Lo vuoi per il tuo locale?</a> · <a href="https://dsfabio.com/privacy#menu" target="_blank" rel="noopener">Privacy</a></small>
 </footer>`;
 }
@@ -344,6 +311,7 @@ function fillTheme(name, r, h) {
     TAGLINE: esc(info.tagline || ''),
     HOURS: esc(info.hours || ''),
     HERO_EMOJI: esc(firstEmoji || '🍽️'),
+    HDLOGO: hdLogo(r),
     MONO: logoImg(info.logo, MONO_LOGO) || esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase()),
     // tema Aura: il tondo in alto c'è sempre, con il logo oppure con l'iniziale del locale finché il logo non c'è
     LOGO: logoImg(info.logo, '76px') || `<span class="dsm-logo dsm-mono" aria-hidden="true" style="display:inline-block;box-sizing:border-box;width:76px;height:76px;padding:3px;border-radius:50%;background:${STORY_RING};vertical-align:middle"><span style="display:grid;place-items:center;width:100%;height:100%;box-sizing:border-box;border-radius:50%;border:3px solid #fff;background:#fffbf2;color:#424e1d;font:600 2rem/1 'Fraunces',Georgia,serif">${esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase())}</span></span>`,
@@ -368,62 +336,48 @@ function fillTheme(name, r, h) {
 //  at    intestazione (tag.classe) dietro cui va la copertina
 //  rgb,a velo sopra la foto: colore del modello e opacità (0.45 = 45%: la foto si vede, il testo resta leggibile)
 //  tx    'dk' testo chiaro su velo scuro, 'lt' testo scuro su velo chiaro: ombra/alone dietro ai testi
-//  logo  dove va il tondo col logo: prima di questo elemento (di solito la riga sopra al nome), se no prima del nome;
-//        false = il modello ha già un tondo (monogramma) dove va il logo
-//  h1    false = niente ombra sul nome (scritte a gradiente o al neon, l'ombra le sporcherebbe)
-//  top   copertina solo nella parte alta su telefono (Aura: sotto c'è il piatto)
 //  css   ritocchi del modello quando c'è la copertina
+// La copertina è uguale in tutti i modelli (tools/copertina.mjs): tondo del logo in alto al centro, nome, slogan.
+const FADE = 'linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%)';
 const BRAND_LOOK = {
-  'mdc-001': { at: 'header.hero', rgb: '250,246,238', a: 0.62, tx: 'lt', logo: false },
-  'mdc-002': { at: 'header.top', rgb: '20,14,12', a: 0.42, tx: 'dk', logo: 'span.badge',
-    // con la copertina: niente rosso, foto scurita che in basso sfuma nel colore della pagina
-    css: '.top.dsm-cov{background:var(--cream);padding-bottom:150px}.top.dsm-cov::before,.top.dsm-cov .pizza{display:none}'
-      + '.top.dsm-cov>.dsm-cov-bg{-webkit-mask-image:linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%);mask-image:linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%)}'
-      + '.top.dsm-cov h1{text-shadow:0 3px 22px rgba(0,0,0,.55)}.top.dsm-cov .dsm-hlogo{margin-top:16px}' },
-  'mdc-003': { at: 'header.top', rgb: '255,250,242', a: 0.62, tx: 'lt', logo: false },
-  'mdc-004': { at: 'header.top', rgb: '18,18,20', a: 0.5, tx: 'dk', logo: 'div.brand',
-    css: '.top.dsm-cov{max-width:none;padding-left:max(20px,calc(50% - 360px));padding-right:max(20px,calc(50% - 360px))}' },
-  'mdc-005': { at: 'header.top', rgb: '52,32,20', a: 0.5, tx: 'dk', logo: 'p.est' },
-  'mdc-006': { at: 'header.top', rgb: '12,52,104', a: 0.46, tx: 'dk', logo: 'p.kick' },
-  'mdc-007': { at: 'header.top', rgb: '18,16,14', a: 0.5, tx: 'dk', logo: 'span.badge' },
-  'mdc-008': { at: 'header.hero', rgb: '18,10,8', a: 0.5, tx: 'dk', logo: 'span.temp' },
-  'mdc-009': { at: 'header.hero', rgb: '6,18,34', a: 0.5, tx: 'dk', logo: 'div.hero-grid', h1: false,
-    css: '.hero>.dsm-hlogo{position:relative;max-width:960px;margin:0 auto 16px}@media (max-width:720px){.hero>.dsm-hlogo{text-align:center}}' },
-  'mdc-010': { at: 'section.build', rgb: '255,210,60', a: 0.6, tx: 'lt', logo: 'h1' },
-  'mdc-011': { at: 'header.hero', rgb: '14,14,14', a: 0.5, tx: 'dk', logo: 'span.est' },
-  'mdc-012': { at: 'header.hero', rgb: '250,240,222', a: 0.62, tx: 'lt', logo: 'div.hero-grid',
-    css: '.hero>.dsm-hlogo{max-width:960px;margin:0 auto 16px}@media (max-width:760px){.hero>.dsm-hlogo{text-align:center}}' },
-  'mdc-013': { at: 'header.hero', rgb: '12,26,62', a: 0.5, tx: 'dk', logo: 'h1' },
-  'mdc-014': { at: 'header.hero', rgb: '16,34,26', a: 0.48, tx: 'dk', logo: 'p.kicker' },
-  'mdc-015': { at: 'header.top', rgb: '30,12,54', a: 0.5, tx: 'dk', logo: false, h1: false,
-    // con la copertina la barra in alto diventa una testata con la foto: logo grande, nome sotto, lingua in alto a destra
-    css: '.top.dsm-cov{max-width:none;min-height:250px;align-items:flex-end;padding:20px max(18px,calc(50% - 432px)) 22px;margin-bottom:6px}'
-      + '.top.dsm-cov .brand{flex-direction:column;align-items:flex-start;gap:12px}.top.dsm-cov .logo{width:72px;height:72px}'
-      + '.top.dsm-cov #lang{align-self:flex-start}.top.dsm-cov .tagline{text-shadow:0 1px 3px rgba(0,0,0,.6),0 2px 14px rgba(0,0,0,.5)}' },
-  'mdc-016': { at: 'header.hero', rgb: '52,62,22', a: 0.5, tx: 'dk', logo: false, top: true },
-  'mdc-017': { at: 'header.top', rgb: '40,22,12', a: 0.46, tx: 'dk', logo: 'div.plank' },
-  'mdc-018': { at: 'header.hero', rgb: '20,14,12', a: 0.42, tx: 'dk', logo: 'small',
-    css: '.hero.dsm-cov{background:var(--cream);padding-top:34px}.hero.dsm-cov .volcano{display:none}.hero.dsm-cov .hero-in{grid-template-columns:1fr;padding-bottom:100px}.hero.dsm-cov .oven span{background:rgba(28,20,17,.82)}'
-      + '.hero.dsm-cov>.dsm-cov-bg{-webkit-mask-image:linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%);mask-image:linear-gradient(180deg,#000 0,#000 50%,rgba(0,0,0,.55) 68%,rgba(0,0,0,.15) 80%,transparent 88%)}'
-      + '.hero.dsm-cov h1{text-shadow:0 3px 22px rgba(0,0,0,.55)}.hero.dsm-cov p{padding-bottom:22px}' },
-  'mdc-019': { at: 'header.hero', rgb: '250,243,228', a: 0.6, tx: 'lt', logo: 'small' },
-  'mdc-020': { at: 'header.hero', rgb: '253,238,242', a: 0.58, tx: 'lt', logo: 'small' },
-  'mdc-021': { at: 'header.wall', rgb: '16,10,8', a: 0.5, tx: 'dk', logo: 'div.neon', css: '.wall>.dsm-hlogo{margin-bottom:26px}' },
+  'mdc-001': { at: 'header.hero', rgb: '250,246,238', a: 0.62, tx: 'lt' },
+  'mdc-002': { at: 'header.top', rgb: '20,14,12', a: 0.42, tx: 'dk',
+    // con la copertina: niente rosso a quadri, la foto scurita in basso sfuma nel colore della pagina
+    css: '.top.dsm-cov{background:var(--cream)}.top.dsm-cov::before{display:none}'
+      + `.top.dsm-cov>.dsm-cov-bg{-webkit-mask-image:${FADE};mask-image:${FADE}}.top.dsm-cov .dsm-hd{padding-bottom:120px}` },
+  'mdc-003': { at: 'header.top', rgb: '255,250,242', a: 0.62, tx: 'lt' },
+  'mdc-004': { at: 'header.top', rgb: '18,18,20', a: 0.5, tx: 'dk' },
+  'mdc-005': { at: 'header.top', rgb: '52,32,20', a: 0.5, tx: 'dk' },
+  'mdc-006': { at: 'header.top', rgb: '12,52,104', a: 0.46, tx: 'dk' },
+  'mdc-007': { at: 'header.top', rgb: '18,16,14', a: 0.5, tx: 'dk' },
+  'mdc-008': { at: 'header.hero', rgb: '18,10,8', a: 0.5, tx: 'dk' },
+  'mdc-009': { at: 'header.hero', rgb: '6,18,34', a: 0.5, tx: 'dk', h1: false },
+  'mdc-010': { at: 'header.dsm-hdr10', rgb: '255,210,60', a: 0.5, tx: 'lt' },
+  'mdc-011': { at: 'header.hero', rgb: '14,14,14', a: 0.5, tx: 'dk' },
+  'mdc-012': { at: 'header.hero', rgb: '250,240,222', a: 0.62, tx: 'lt' },
+  'mdc-013': { at: 'header.hero', rgb: '12,26,62', a: 0.5, tx: 'dk' },
+  'mdc-014': { at: 'header.hero', rgb: '16,34,26', a: 0.48, tx: 'dk' },
+  'mdc-015': { at: 'header.top', rgb: '30,12,54', a: 0.5, tx: 'dk', h1: false },
+  'mdc-016': { at: 'header.hero', rgb: '52,62,22', a: 0.5, tx: 'dk' },
+  'mdc-017': { at: 'header.top', rgb: '40,22,12', a: 0.46, tx: 'dk' },
+  'mdc-018': { at: 'header.hero', rgb: '20,14,12', a: 0.42, tx: 'dk',
+    css: '.hero.dsm-cov{background:var(--cream)}'
+      + `.hero.dsm-cov>.dsm-cov-bg{-webkit-mask-image:${FADE};mask-image:${FADE}}.hero.dsm-cov .dsm-hd{padding-bottom:120px}` },
+  'mdc-019': { at: 'header.hero', rgb: '250,243,228', a: 0.6, tx: 'lt' },
+  'mdc-020': { at: 'header.hero', rgb: '253,238,242', a: 0.58, tx: 'lt' },
+  'mdc-021': { at: 'header.wall', rgb: '16,10,8', a: 0.5, tx: 'dk' },
 };
 const BRAND_CSS = '<style>:where(.dsm-cov){position:relative}.dsm-cov{isolation:isolate}'
   // foto + velo; in basso sfuma nello sfondo del modello, così non c'è uno stacco netto
   + '.dsm-cov>.dsm-cov-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;'
   + 'background:linear-gradient(var(--dsm-tint),var(--dsm-tint)),var(--dsm-cover) center center/cover no-repeat;'
   + '-webkit-mask-image:linear-gradient(180deg,#000 0,#000 45%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.12) 82%,transparent 92%);mask-image:linear-gradient(180deg,#000 0,#000 45%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.12) 82%,transparent 92%)}'
-  + '@media (max-width:760px){.dsm-cov-top>.dsm-cov-bg{bottom:auto;height:min(62%,580px)}}'
   // testi sempre leggibili sulla foto
   + '.dsm-cov-dk p,.dsm-cov-dk small,.dsm-cov-dk .kick,.dsm-cov-dk .kicker,.dsm-cov-dk .est{text-shadow:0 1px 3px rgba(0,0,0,.6),0 2px 16px rgba(0,0,0,.45)}'
   + ':where(.dsm-cov-dk:not(.dsm-cov-noh1)) h1{text-shadow:0 2px 4px rgba(0,0,0,.35),0 4px 24px rgba(0,0,0,.45)}'
   + '.dsm-cov-lt p,.dsm-cov-lt small,.dsm-cov-lt .kick,.dsm-cov-lt .kicker{text-shadow:0 0 2px rgba(255,255,255,.9),0 0 14px rgba(255,255,255,.85)}'
   + ':where(.dsm-cov-lt:not(.dsm-cov-noh1)) h1{text-shadow:0 0 18px rgba(255,255,255,.85)}'
-  // tondo col logo: allineato come il testo del modello (a sinistra o al centro), sopra alla riga del nome
-  + '.dsm-hlogo{margin:0 0 14px;line-height:0}.dsm-hlogo .dsm-logo{width:64px!important;height:64px!important}'
-  + '@media (max-width:600px){.dsm-hlogo .dsm-logo{width:56px!important;height:56px!important}}</style>';
+  + '</style>';
 
 // apertura del primo elemento "tag.classe" (o "tag") dopo la posizione from
 function findTag(h, sel, from = 0) {
@@ -435,27 +389,13 @@ function findTag(h, sel, from = 0) {
 
 function brandHeader(name, info, h) {
   const cfg = BRAND_LOOK[name];
-  if (!cfg) return h;
-  const cover = photoOk(info.cover) ? info.cover : null;
-  const logo = cfg.logo && photoOk(info.logo) ? info.logo : null;
-  if (!cover && !logo) return h;
+  const cover = cfg && photoOk(info.cover) ? info.cover : null;
+  if (!cover) return h;
   const m = findTag(h, cfg.at);
   if (!m) return h;
-  let open = m[0];
-  let after = '';
-  if (cover) {
-    open = open.replace(/class="([^"]*)"/, (x, c) => `class="${c} dsm-cov dsm-cov-${cfg.tx}${cfg.top ? ' dsm-cov-top' : ''}${cfg.h1 === false ? ' dsm-cov-noh1' : ''}"`)
-      .replace(/>$/, ` style="--dsm-tint:rgba(${cfg.rgb},${cfg.a});--dsm-cover:url(&quot;${esc(cover)}&quot;)">`);
-    after = '<span class="dsm-cov-bg" aria-hidden="true"></span>';
-  }
-  let rest = h.slice(m.index + m[0].length);
-  if (logo) {
-    const h1 = rest.search(/<h1\b/);
-    const k = cfg.logo !== 'h1' ? findTag(rest, cfg.logo) : null;
-    const at = k && h1 >= 0 && k.index < h1 ? k.index : h1;
-    if (at >= 0) rest = `${rest.slice(0, at)}<div class="dsm-hlogo">${logoImg(logo, '64px')}</div>${rest.slice(at)}`;
-  }
-  h = h.slice(0, m.index) + open + after + rest;
+  const open = m[0].replace(/class="([^"]*)"/, (x, c) => `class="${c} dsm-cov dsm-cov-${cfg.tx}${cfg.h1 === false ? ' dsm-cov-noh1' : ''}"`)
+    .replace(/>$/, ` style="--dsm-tint:rgba(${cfg.rgb},${cfg.a});--dsm-cover:url(&quot;${esc(cover)}&quot;)">`);
+  h = h.slice(0, m.index) + open + '<span class="dsm-cov-bg" aria-hidden="true"></span>' + h.slice(m.index + m[0].length);
   return h.replace('</head>', () => `${BRAND_CSS}${cfg.css ? `<style>${cfg.css}</style>` : ''}\n</head>`);
 }
 

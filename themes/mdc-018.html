@@ -105,18 +105,22 @@ footer strong{font-family:"Bowlby One",Impact,sans-serif;font-weight:400;color:#
 /* dsmenu: riquadri con dati di esempio nascosti */
 .dsm-fake{display:none!important}
 </style>
+<style id="dsm-hd-css">.dsm-hdr{min-height:0!important;height:auto!important;padding:0!important;display:block!important;max-width:none!important;width:auto!important;margin-left:0!important;margin-right:0!important;text-align:center!important;grid-template-columns:none!important}.dsm-old{display:none!important}.dsm-hd{position:relative;max-width:760px;margin:0 auto;padding:30px 20px 38px;text-align:center}.dsm-hd-logo{display:block;width:84px;height:84px;margin:0 auto 16px;line-height:0}.dsm-hd-logo>.dsm-logo{width:100%!important;height:100%!important}.dsm-hd h1{margin-left:auto!important;margin-right:auto!important;margin-top:0!important;text-align:center!important}.dsm-hd>p{margin:12px auto 0!important;max-width:520px;text-align:center!important;padding:0!important}.dsm-hd small{display:none!important}.dsm-cov .dsm-hd{padding-bottom:96px}@media (max-width:600px){.dsm-hd{padding:26px 18px 32px}.dsm-hd-logo{width:76px;height:76px}.dsm-cov .dsm-hd{padding-bottom:84px}}</style>
 </head>
 <body>
-<header class="hero">
+<header class="hero dsm-hdr">
+<div class="dsm-hd"><span class="dsm-hd-logo">__DSM_HDLOGO__</span><h1 class="bowl">__DSM_NAME__</h1><p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p></div>
+<div class="dsm-old" hidden>
 <div class="wrap hero-in">
 <div>
 <small data-dsm-opt="KICKER">__DSM_KICKER__</small>
-<h1 class="bowl">__DSM_NAME__</h1>
-<p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p>
+
+
 </div>
 <div class="volcano" aria-hidden="true">
 <span class="puff" style="--x:-30px"></span><span class="puff" style="--x:24px"></span><span class="puff" style="--x:-6px"></span>
 <svg viewBox="0 0 240 150"><path d="M0 150L86 46q34-14 68 0l86 104z" fill="#5a2a1c"/><path d="M86 46q34-14 68 0l-12 14q-22-8-44 0z" fill="#3b1a10"/><path class="lava" d="M104 52q16-6 32 0l-6 30q-4 10-8 0l-2-12-4 26q-4 8-6-2l-2-20-6 10q-4 4-4-4z" fill="#ffb627"/><path d="M0 150L60 84l26 24 20-14 30 26 26-20 78 50z" fill="#3b1a10" opacity=".55"/></svg>
+</div>
 </div>
 </div>
 </header>

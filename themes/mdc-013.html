@@ -126,16 +126,19 @@ footer strong{font-family:Monoton,cursive;font-weight:400;font-size:1.8rem;color
 /* dsmenu: riquadri con dati di esempio nascosti */
 .fmt-row{display:none!important}
 </style>
+<style id="dsm-hd-css">.dsm-hdr{min-height:0!important;height:auto!important;padding:0!important;display:block!important;max-width:none!important;width:auto!important;margin-left:0!important;margin-right:0!important;text-align:center!important;grid-template-columns:none!important}.dsm-old{display:none!important}.dsm-hd{position:relative;max-width:760px;margin:0 auto;padding:30px 20px 38px;text-align:center}.dsm-hd-logo{display:block;width:84px;height:84px;margin:0 auto 16px;line-height:0}.dsm-hd-logo>.dsm-logo{width:100%!important;height:100%!important}.dsm-hd h1{margin-left:auto!important;margin-right:auto!important;margin-top:0!important;text-align:center!important}.dsm-hd>p{margin:12px auto 0!important;max-width:520px;text-align:center!important;padding:0!important}.dsm-hd small{display:none!important}.dsm-cov .dsm-hd{padding-bottom:96px}@media (max-width:600px){.dsm-hd{padding:26px 18px 32px}.dsm-hd-logo{width:76px;height:76px}.dsm-cov .dsm-hd{padding-bottom:84px}}</style>
 </head>
 <body>
 
-<header class="hero">
+<header class="hero dsm-hdr">
+<div class="dsm-hd"><span class="dsm-hd-logo">__DSM_HDLOGO__</span><h1 class="sign">__DSM_NAME__</h1><p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p></div>
+<div class="dsm-old" hidden>
   <div class="tiles" style="position:absolute;inset:0;opacity:.1" aria-hidden="true"></div>
   <div class="hero-grid">
     <div>
-      <h1 class="sign">__DSM_NAME__</h1>
+      
       <div class="sub-sign" data-dsm-opt="KICKER">__DSM_KICKER__</div>
-      <p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p>
+      
       <span class="hours" id="hours" data-dsm-opt="HOURS"><i></i>__DSM_HOURS__</span>
     </div>
     <div class="spit" aria-hidden="true">
@@ -147,6 +150,7 @@ footer strong{font-family:Monoton,cursive;font-weight:400;font-size:1.8rem;color
       <div class="tray"></div>
     </div>
   </div>
+</div>
 </header>
 <div class="tiles" style="height:22px" aria-hidden="true"></div>
 

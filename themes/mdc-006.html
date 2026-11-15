@@ -115,19 +115,23 @@ footer strong{font-family:"Libre Baskerville",serif;font-size:1.5rem;color:var(-
 /* dsmenu: riquadri con dati di esempio nascosti */
 .catch{display:none!important}
 </style>
+<style id="dsm-hd-css">.dsm-hdr{min-height:0!important;height:auto!important;padding:0!important;display:block!important;max-width:none!important;width:auto!important;margin-left:0!important;margin-right:0!important;text-align:center!important;grid-template-columns:none!important}.dsm-old{display:none!important}.dsm-hd{position:relative;max-width:760px;margin:0 auto;padding:30px 20px 38px;text-align:center}.dsm-hd-logo{display:block;width:84px;height:84px;margin:0 auto 16px;line-height:0}.dsm-hd-logo>.dsm-logo{width:100%!important;height:100%!important}.dsm-hd h1{margin-left:auto!important;margin-right:auto!important;margin-top:0!important;text-align:center!important}.dsm-hd>p{margin:12px auto 0!important;max-width:520px;text-align:center!important;padding:0!important}.dsm-hd small{display:none!important}.dsm-cov .dsm-hd{padding-bottom:96px}@media (max-width:600px){.dsm-hd{padding:26px 18px 32px}.dsm-hd-logo{width:76px;height:76px}.dsm-cov .dsm-hd{padding-bottom:84px}}</style>
 </head>
 <body>
 
-<header class="top">
+<header class="top dsm-hdr">
+<div class="dsm-hd"><span class="dsm-hd-logo">__DSM_HDLOGO__</span><h1>__DSM_NAME__</h1><p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p></div>
+<div class="dsm-old" hidden>
   <span class="fish f1" aria-hidden="true">🐟</span><span class="fish f2" aria-hidden="true">🐠</span>
   <p class="kick" data-dsm-opt="KICKER">__DSM_KICKER__</p>
-  <h1>__DSM_NAME__</h1>
-  <p data-dsm-opt="TAGLINE">__DSM_TAGLINE__</p>
+  
+  
   <div class="waves" aria-hidden="true">
     <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#ffffff" d="M0 50 C120 20 240 20 360 50 S600 80 720 50 960 20 1080 50 1320 80 1440 50 V90 H0Z"/></svg>
     <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#ffffff" d="M0 40 C180 70 360 10 540 40 S900 70 1080 40 1260 10 1440 40 V90 H0Z"/></svg>
     <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#ffffff" d="M0 60 C200 30 400 80 600 50 S1000 30 1200 60 1440 40 1440 40 V90 H0Z"/></svg>
   </div>
+</div>
 </header>
 
 <section class="catch" aria-labelledby="catch-t">
