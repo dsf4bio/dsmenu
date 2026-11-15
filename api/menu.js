@@ -61,7 +61,7 @@ const photoOk = (u) => typeof u === 'string' && PHOTO_RE.test(u);
 // tondo con l'anello colorato, come la foto profilo nelle storie di Instagram
 const STORY_RING = 'linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)';
 const logoImg = (u, size) => (photoOk(u)
-  ? `<span class="dsm-logo" style="display:inline-block;box-sizing:border-box;width:${size};height:${size};aspect-ratio:1;padding:3px;border-radius:50%;background:${STORY_RING};flex:0 0 auto;vertical-align:middle"><img src="${esc(u)}" alt="Logo" decoding="async" style="display:block;box-sizing:border-box;width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #fff;background:#fff"></span>`
+  ? `<span class="dsm-logo" style="display:inline-block;box-sizing:border-box;width:${size};height:${size};aspect-ratio:1;padding:3px;border-radius:50%;background:${STORY_RING};flex:0 0 auto;vertical-align:middle"><img src="${esc(u)}" alt="Logo" decoding="async" style="display:block;box-sizing:border-box;width:100%;height:100%;border-radius:50%;object-fit:contain;padding:9%;border:3px solid #fff;background:#fff"></span>`
   : '');
 const MONO_LOGO = '100%';
 const photoImg = (u, alt, cls) => `<img class="${cls}" src="${esc(u)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
@@ -176,6 +176,16 @@ const ALLERGEN_NOTICE = '<p class="fallergeni" role="note" style="max-width:600p
   + 'Se hai allergie o intolleranze alimentari chiedi sempre al personale prima di ordinare: '
   + 'i piatti possono contenere tracce di altri allergeni per contaminazione durante la preparazione.</p>';
 
+// loghi larghi (scritte): nel tondo diventerebbero minuscoli, quindi diventano una targhetta
+// arrotondata alta come il tondo; nei tondi dei modelli (monogramma) restano interi nel tondo
+const WIDE_LOGO = '<style>.dsm-logo.dsm-wide{max-width:72vw;border-radius:18px!important}'
+  + '.dsm-logo.dsm-wide img{border-radius:15px!important;padding:5px 9px!important}</style>'
+  + '<script>(function(){document.querySelectorAll(".dsm-logo img").forEach(function(i){'
+  + 'if(!i.closest(".dsm-hlogo,footer,.hero-logo"))return;'
+  + 'function f(){var r=i.naturalWidth/i.naturalHeight,s=i.parentNode;if(!(r>1.3))return;'
+  + 's.classList.add("dsm-wide");s.style.setProperty("width",Math.round(Math.min(s.offsetHeight*r*.9,240))+"px","important")}'
+  + 'if(i.complete)f();else i.addEventListener("load",f)})})();</script>';
+
 function footer(r) {
   const i = r.info || {};
   const line = [i.address, i.phone ? `Tel. ${i.phone}` : '', i.hours].filter(Boolean).map(esc).join(' · ');
@@ -201,7 +211,7 @@ function footer(r) {
   ${line ? `<div class="finfo">${line}</div>` : ''}
   ${i.vat ? `<div class="fvat" style="font-size:.8em;opacity:.8;margin-top:6px">P.IVA ${esc(String(i.vat).replace(/^IT/i, '').replace(/\s+/g, ''))}</div>` : ''}
   ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="Contatti">${links}</nav>` : ''}
-  ${ALLERGEN_NOTICE}
+  ${ALLERGEN_NOTICE}${i.logo && photoOk(i.logo) ? WIDE_LOGO : ''}
   <small class="fby" style="display:block;margin-top:14px;opacity:.75">Menu digitale by <a href="https://dsfabio.com/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">DS Service</a> · <a href="https://dsfabio.com/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">Lo vuoi per il tuo locale?</a> · <a href="https://dsfabio.com/privacy#menu" target="_blank" rel="noopener">Privacy</a></small>
 </footer>`;
 }
@@ -385,7 +395,11 @@ const BRAND_LOOK = {
     css: '.hero>.dsm-hlogo{max-width:960px;margin:0 auto 16px}@media (max-width:760px){.hero>.dsm-hlogo{text-align:center}}' },
   'mdc-013': { at: 'header.hero', rgb: '12,26,62', a: 0.5, tx: 'dk', logo: 'h1' },
   'mdc-014': { at: 'header.hero', rgb: '16,34,26', a: 0.48, tx: 'dk', logo: 'p.kicker' },
-  'mdc-015': { at: 'header.top', rgb: '34,14,60', a: 0.55, tx: 'dk', logo: false, h1: false },
+  'mdc-015': { at: 'header.top', rgb: '30,12,54', a: 0.5, tx: 'dk', logo: false, h1: false,
+    // con la copertina la barra in alto diventa una testata con la foto: logo grande, nome sotto, lingua in alto a destra
+    css: '.top.dsm-cov{max-width:none;min-height:250px;align-items:flex-end;padding:20px max(18px,calc(50% - 432px)) 22px;margin-bottom:6px}'
+      + '.top.dsm-cov .brand{flex-direction:column;align-items:flex-start;gap:12px}.top.dsm-cov .logo{width:72px;height:72px}'
+      + '.top.dsm-cov #lang{align-self:flex-start}.top.dsm-cov .tagline{text-shadow:0 1px 3px rgba(0,0,0,.6),0 2px 14px rgba(0,0,0,.5)}' },
   'mdc-016': { at: 'header.hero', rgb: '52,62,22', a: 0.5, tx: 'dk', logo: false, top: true },
   'mdc-017': { at: 'header.top', rgb: '40,22,12', a: 0.46, tx: 'dk', logo: 'div.plank' },
   'mdc-018': { at: 'header.hero', rgb: '20,14,12', a: 0.42, tx: 'dk', logo: 'small',
@@ -394,13 +408,13 @@ const BRAND_LOOK = {
       + '.hero.dsm-cov h1{text-shadow:0 3px 22px rgba(0,0,0,.55)}.hero.dsm-cov p{padding-bottom:22px}' },
   'mdc-019': { at: 'header.hero', rgb: '250,243,228', a: 0.6, tx: 'lt', logo: 'small' },
   'mdc-020': { at: 'header.hero', rgb: '253,238,242', a: 0.58, tx: 'lt', logo: 'small' },
-  'mdc-021': { at: 'header.wall', rgb: '16,10,8', a: 0.5, tx: 'dk', logo: 'div.neon' },
+  'mdc-021': { at: 'header.wall', rgb: '16,10,8', a: 0.5, tx: 'dk', logo: 'div.neon', css: '.wall>.dsm-hlogo{margin-bottom:26px}' },
 };
 const BRAND_CSS = '<style>:where(.dsm-cov){position:relative}.dsm-cov{isolation:isolate}'
   // foto + velo; in basso sfuma nello sfondo del modello, così non c'è uno stacco netto
   + '.dsm-cov>.dsm-cov-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;'
   + 'background:linear-gradient(var(--dsm-tint),var(--dsm-tint)),var(--dsm-cover) center center/cover no-repeat;'
-  + '-webkit-mask-image:linear-gradient(180deg,#000 0,#000 52%,rgba(0,0,0,.45) 78%,transparent 100%);mask-image:linear-gradient(180deg,#000 0,#000 52%,rgba(0,0,0,.45) 78%,transparent 100%)}'
+  + '-webkit-mask-image:linear-gradient(180deg,#000 0,#000 45%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.12) 82%,transparent 92%);mask-image:linear-gradient(180deg,#000 0,#000 45%,rgba(0,0,0,.5) 66%,rgba(0,0,0,.12) 82%,transparent 92%)}'
   + '@media (max-width:760px){.dsm-cov-top>.dsm-cov-bg{bottom:auto;height:min(62%,580px)}}'
   // testi sempre leggibili sulla foto
   + '.dsm-cov-dk p,.dsm-cov-dk small,.dsm-cov-dk .kick,.dsm-cov-dk .kicker,.dsm-cov-dk .est{text-shadow:0 1px 3px rgba(0,0,0,.6),0 2px 16px rgba(0,0,0,.45)}'
