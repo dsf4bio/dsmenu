@@ -3,431 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Menu digitali in azione · Prova gratis 30 giorni | DS Service</title>
-<meta name="description" content="Guarda i menu digitali con QR code in azione: oltre 20 stili animati per ristoranti, pizzerie, sushi, bar e pub. Scegli il tuo e provalo gratis per 30 giorni, pronto in 24 ore.">
+<title>Menu digitali con QR code · Prova gratis 30 giorni | DS Service</title>
+<meta name="description" content="Il menu digitale del tuo locale, pronto in 24 ore: oltre 20 stili animati per pizzerie, ristoranti, sushi, bar e pub. Allergeni, più lingue e QR code. Provalo gratis per 30 giorni.">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://dsmenu.it/">
-<meta name="theme-color" content="#0d0a1f">
+<meta name="theme-color" content="#fbf8f4">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="DS Service · Menu digitali">
-<meta property="og:title" content="Menu digitali in azione · Prova gratis 30 giorni">
+<meta property="og:title" content="Il menu digitale del tuo locale, pronto in 24 ore">
 <meta property="og:description" content="Oltre 20 stili animati, QR code, allergeni e più lingue. Scegli il tuo: pronto in 24 ore, gratis per 30 giorni.">
 <meta property="og:image" content="https://dsfabio.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" as="image" href="https://dsfabio.com/assets/anteprime/mdc-016.jpg">
-<link rel="preload" as="style" href="/assets/fonts/syne-manrope.css" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/assets/fonts/syne-manrope.css"></noscript>
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="image" href="https://dsfabio.com/assets/anteprime/mdc-014.jpg?v=20261115c">
+<link rel="stylesheet" href="/assets/fonts/syne-manrope.css">
 <style>
-/* =========================================================
-   /prova-gratis · menu digitali in azione
-   Usa i token e i componenti di site.css
-   ========================================================= */
-body{overflow-x:clip}
-.nav-in{height:68px}
-.nav .logo{cursor:default}
-.nav-live{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;color:var(--sub)}
-.nav-live i{width:8px;height:8px;border-radius:50%;background:var(--lime);animation:ping 2s infinite}
-@keyframes ping{0%{box-shadow:0 0 0 0 rgba(180,255,57,.7)}70%,100%{box-shadow:0 0 0 10px rgba(180,255,57,0)}}
-@media (max-width:680px){.nav-live{display:none}}
-@media (max-width:420px){.nav .btn{padding:10px 14px;font-size:.84rem}.logo{font-size:1.05rem}}
-.btn-xl{padding:19px 32px;font-size:1.08rem}
-.btn .arr{display:inline-block;transition:transform .3s}
-.btn:hover .arr{transform:translateX(5px)}
-.mag{transition:transform .25s cubic-bezier(.2,.9,.2,1),box-shadow .3s}
-@media (max-width:560px){.btn-xl{white-space:normal;text-align:center;width:100%;padding:17px 22px;font-size:1rem;line-height:1.25}}
-.sec-tight{padding:clamp(60px,9vw,110px) 0}
+/* =====================================================================
+   dsmenu.it · stesso stile chiaro delle pagine Attiva e Assistenza di dsfabio.com
+   ===================================================================== */
+:root{--bg:#fbf8f4;--card:#fff;--text:#1d1630;--muted:#6b6480;--line:#ece6f2;--violet:#6d4aff;--pink:#ff3cac;--ok:#16a34a;
+  --grad:linear-gradient(120deg,#ff3cac,#7b5cff 55%,#22d3ee);--btn:linear-gradient(120deg,#7b5cff,#b44cff 60%,#ff3cac)}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:16px;line-height:1.55;overflow-x:clip}
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(80px);opacity:.45;pointer-events:none;animation:float 22s ease-in-out infinite alternate}
+body::before{width:520px;height:520px;top:-180px;left:-160px;background:#ffd0ec}
+body::after{width:560px;height:560px;top:180px;right:-220px;background:#cfe9ff;animation-delay:-9s}
+@keyframes float{to{transform:translate(40px,60px) scale(1.08)}}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
+h1,h2{font-family:Syne,Manrope,sans-serif;letter-spacing:-.02em;font-weight:800;margin:0}
+h3{font-weight:800;margin:0}
+em.g,.g{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;z-index:99;background:#fff;padding:8px 12px;border-radius:8px}
+:focus-visible{outline:3px solid var(--violet);outline-offset:3px;border-radius:8px}
 
-/* ---------- Telefono (componente) ---------- */
-.phone{--pw:300px;position:relative;width:var(--pw);aspect-ratio:9/18.6;border-radius:calc(var(--pw) * .155);padding:calc(var(--pw) * .04);background:linear-gradient(145deg,#2f2756,#0f0b22);box-shadow:0 50px 100px rgba(0,0,0,.6),inset 0 0 0 2px rgba(255,255,255,.14),inset 0 0 0 6px rgba(0,0,0,.4)}
-.phone::before{content:"";position:absolute;right:-3px;top:22%;width:3px;height:12%;border-radius:0 3px 3px 0;background:#2f2756}
-.screen{position:relative;width:100%;height:100%;border-radius:calc(var(--pw) * .118);overflow:hidden;background:#0d0a1f;isolation:isolate}
-.notch{position:absolute;top:2.2%;left:50%;transform:translateX(-50%);width:32%;height:3.6%;border-radius:20px;background:#000;z-index:20}
-.glare{position:absolute;inset:0;z-index:19;pointer-events:none;background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.10) 47%,transparent 56%);background-size:260% 100%;animation:glare 6s ease-in-out infinite}
-@keyframes glare{0%,45%{background-position:130% 0}75%,100%{background-position:-70% 0}}
+/* pulsanti */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:14px 24px;border-radius:16px;border:0;font:inherit;font-weight:800;font-size:1rem;cursor:pointer;
+  background:var(--btn);background-size:160% 100%;color:#fff;box-shadow:0 14px 30px -12px rgba(123,92,255,.75);transition:transform .12s,background-position .4s,box-shadow .2s}
+.btn:hover{background-position:100% 0;box-shadow:0 18px 34px -12px rgba(255,60,172,.6)}
+.btn:active{transform:scale(.98)}
+.btn-sm{min-height:42px;padding:10px 16px;border-radius:12px;font-size:.9rem}
+.btn-ghost{background:#fff;color:var(--text);border:1.5px solid var(--line);box-shadow:none}
+.btn-ghost:hover{border-color:var(--violet);box-shadow:none}
 
-/* ---------- HERO ---------- */
-.hero{position:relative;padding:clamp(22px,4vw,50px) 0 clamp(40px,6vw,70px)}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,4vw,60px);align-items:center}
-.pill{display:inline-flex;align-items:center;gap:10px;padding:7px 14px 7px 8px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-size:.85rem;font-weight:700;color:var(--sub);text-decoration:none}
-.pill b{background:var(--grad);color:#0d0a1f;padding:3px 10px;border-radius:999px;font-size:.75rem}
-h1{font-family:Syne,sans-serif;font-size:clamp(2.2rem,6vw,4.6rem);line-height:.98;letter-spacing:-.02em;margin:20px 0 18px}
-h1 .w{display:inline-block;opacity:0;transform:translateY(60%) rotate(4deg);animation:wordIn .9s cubic-bezier(.2,.9,.2,1) forwards;animation-delay:calc(var(--d) * 80ms + 100ms)}
-@keyframes wordIn{to{opacity:1;transform:none}}
-.rot-w{display:block!important;font-size:.86em;margin-top:.06em}
-.rot{display:inline-grid;vertical-align:bottom;white-space:nowrap}
-.rot>span{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(40%) rotateX(-60deg);transition:opacity .5s,transform .6s cubic-bezier(.2,.9,.2,1),visibility 0s .6s}
-.rot>span.on{opacity:1;visibility:visible;transform:none;transition-delay:.3s,.3s,0s}
-.rot>span.out{opacity:0;visibility:visible;transform:translateY(-40%) rotateX(60deg);transition:opacity .3s,transform .3s,visibility 0s .3s}
-.hero .lead{font-size:clamp(1.05rem,2.3vw,1.2rem)}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:28px 0 18px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
-.chips li{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line);font-size:.85rem;font-weight:700}
-.chips li::before{content:"✓";color:var(--lime);font-weight:800}
+/* intestazione */
+.top{position:sticky;top:0;z-index:30;background:rgba(251,248,244,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;height:64px}
+.logo{font-family:Syne,sans-serif;font-weight:800;font-size:20px}
+.logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.top nav{display:flex;align-items:center;gap:20px;font-size:14px;font-weight:700;color:var(--muted)}
+.top nav a:hover{color:var(--text)}
+@media (max-width:640px){.top nav .hide-m{display:none}}
 
-.stage{position:relative;display:grid;place-items:center;min-height:640px;perspective:1200px}
-.halo{position:absolute;width:110%;aspect-ratio:1;border-radius:50%;background:conic-gradient(from var(--ang),var(--pink),var(--violet),var(--cyan),var(--lime),var(--pink));filter:blur(70px);opacity:.4;animation:rot 12s linear infinite}
-.tilt{position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.9,.2,1);transform:rotateX(var(--rx,4deg)) rotateY(var(--ry,-10deg))}
-.hero .phone{--pw:300px;animation:bob 7s ease-in-out infinite}
-@keyframes bob{50%{translate:0 -14px}}
-.live{position:absolute;inset:0}
-.live img,.live iframe{position:absolute;top:0;left:0;border:0;display:block}
-.live img{width:100%;height:auto;min-height:100%;object-fit:cover;object-position:top}
-.live iframe{width:390px;transform-origin:0 0;opacity:0;transition:opacity .6s;pointer-events:none;background:transparent}
-.live iframe.ok{opacity:1}
-.curtain{position:absolute;inset:0;z-index:15;display:grid;place-items:center;text-align:center;background:var(--grad);color:#0d0a1f;font-family:Syne,sans-serif;font-weight:800;font-size:1.4rem;line-height:1.1;padding:20px;clip-path:circle(0% at 50% 50%);transition:clip-path .55s cubic-bezier(.7,0,.3,1)}
-.curtain.on{clip-path:circle(75% at 50% 50%)}
-.curtain small{display:block;font-family:Manrope,sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px}
-.tap{position:absolute;inset:0;z-index:18;border-radius:inherit}
-.onair{position:absolute;z-index:30;top:-18px;left:50%;transform:translate(-50%,0) translateZ(80px);display:flex;align-items:center;gap:8px;white-space:nowrap;padding:8px 8px 8px 14px;border-radius:999px;background:rgba(16,12,36,.9);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 18px 40px rgba(0,0,0,.5);font-size:.8rem;font-weight:800}
-.onair .dot{width:8px;height:8px;border-radius:50%;background:#ff3c6a;animation:blink 1.2s infinite}
-@keyframes blink{50%{opacity:.25}}
-.onair b{font-family:Syne,sans-serif}
-.onair a{padding:6px 12px;border-radius:999px;background:var(--grad);color:#0d0a1f;text-decoration:none;font-size:.74rem}
-.float{position:absolute;z-index:25;border-radius:20px;background:rgba(20,15,45,.86);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 22px 50px rgba(0,0,0,.5);transform:translateZ(70px)}
-.qr-card{left:-70px;bottom:90px;width:170px;padding:14px;text-align:center;animation:bob2 7s ease-in-out infinite}
-.qr-box{position:relative;background:#fff;border-radius:12px;padding:10px;overflow:hidden}
-.qr-box svg{width:100%;height:auto;display:block}
-.qr-box::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--pink);box-shadow:0 0 14px 4px rgba(255,60,172,.7);animation:laser 2.2s ease-in-out infinite}
-@keyframes laser{0%,100%{top:6%}50%{top:92%}}
-.qr-card b{display:block;font-size:.76rem;margin-top:8px;line-height:1.25}
-.qr-card small{display:block;font-size:.66rem;color:var(--sub);font-weight:600}
-.lang-card{right:-60px;top:110px;padding:10px 12px;font-size:.74rem;font-weight:800;animation:bob2 8s ease-in-out infinite reverse}
-.lang-card .fl{display:flex;gap:4px;margin-top:6px}
-.lang-card .fl span{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.07);font-size:1rem;transition:background .3s,transform .3s}
-.lang-card .fl span.on{background:var(--grad);transform:scale(1.1)}
-.speed-card{right:-40px;bottom:40px;padding:12px 16px;animation:bob2 6s ease-in-out infinite}
-.speed-card b{display:block;font-family:Syne,sans-serif;font-size:1.35rem;line-height:1}
-.speed-card small{color:var(--sub);font-size:.68rem;font-weight:700}
-@keyframes bob2{50%{translate:0 -14px}}
-.dots{position:absolute;bottom:-34px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:30}
-.dots i{width:8px;height:8px;border-radius:99px;background:rgba(255,255,255,.2);transition:width .4s,background .4s}
-.dots i.on{width:26px;background:var(--grad)}
-@media (max-width:960px){
-  .hero-grid{grid-template-columns:1fr}
-  .stage{min-height:600px;margin-top:20px}
-  .qr-card{left:-10px}.lang-card{right:-10px}.speed-card{right:0}
-}
-@media (max-width:440px){
-  .hero .phone{--pw:240px}
-  .stage{min-height:530px}
-  .qr-card{width:128px;left:-4px;bottom:70px;padding:10px}
-  .lang-card{right:-4px;top:80px}
-  .speed-card{display:none}
-  .onair{font-size:.72rem}
-}
+/* hero */
+.hero{padding:44px 0 40px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:0 4px 16px rgba(109,74,255,.08);font-size:13px;font-weight:700;color:var(--violet)}
+.hero h1{font-size:clamp(2.1rem,5.4vw,3.6rem);line-height:1.04;margin:16px 0 14px}
+.lead{color:var(--muted);font-size:1.1rem;max-width:540px;margin:0}
+.lead strong{color:var(--text)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 18px}
+.checks{display:flex;flex-wrap:wrap;gap:8px 18px;padding:0;margin:0;list-style:none;font-size:.92rem;font-weight:700;color:var(--muted)}
+.checks li::before{content:"✓ ";color:var(--ok)}
 
-/* ---------- MURO 3D DEI MODELLI ---------- */
-.wall-sec{position:relative;height:clamp(620px,92vh,900px);overflow:hidden;margin-top:20px}
-.wall{position:absolute;left:50%;top:50%;width:1700px;display:flex;gap:22px;justify-content:center;transform:translate(-50%,-50%) perspective(1600px) rotateX(28deg) rotateZ(-14deg) scale(1.05);transform-style:preserve-3d}
-.col{display:flex;flex-direction:column;gap:22px;animation:colUp var(--t,38s) linear infinite;animation-play-state:paused;will-change:transform;translate:0 calc(var(--sy,0px) * -1);transition:translate .25s ease-out}
-.col.dn{translate:0 var(--sy,0px)}
-.wall-sec.go .col{animation-play-state:running}
-.col.dn{animation-name:colDn}
-@keyframes colUp{from{transform:translateY(0)}to{transform:translateY(-50%)}}
-@keyframes colDn{from{transform:translateY(-50%)}to{transform:translateY(0)}}
-.wall-sec.go:hover .col{animation-play-state:paused}
-.shot{position:relative;display:block;width:210px;aspect-ratio:390/808;border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 60px rgba(0,0,0,.55);transition:transform .45s cubic-bezier(.2,.9,.2,1),box-shadow .45s;background:#1a1240}
-.shot img{width:100%;height:100%;object-fit:cover;display:block}
-.shot span{position:absolute;left:10px;right:10px;bottom:10px;padding:8px 10px;border-radius:12px;background:rgba(13,10,31,.82);backdrop-filter:blur(8px);font-size:.78rem;font-weight:800;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s}
-.shot:hover{transform:translateZ(60px) scale(1.06);box-shadow:0 40px 80px rgba(255,60,172,.35)}
-.shot:hover span{opacity:1;transform:none}
-.wall-fade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(var(--bg),transparent 22%,transparent 70%,var(--bg)),radial-gradient(60% 50% at 50% 50%,rgba(13,10,31,.75),transparent 75%)}
-.wall-copy{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;padding:20px}
-.wall-copy .box{pointer-events:auto;text-align:center;max-width:620px;padding:clamp(24px,4vw,40px);border-radius:32px;background:rgba(13,10,31,.62);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 30px 80px rgba(0,0,0,.5)}
-.wall-copy .h2{margin-top:10px}
-.big-num{font-family:Syne,sans-serif;font-size:clamp(4rem,12vw,8rem);line-height:.85;display:block}
-@media (max-width:700px){.wall{width:1100px;gap:14px}.col{gap:14px}.shot{width:140px;border-radius:18px}}
+/* telefono */
+.stage{display:flex;flex-direction:column;align-items:center;gap:14px}
+.phone{--w:290px;position:relative;width:var(--w);height:calc(var(--w) * 2.07);padding:11px;border-radius:46px;background:#1d1630;box-shadow:0 40px 80px -30px rgba(60,30,120,.55),inset 0 0 0 2px #3a3052}
+.screen{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#f3eefc}
+.notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:84px;height:22px;border-radius:14px;background:#1d1630;z-index:5}
+/* l'anteprima e il menu vero: largo 390 px come su un telefono, rimpicciolito (mai stirato) */
+.screen img.shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.screen iframe{position:absolute;left:0;top:0;width:390px;border:0;transform-origin:0 0;opacity:0;transition:opacity .5s;background:#fff}
+.screen iframe.ok{opacity:1}
+.tapcover{position:absolute;inset:0;z-index:4;display:none}
+@media (hover:none){.tapcover{display:block}}
+.models{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.models button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font:inherit;font-size:.85rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .2s}
+.models button[aria-pressed=true]{border-color:var(--violet);color:var(--violet);background:#f6f2ff}
+.stage small{color:var(--muted);font-weight:600}
+.stage small a{color:var(--violet);font-weight:800}
+@media (max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.hero{padding-top:28px}}
 
-/* ---------- DAL TAVOLO AL MENU (scroll) ---------- */
-.story{position:relative;height:calc(var(--n,6) * 90vh)}
-.story-in{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(20px,4vw,60px)}
-.story-txt .eyebrow{margin-bottom:10px}
-.story-txt .h2{margin-bottom:22px;font-size:clamp(1.8rem,3.8vw,2.9rem)}
-.st-list{list-style:none;display:grid;gap:6px;counter-reset:st}
-.st-list li{position:relative;padding:14px 18px 14px 58px;border-radius:20px;border:1px solid transparent;opacity:.38;transition:opacity .4s,background .4s,border-color .4s,transform .4s}
-.st-list li::before{counter-increment:st;content:counter(st);position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:Syne,sans-serif;font-weight:800;font-size:.85rem;background:rgba(255,255,255,.08);transition:background .4s,color .4s}
-.st-list li.on{opacity:1;background:var(--card);border-color:var(--line);transform:translateX(8px)}
-.st-list li.on::before{background:var(--grad);color:#0d0a1f}
-.st-list b{display:block;font-family:Syne,sans-serif;font-size:1.12rem}
-.st-list span{display:block;color:var(--sub);font-size:.92rem;line-height:1.45;max-height:0;overflow:hidden;transition:max-height .5s}
-.st-list li.on span{max-height:90px}
-.story-bar{height:4px;border-radius:4px;background:rgba(255,255,255,.08);margin-top:18px;overflow:hidden}
-.story-bar i{display:block;height:100%;width:0;background:var(--grad)}
+/* sezioni */
+section.blk{padding:56px 0}
+.head{text-align:center;max-width:640px;margin:0 auto 30px}
+.head h2{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.1;margin-bottom:10px}
+.head p{color:var(--muted);margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 60px -28px rgba(60,30,120,.22)}
 
-.scene{position:relative;display:grid;place-items:center;height:min(640px,86svh)}
-.scene .phone{--pw:min(290px,30svh * 1.05);position:relative;z-index:3;transition:transform .8s cubic-bezier(.2,.9,.2,1)}
-.tent{position:absolute;z-index:2;left:2%;bottom:12%;width:150px;padding:14px 14px 16px;border-radius:16px 16px 6px 6px;background:#f7f5ff;color:#1b1638;text-align:center;box-shadow:0 30px 60px rgba(0,0,0,.5);transform:rotate(-6deg);transition:transform .8s cubic-bezier(.2,.9,.2,1),opacity .6s}
-.tent::after{content:"";position:absolute;left:8%;right:8%;bottom:-14px;height:14px;background:#cfc8ea;border-radius:0 0 8px 8px;transform:perspective(100px) rotateX(-40deg)}
-.tent b{display:block;font-family:Syne,sans-serif;font-size:.85rem;margin-bottom:8px}
-.tent small{display:block;font-size:.66rem;font-weight:700;color:#4a4470;margin-top:6px}
-.tent svg{width:100%;height:auto;display:block}
-.table{position:absolute;left:-10%;right:-10%;bottom:4%;height:30%;border-radius:50%;background:radial-gradient(closest-side,rgba(123,92,255,.25),transparent);filter:blur(10px);z-index:1}
-.scene[data-s="0"] .tent{transform:rotate(-4deg) scale(1.25) translate(30%, -10%)}
-.scene[data-s="0"] .phone{transform:translateX(30%) rotate(8deg) scale(.88);opacity:.55}
-.scene:not([data-s="0"]) .tent{opacity:.35;transform:rotate(-8deg) scale(.85)}
-
-.layer{position:absolute;inset:0;opacity:0;transition:opacity .5s,transform .6s cubic-bezier(.2,.9,.2,1);pointer-events:none}
+/* 3 secondi: un telefono, tre momenti */
+.how{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center;padding:30px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.steps li{display:flex;gap:14px;padding:16px;border-radius:18px;border:1.5px solid transparent;transition:all .4s;cursor:pointer}
+.steps li .n{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:#d9d2e8;transition:background .4s}
+.steps li b{display:block;font-size:1.05rem}
+.steps li span{color:var(--muted);font-size:.93rem}
+.steps li.on{border-color:#d9cdf3;background:#faf7ff}
+.steps li.on .n{background:linear-gradient(135deg,#7b5cff,#ff3cac)}
+.demo-phone{--w:250px}
+.layer{position:absolute;inset:0;opacity:0;transition:opacity .6s,transform .6s}
 .layer.on{opacity:1}
-/* Fotocamera */
-.cam{background:radial-gradient(80% 60% at 50% 40%,#3b3256,#120e22);display:grid;place-items:center}
-.cam .vf{position:relative;width:62%;aspect-ratio:1;padding:14px;background:#f7f5ff;border-radius:14px;transform:rotate(-6deg);box-shadow:0 20px 40px rgba(0,0,0,.4)}
-.cam .vf svg{width:100%;height:auto;display:block}
-.cam .corners{position:absolute;width:78%;aspect-ratio:1;border-radius:22px;background:linear-gradient(#fff,#fff) top left/26px 4px,linear-gradient(#fff,#fff) top left/4px 26px,linear-gradient(#fff,#fff) top right/26px 4px,linear-gradient(#fff,#fff) top right/4px 26px,linear-gradient(#fff,#fff) bottom left/26px 4px,linear-gradient(#fff,#fff) bottom left/4px 26px,linear-gradient(#fff,#fff) bottom right/26px 4px,linear-gradient(#fff,#fff) bottom right/4px 26px;background-repeat:no-repeat;animation:frame 1.6s ease-in-out infinite}
-@keyframes frame{50%{transform:scale(.94)}}
-.cam .las{position:absolute;width:70%;height:3px;background:var(--lime);box-shadow:0 0 16px 4px rgba(180,255,57,.7);animation:laser2 1.8s ease-in-out infinite}
-@keyframes laser2{0%,100%{transform:translateY(-110px)}50%{transform:translateY(110px)}}
-.cam .shutter{position:absolute;bottom:6%;width:54px;height:54px;border-radius:50%;border:4px solid #fff;background:rgba(255,255,255,.25)}
-.cam .toast{position:absolute;top:7%;left:6%;right:6%;padding:10px 12px;border-radius:16px;background:rgba(247,245,255,.95);color:#1b1638;font-size:.7rem;font-weight:800;display:flex;gap:8px;align-items:center;transform:translateY(-150%);transition:transform .6s cubic-bezier(.2,.9,.2,1) .5s;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-.cam .toast i{font-style:normal;width:26px;height:26px;flex:0 0 26px;border-radius:8px;display:grid;place-items:center;background:var(--grad)}
-.cam .toast small{display:block;font-weight:600;color:#625c88}
-.layer.on .toast{transform:none}
-/* Menu che si apre */
-.open-menu{transform:translateY(100%)}
-.open-menu.on{transform:none}
-.open-menu img{width:100%;display:block;animation:peek 7s ease-in-out infinite alternate}
-@keyframes peek{0%,15%{transform:translateY(0)}100%{transform:translateY(-22%)}}
-/* Menu demo (lingue, allergeni, prezzi) */
-.dm{background:radial-gradient(90% 50% at 20% 0%,rgba(255,60,172,.45),transparent 60%),radial-gradient(80% 50% at 100% 40%,rgba(34,211,238,.3),transparent 60%),#0d0a1f;padding:14% 7% 7%;display:flex;flex-direction:column;gap:7px;font-size:calc(var(--pw) * .042)}
-.dm-top{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-.dm-top .lg{width:2.4em;height:2.4em;border-radius:.8em;background:var(--grad);display:grid;place-items:center;font-size:1.05em}
-.dm-top strong{font-family:Syne,sans-serif;font-size:1.15em;line-height:1}
-.dm-top small{display:block;color:var(--sub);font-size:.72em}
-.dm-lang{margin-left:auto;display:flex;gap:3px}
-.dm-lang span{padding:.25em .55em;border-radius:99px;font-size:.7em;font-weight:800;border:1px solid rgba(255,255,255,.25);transition:background .3s,color .3s}
-.dm-lang span.on{background:#fff;color:#0d0a1f;border-color:#fff}
-.dm-filter{display:flex;gap:5px;flex-wrap:wrap}
-.dm-filter span{padding:.35em .7em;border-radius:99px;font-size:.72em;font-weight:800;background:rgba(255,255,255,.08);transition:background .4s,color .4s,transform .4s}
-.dm-filter span.on{background:var(--lime);color:#0d0a1f;transform:scale(1.06)}
-.dish{position:relative;display:flex;align-items:center;gap:.6em;padding:.6em;border-radius:1em;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);transition:opacity .5s,filter .5s,transform .5s}
-.dish .orb{width:2.6em;height:2.6em;flex:0 0 auto;border-radius:.8em;display:grid;place-items:center;font-size:1.3em;background:linear-gradient(140deg,hsl(var(--h) 90% 62%),hsl(calc(var(--h) + 60) 90% 55%))}
-.dish .tx{min-width:0;flex:1}
-.dish b{display:block;font-size:.9em;line-height:1.15;transition:opacity .25s}
-.dish i{display:block;font-style:normal;font-size:.7em;color:var(--sub);line-height:1.25;transition:opacity .25s}
-.dish .al{display:flex;gap:2px;margin-top:2px;font-size:.75em}
-.dish .al span{transform:scale(0);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
-.dm.show-al .dish .al span{transform:scale(1)}
-.dm.show-al .dish .al span:nth-child(2){transition-delay:.1s}.dm.show-al .dish .al span:nth-child(3){transition-delay:.2s}
-.dm.gf .dish.glu{opacity:.25;filter:grayscale(1);transform:scale(.97)}
-.dish em{font-style:normal;font-family:Syne,sans-serif;font-weight:800;font-size:.95em;display:grid;overflow:hidden;height:1.3em}
-.dish em span{grid-area:1/1;transition:transform .5s cubic-bezier(.2,.9,.2,1)}
-.dish em .nw{transform:translateY(110%);color:var(--lime)}
-.dm.upd .dish em .od{transform:translateY(-110%)}
-.dm.upd .dish em .nw{transform:none}
-.dish .sold{position:absolute;right:18%;top:50%;padding:.2em .6em;border:2px solid #ff3c6a;color:#ff3c6a;border-radius:.4em;font-weight:800;font-size:.75em;text-transform:uppercase;transform:translateY(-50%) rotate(-12deg) scale(2.2);opacity:0;transition:transform .45s cubic-bezier(.3,1.6,.5,1),opacity .3s}
-.dm.upd .dish .sold{opacity:1;transform:translateY(-50%) rotate(-12deg) scale(1)}
-.dm.upd .dish.out{opacity:.45}
-.dm-note{margin-top:auto;padding:.6em .8em;border-radius:1em;font-size:.7em;font-weight:800;text-align:center;background:rgba(180,255,57,.12);color:var(--lime);opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s}
-.dm.upd .dm-note{opacity:1;transform:none}
-.fade-sw{transition:opacity .25s}
-.fade-sw.sw{opacity:0}
+.cam{background:#111 radial-gradient(60% 40% at 50% 45%,#333,#111);display:grid;place-items:center}
+.vf{position:relative;width:62%;aspect-ratio:1;padding:12px;background:#fff;border-radius:12px}
+.vf::after{content:"";position:absolute;inset:-14px;border:3px solid rgba(255,255,255,.85);border-radius:18px;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);clip-path:polygon(0 0,30% 0,30% 6%,6% 6%,6% 30%,0 30%,0 70%,6% 70%,6% 94%,30% 94%,30% 100%,70% 100%,70% 94%,94% 94%,94% 70%,100% 70%,100% 30%,94% 30%,94% 6%,70% 6%,70% 0,100% 0,100% 100%,0 100%)}
+.vf svg{display:block;width:100%;height:auto}
+.toast{position:absolute;left:10px;right:10px;top:44px;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.95);font-size:.78rem;font-weight:700;transform:translateY(-20px);opacity:0;transition:all .5s .6s}
+.cam.on .toast{transform:none;opacity:1}
+.toast small{display:block;color:var(--muted);font-weight:600}
+.open img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.open{transform:translateY(30px)}.open.on{transform:none}
+.dish-card{position:absolute;left:8px;right:8px;bottom:8px;z-index:2;padding:16px;border-radius:22px;background:#fff;box-shadow:0 -10px 40px rgba(0,0,0,.25);transform:translateY(110%);transition:transform .6s cubic-bezier(.2,1.2,.4,1)}
+.dish.on .dish-card{transform:none}
+.dish-card .em{font-size:2.6rem;text-align:center;line-height:1}
+.dish-card b{display:block;text-align:center;font-size:1.05rem;margin-top:6px}
+.dish-card p{margin:4px 0 10px;text-align:center;color:var(--muted);font-size:.8rem}
+.al{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.al span{font-size:.72rem;font-weight:800;padding:4px 8px;border-radius:999px;background:#fff4e5;color:#9a5b00}
+.dish-card .pr{display:block;text-align:center;margin-top:10px;font-weight:800;color:var(--violet)}
+.dish .dim{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+@media (max-width:760px){.how{grid-template-columns:minmax(0,1fr);padding:20px 14px}.how .stage{order:-1}}
 
-@media (max-width:860px){
-  .story{height:calc(var(--n,6) * 80vh)}
-  .story-in{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:start;gap:8px;padding-top:76px}
-  .story-txt .h2{font-size:1.5rem;margin:6px 0 10px}
-  .story-txt .eyebrow{display:none}
-  .st-list{display:block;position:relative;min-height:96px}
-  .st-list li{position:absolute;inset:0 0 auto 0;opacity:0;transform:translateY(12px)}
-  .st-list li.on{opacity:1;transform:none}
-  .st-list li span{max-height:none}
-  .story-bar{margin-top:6px}
-  .scene{height:auto;min-height:0;align-self:stretch}
-  .scene .phone{--pw:min(250px,26svh)}
-  .tent{width:110px;left:0;bottom:6%}
-}
+/* modelli */
+.filters{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 2px 14px;justify-content:center}
+.filters::-webkit-scrollbar{display:none}
+.filters button{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:.88rem;font-weight:700;color:var(--muted);cursor:pointer}
+.filters button[aria-pressed=true]{border-color:var(--violet);color:var(--violet);background:#f6f2ff}
+@media (max-width:760px){.filters{justify-content:flex-start}}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.tpl{display:flex;flex-direction:column;overflow:hidden;padding:0;border-radius:20px;transition:transform .25s,box-shadow .25s}
+.tpl:hover{transform:translateY(-4px)}
+.tpl .pic{display:block;position:relative;aspect-ratio:390/520;overflow:hidden;background:#f3eefc}
+.tpl .pic img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .5s}
+.tpl:hover .pic img{transform:scale(1.04)}
+.tpl .tx{padding:12px 14px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tpl h3{font-size:1rem}
+.tpl .tags{font-size:.78rem;color:var(--muted);font-weight:600}
+.tpl .acts{display:flex;gap:8px;margin-top:auto}
+.tpl .acts a{flex:1;text-align:center;font-size:.82rem;font-weight:800;padding:9px 8px;border-radius:12px}
+.tpl .see{border:1.5px solid var(--line);background:#fff}
+.tpl .see:hover{border-color:var(--violet)}
+.tpl .want{background:var(--btn);color:#fff}
+@media (max-width:420px){.grid{grid-template-columns:1fr 1fr;gap:12px}.tpl .acts{flex-direction:column}}
 
-/* ---------- CAROSELLO 3D: SCEGLI IL TUO ---------- */
-.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:28px}
-.filters button{padding:10px 16px;border-radius:999px;background:var(--card);border:1px solid var(--line);font-weight:800;font-size:.9rem;color:var(--sub);transition:background .3s,color .3s,border-color .3s,transform .3s}
-.filters button:hover{color:#fff;transform:translateY(-2px)}
-.filters button[aria-pressed="true"]{background:var(--grad);color:#0d0a1f;border-color:transparent}
-.cf-stage{position:relative;height:560px;perspective:1400px;touch-action:pan-y;user-select:none}
-.cf-track{position:absolute;inset:0;transform-style:preserve-3d}
-.cf-card{position:absolute;left:50%;top:50%;width:250px;aspect-ratio:390/808;margin:0;border-radius:30px;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:#1a1240;box-shadow:0 40px 80px rgba(0,0,0,.55);transition:transform .7s cubic-bezier(.2,.9,.2,1),opacity .5s,filter .5s;cursor:pointer}
-.cf-card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
-.cf-card.c{box-shadow:0 40px 90px rgba(255,60,172,.35),0 0 0 2px rgba(255,255,255,.3)}
-.cf-card.c img{animation:peek 6s ease-in-out infinite alternate}
-.cf-nav{position:absolute;top:50%;z-index:50;width:54px;height:54px;border-radius:50%;background:rgba(16,12,36,.8);border:1px solid var(--line);font-size:1.4rem;font-weight:800;display:grid;place-items:center;transform:translateY(-50%);backdrop-filter:blur(10px);transition:background .3s,transform .3s}
-.cf-nav:hover{background:var(--card-h);transform:translateY(-50%) scale(1.08)}
-.cf-prev{left:max(2%,calc(50% - 380px))}.cf-next{right:max(2%,calc(50% - 380px))}
-.cf-info{text-align:center;margin-top:14px;min-height:150px}
-.cf-info h3{font-family:Syne,sans-serif;font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.1}
-.cf-info .tags{display:flex;justify-content:center;gap:6px;margin:8px 0 18px}
-.cf-info .tags span{font-size:.75rem;font-weight:800;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.07);color:var(--sub)}
-.cf-info .row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;align-items:center}
-.cf-info .scan{display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--sub);font-weight:700;text-align:left}
-.cf-info .scan div{width:64px;padding:5px;background:#fff;border-radius:10px}
-.cf-info .scan svg{width:100%;height:auto;display:block}
-@media (max-width:640px){.cf-stage{height:440px}.cf-card{width:190px;border-radius:24px}.cf-nav{width:44px;height:44px}.cf-info .scan{display:none}}
+/* offerta */
+.offer{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.offer .card{padding:24px}
+.offer .em{font-size:1.8rem}
+.offer b{display:block;font-size:1.1rem;margin:8px 0 4px}
+.offer p{margin:0;color:var(--muted);font-size:.95rem}
+.feat{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:22px 0 0;padding:0;list-style:none}
+.feat li{padding:8px 14px;border-radius:999px;background:#fff;border:1px solid var(--line);font-weight:700;font-size:.9rem}
+.price{text-align:center;margin:22px auto 0;max-width:620px;color:var(--muted)}
+.price strong{color:var(--text)}
+@media (max-width:760px){.offer{grid-template-columns:minmax(0,1fr)}}
 
-/* ---------- TESTO CINETICO ---------- */
-.kin{overflow:hidden;padding:30px 0}
-.kin-row{display:flex;width:max-content;animation:mq var(--t,26s) linear infinite;will-change:transform}
-.kin-row.rev{animation-direction:reverse}
-.kin-skew{transform:skewX(var(--skew,0deg));transition:transform .2s}
-.kin-row span{font-family:Syne,sans-serif;font-weight:800;font-size:clamp(3rem,9vw,7.5rem);line-height:1.05;letter-spacing:-.02em;white-space:nowrap;padding-right:.4em}
-.kin-row .o{color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.55)}
-.kin-row .g{background:var(--grad-loop);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 6s linear infinite}
-@keyframes mq{to{transform:translateX(-50%)}}
-
-.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
-.promise .card{text-align:center;padding:28px 20px}
-.promise .em{font-size:2.4rem;display:inline-block;animation:wig 3s ease-in-out infinite}
-.promise .card:nth-child(2) .em{animation-delay:-1s}.promise .card:nth-child(3) .em{animation-delay:-2s}
-@keyframes wig{0%,70%,100%{transform:none}78%{transform:rotate(-14deg) scale(1.15)}86%{transform:rotate(12deg) scale(1.15)}}
-.promise b{display:block;font-family:Syne,sans-serif;font-size:1.5rem;margin:8px 0 4px}
-.promise p{color:var(--sub);font-size:.92rem}
-.price-line{text-align:center;color:var(--sub);margin-top:22px;font-size:.95rem}
-.price-line strong{color:var(--txt)}
-@media (max-width:760px){.promise{grid-template-columns:1fr}}
-
-/* ---------- FINALE: ANELLO 3D ---------- */
-.ring-sec{position:relative;min-height:760px;display:grid;place-items:center;overflow:hidden;perspective:1400px}
-.ring{position:absolute;top:50%;left:50%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(-8deg);animation:none}
-.ring-in{position:absolute;transform-style:preserve-3d;animation:spin 46s linear infinite}
-@keyframes spin{to{transform:rotateY(-360deg)}}
-.ring-in a{position:absolute;left:-75px;top:-155px;width:150px;aspect-ratio:390/808;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.16);box-shadow:0 30px 60px rgba(0,0,0,.5);transform:rotateY(calc(var(--i) * 30deg)) translateZ(520px);backface-visibility:hidden}
-.ring-in a img{width:100%;height:100%;object-fit:cover;display:block}
-.ring-core{position:relative;z-index:5;text-align:center;max-width:560px;padding:clamp(28px,5vw,46px) 24px;border-radius:36px;background:rgba(13,10,31,.7);border:1px solid var(--line);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 40px 100px rgba(0,0,0,.6)}
-.ring-core .h2{margin-top:10px}
-.ring-core .lead{margin:0 auto 26px}
-.fab{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;font-size:.85rem;color:var(--sub);font-weight:700}
+/* finale */
+.final{text-align:center;padding:40px 24px}
+.final h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:10px}
+.final p{color:var(--muted);margin:0 auto 22px;max-width:520px}
+.fab{display:inline-flex;align-items:center;gap:10px;margin-top:18px;font-size:.88rem;color:var(--muted);font-weight:700}
 .fab img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--violet)}
-@media (max-width:640px){.ring-sec{min-height:680px}.ring-in a{width:110px;left:-55px;top:-114px;border-radius:14px;transform:rotateY(calc(var(--i) * 30deg)) translateZ(330px)}}
 
-.mini-foot{padding:30px 0 calc(30px + env(safe-area-inset-bottom));color:var(--sub);font-size:.82rem;border-top:1px solid var(--line)}
-.mini-foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
-.mini-foot a{text-decoration:none}
-.mini-foot a:hover{color:#fff}
-@media (max-width:760px){body{padding-bottom:84px}}
-.cfx{position:fixed;z-index:300;width:9px;height:14px;border-radius:2px;pointer-events:none}
+footer{border-top:1px solid var(--line);padding:24px 0 calc(24px + env(safe-area-inset-bottom));font-size:13px;color:var(--muted);background:rgba(255,255,255,.5)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+footer a:hover{color:var(--text)}
 
-@media (prefers-reduced-motion:reduce){
-  h1 .w{opacity:1!important;transform:none!important}
-  .col,.ring-in,.kin-row{animation:none!important}
-}
+/* barra in basso sul telefono */
+.m-bar{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(251,248,244,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s}
+.m-bar.show{transform:none}
+.m-bar .btn{width:100%}
+@media (min-width:761px){.m-bar{display:none}}
+@media (max-width:760px){body{padding-bottom:80px}}
+
+/* comparsa */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
 </style>
 </head>
-<body class="no-js">
+<body>
 <a class="skip" href="#main">Vai al contenuto</a>
-<div class="progress" aria-hidden="true"></div>
-<div class="bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
-<div class="glow-cursor" aria-hidden="true"></div>
 
-<header class="nav" id="nav">
-<div class="wrap nav-in">
-<span class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#0d0a1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3M21 14v.01M14 21h7v-4"/></svg></span>DS Service</span>
-<span class="nav-live"><i aria-hidden="true"></i>Menu dal vivo · 30 giorni gratis</span>
-<a class="btn btn-main" href="https://dsfabio.com/attiva" data-open data-cta="nav">Prova gratis</a>
+<header class="top">
+<div class="wrap">
+<span class="logo">DS <span>Service</span></span>
+<nav aria-label="Navigazione">
+<a class="hide-m" href="#come">Come funziona</a>
+<a class="hide-m" href="#modelli">Modelli</a>
+<a class="btn btn-sm" href="https://dsfabio.com/attiva" data-open data-cta="nav">Prova gratis</a>
+</nav>
 </div>
 </header>
 
 <main id="main">
-<!-- ======================= HERO: MENU DAL VIVO ======================= -->
+<!-- HERO: il menu vero dentro al telefono -->
 <section class="hero" aria-labelledby="h1">
-<div class="wrap hero-grid">
-<div>
-<a class="pill" href="https://dsfabio.com/attiva" data-open data-cta="pill"><b>🎁 GRATIS</b> 30 giorni · nessuna carta richiesta</a>
-<h1 id="h1"><span class="w" style="--d:0">Il</span> <span class="w" style="--d:1">menu</span> <span class="w" style="--d:2">che</span> <span class="w" style="--d:3">fa</span> <span class="w" style="--d:4">venire</span> <span class="w" style="--d:5">fame</span> <span class="w" style="--d:6">alla</span> <span class="w rot-w" style="--d:7"><span class="rot" id="rot"><span class="on grad-text">tua&nbsp;pizzeria</span><span class="grad-text">tuo&nbsp;sushi</span><span class="grad-text">tuo&nbsp;pub</span><span class="grad-text">tua&nbsp;hamburgeria</span><span class="grad-text">tua&nbsp;trattoria</span></span></span></h1>
-<p class="lead">Quello che vedi nel telefono non è un video: è <strong>un vero menu digitale</strong>, che scorre da solo. Foto, allergeni, più lingue e QR code. <strong>Lo creiamo noi in 24 ore</strong> e lo provi gratis per 30 giorni.</p>
-<div class="hero-cta">
-<a class="btn btn-main btn-xl mag" href="https://dsfabio.com/attiva" data-open data-cta="hero">🚀 Voglio il mio menu gratis <span class="arr" aria-hidden="true">→</span></a>
-</div>
-<ul class="chips" aria-label="In breve">
-<li>Oltre 20 stili animati</li>
-<li>Pronto in 24 ore</li>
-<li>Nessuna app da scaricare</li>
-</ul>
-</div>
-
-<div class="stage">
-<div class="halo" aria-hidden="true"></div>
-<div class="tilt" id="tilt">
-<div class="onair" aria-live="polite"><span class="dot" aria-hidden="true"></span><span>In onda: <b id="air-name">Vesuvio</b></span><a href="https://dsfabio.com/attiva" data-open data-cta="hero-inonda" id="air-cta">Voglio questo</a></div>
-<div class="phone">
-<div class="screen">
-<div class="notch"></div>
-<div class="live" id="live"><img id="live-img" src="https://dsfabio.com/assets/anteprime/mdc-016.jpg" alt="Anteprima del menu digitale Vesuvio" width="390" height="808"></div>
-<div class="curtain" id="curtain" aria-hidden="true"><div><small>prossimo menu</small><span id="curtain-name"></span></div></div>
-<div class="glare" aria-hidden="true"></div>
-<a class="tap" href="https://dsfabio.com/attiva" data-open data-cta="hero-telefono" id="tap" aria-label="Voglio questo modello"></a>
-</div>
-</div>
-<div class="float qr-card" aria-hidden="true"><div class="qr-box" id="qr-hero"></div><b>Inquadralo ora</b><small>e aprilo sul tuo telefono</small></div>
-<div class="float lang-card" aria-hidden="true">Cambia lingua<div class="fl" id="flags"><span class="on">🇮🇹</span><span>🇬🇧</span><span>🇩🇪</span><span>🇫🇷</span></div></div>
-<div class="float speed-card" aria-hidden="true"><b class="grad-text">24 ore</b><small>ed è sui tuoi tavoli</small></div>
-<div class="dots" id="dots" aria-hidden="true"></div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- ======================= MURO 3D ======================= -->
-<section class="wall-sec" aria-labelledby="wall-t">
-<div class="wall" id="wall" aria-hidden="true"></div>
-<div class="wall-fade" aria-hidden="true"></div>
-<div class="wall-copy">
-<div class="box rv">
-<span class="big-num grad-text">20+</span>
-<h2 class="h2" id="wall-t">stili diversi. Il tuo è già qui dentro.</h2>
-<p class="lead center">Dalla pizzeria napoletana al cocktail bar al neon: ogni menu è creato su misura con il tuo logo, i tuoi colori e i tuoi piatti.</p>
-<p style="margin-top:22px"><a class="btn btn-main mag" href="https://dsfabio.com/attiva" data-open data-cta="muro">✨ Crea il mio, gratis</a></p>
-</div>
-</div>
-</section>
-
-<!-- ======================= DAL TAVOLO AL MENU ======================= -->
-<section class="story" id="story" style="--n:6" aria-labelledby="story-t">
-<div class="wrap story-in">
-<div class="story-txt">
-<span class="eyebrow">Dal tavolo al menu</span>
-<h2 class="h2" id="story-t">Guarda cosa succede <span class="grad-text">in 3 secondi</span></h2>
-<ol class="st-list" id="st-list">
-<li class="on"><b>Il QR è sul tavolo</b><span>Te lo consegniamo pronto da stampare: tavoli, bancone, vetrina.</span></li>
-<li><b>Il cliente lo inquadra</b><span>Con la fotocamera del telefono. Nessuna app da scaricare.</span></li>
-<li><b>Il menu si apre all'istante</b><span>Nel tuo stile, con foto e descrizioni che fanno venire voglia.</span></li>
-<li><b>Nella sua lingua</b><span>Un tocco e il turista legge il menu in inglese, tedesco, francese.</span></li>
-<li><b>Allergeni chiari</b><span>Le icone dei 14 allergeni UE su ogni piatto, con il filtro per chi ha esigenze.</span></li>
-<li><b>Sempre aggiornato</b><span>Prezzo cambiato o piatto finito? Lo aggiorniamo noi, il QR resta lo stesso.</span></li>
-</ol>
-<div class="story-bar" aria-hidden="true"><i id="story-bar"></i></div>
-</div>
-<div class="scene" id="scene" data-s="0" aria-hidden="true">
-<div class="table"></div>
-<div class="tent"><b>Vesuvio</b><div id="qr-tent"></div><small>Inquadra il menu</small></div>
-<div class="phone">
-<div class="screen">
-<div class="notch"></div>
-<div class="layer cam" data-l="1"><div class="vf" id="qr-cam"></div><div class="corners"></div><div class="las"></div><div class="shutter"></div><div class="toast"><i>🍕</i><div>dsmenu.it/vesuvio<small>Tocca per aprire il menu</small></div></div></div>
-<div class="layer open-menu" data-l="2"><img src="https://dsfabio.com/assets/anteprime/mdc-016.jpg" alt="" loading="lazy" width="390" height="808"></div>
-<div class="layer dm" data-l="3" id="dm">
-<div class="dm-top"><div class="lg">🍕</div><div><strong>Vesuvio</strong><small class="fade-sw" data-k="sub">Pizzeria · forno a legna</small></div><div class="dm-lang" id="dm-lang"><span class="on">IT</span><span>EN</span><span>DE</span></div></div>
-<div class="dm-filter"><span id="gf" class="fade-sw" data-k="gf">🌾 Senza glutine</span><span class="fade-sw" data-k="veg">🌱 Vegetariano</span></div>
-<div class="dish glu"><div class="orb" style="--h:350">🍕</div><div class="tx"><b class="fade-sw" data-k="d1">Margherita</b><i class="fade-sw" data-k="d1d">Pomodoro, fiordilatte, basilico</i><div class="al"><span>🌾</span><span>🥛</span></div></div><em><span class="od">6,50 €</span><span class="nw">7,00 €</span></em></div>
-<div class="dish glu out"><div class="orb" style="--h:20">🦐</div><div class="tx"><b class="fade-sw" data-k="d2">Frittura di paranza</b><i class="fade-sw" data-k="d2d">Pesce del giorno, limone</i><div class="al"><span>🐟</span><span>🦐</span><span>🌾</span></div></div><em><span class="od">14 €</span><span class="nw">14 €</span></em><span class="sold fade-sw" data-k="sold">Finito</span></div>
-<div class="dish"><div class="orb" style="--h:120">🥗</div><div class="tx"><b class="fade-sw" data-k="d3">Insalata di bufala</b><i class="fade-sw" data-k="d3d">Bufala, pomodorini, rucola</i><div class="al"><span>🥛</span></div></div><em><span class="od">9 €</span><span class="nw">9 €</span></em></div>
-<div class="dish glu"><div class="orb" style="--h:30">🍰</div><div class="tx"><b class="fade-sw" data-k="d4">Tiramisù</b><i class="fade-sw" data-k="d4d">Mascarpone, caffè, cacao</i><div class="al"><span>🌾</span><span>🥚</span><span>🥛</span></div></div><em><span class="od">5 €</span><span class="nw">5 €</span></em></div>
-<div class="dm-note">✓ Aggiornato ora · il QR resta lo stesso</div>
-</div>
-<div class="glare"></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<!-- ======================= CAROSELLO 3D ======================= -->
-<section class="sec-tight" id="scegli" aria-labelledby="cf-t">
 <div class="wrap">
-<div class="sec-head center rv">
-<span class="eyebrow">Scegli il tuo stile</span>
-<h2 class="h2" id="cf-t">Sfoglia, scegli, <span class="grad-text">è tuo</span></h2>
-<p class="lead">Trascina o usa le frecce. Quando trovi quello giusto, lo trovi già selezionato nel modulo.</p>
+<div>
+<span class="badge">🎁 30 giorni gratis · nessuna carta</span>
+<h1 id="h1">Il menu digitale del tuo locale, <em class="g">pronto in 24 ore</em></h1>
+<p class="lead">Un menu bello da sfogliare, con <strong>QR code, allergeni e più lingue</strong>. Ci mandi il tuo menu, <strong>lo creiamo noi</strong> nello stile che scegli.</p>
+<div class="cta-row">
+<a class="btn" href="https://dsfabio.com/attiva" data-open data-cta="hero">🚀 Voglio il mio menu gratis</a>
+<a class="btn btn-ghost" href="#modelli">Guarda i modelli</a>
 </div>
-<div class="filters rv" id="filters" role="group" aria-label="Filtra per tipo di locale">
+<ul class="checks"><li>Oltre 20 stili</li><li>Nessuna app</li><li>Lo aggiorniamo noi</li></ul>
+</div>
+<div class="stage">
+<div class="phone"><div class="screen" id="live"><div class="notch"></div>
+<img class="shot" id="live-img" src="https://dsfabio.com/assets/anteprime/mdc-014.jpg?v=20261115c" alt="Anteprima del menu digitale Aura" width="390" height="808">
+<a class="tapcover" id="live-tap" href="https://dsfabio.com/mdc-014" target="_blank" rel="noopener" aria-label="Apri il menu a schermo intero"></a>
+</div></div>
+<div class="models" role="group" aria-label="Cambia modello nel telefono" id="live-models"></div>
+<small>È un menu vero: <span class="hide-touch">scorrilo qui dentro o </span><a id="live-open" href="https://dsfabio.com/mdc-014" target="_blank" rel="noopener">aprilo a schermo intero ↗</a></small>
+</div>
+</div>
+</section>
+
+<!-- 3 SECONDI -->
+<section class="blk" id="come" aria-labelledby="come-t">
+<div class="wrap">
+<div class="head rv"><h2 id="come-t">Guarda cosa succede <em class="g">in 3 secondi</em></h2><p>Dal tavolo al piatto scelto, senza app e senza aspettare il cameriere.</p></div>
+<div class="card how rv">
+<ol class="steps" id="steps">
+<li class="on" data-s="0"><span class="n">1</span><div><b>Inquadra il QR sul tavolo</b><span>Con la fotocamera del telefono. Il QR te lo diamo pronto da stampare.</span></div></li>
+<li data-s="1"><span class="n">2</span><div><b>Il menu si apre all'istante</b><span>Nel tuo stile, con il tuo logo, la tua copertina e i tuoi piatti.</span></div></li>
+<li data-s="2"><span class="n">3</span><div><b>Tocca un piatto</b><span>Descrizione, prezzo e i 14 allergeni chiari. Anche in inglese, tedesco e francese.</span></div></li>
+</ol>
+<div class="stage">
+<div class="phone demo-phone" aria-hidden="true"><div class="screen"><div class="notch"></div>
+<div class="layer cam on" data-l="0"><div class="vf" id="qr-cam"></div><div class="toast"><span style="font-size:1.4rem">🍕</span><div>dsmenu.it/aura<small>Tocca per aprire il menu</small></div></div></div>
+<div class="layer open" data-l="1"><img src="https://dsfabio.com/assets/anteprime/mdc-014.jpg?v=20261115c" alt="" loading="lazy" width="390" height="808"></div>
+<div class="layer dish" data-l="2"><img src="https://dsfabio.com/assets/anteprime/mdc-014.jpg?v=20261115c" alt="" loading="lazy" width="390" height="808" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top"><div class="dim"></div>
+<div class="dish-card"><div class="em">🍕</div><b>Margherita</b><p>Pomodoro San Marzano, fiordilatte, basilico</p><div class="al"><span>🌾 Glutine</span><span>🥛 Latte</span></div><span class="pr">7 €</span></div></div>
+</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- MODELLI -->
+<section class="blk" id="modelli" aria-labelledby="mod-t">
+<div class="wrap">
+<div class="head rv"><h2 id="mod-t">Scegli il tuo stile, <em class="g">è già pronto</em></h2><p>Apri l'anteprima per provarlo come un cliente. Quando trovi quello giusto, lo trovi già scelto nel modulo.</p></div>
+<div class="filters" id="filters" role="group" aria-label="Filtra per tipo di locale">
 <button type="button" data-f="" aria-pressed="true">✨ Tutti</button>
 <button type="button" data-f="pizzeria" aria-pressed="false">🍕 Pizzeria</button>
 <button type="button" data-f="ristorante" aria-pressed="false">🍷 Ristorante</button>
@@ -436,100 +258,88 @@ h1 .w{display:inline-block;opacity:0;transform:translateY(60%) rotate(4deg);anim
 <button type="button" data-f="bar" aria-pressed="false">🍸 Bar e pub</button>
 <button type="button" data-f="street" aria-pressed="false">🥙 Street food</button>
 </div>
-<div class="cf-stage rv" id="cf" aria-roledescription="carosello" aria-label="Modelli di menu">
-<div class="cf-track" id="cf-track"></div>
-<button class="cf-nav cf-prev" type="button" id="cf-prev" aria-label="Modello precedente">‹</button>
-<button class="cf-nav cf-next" type="button" id="cf-next" aria-label="Modello successivo">›</button>
-</div>
-<div class="cf-info" aria-live="polite">
-<h3 id="cf-name">Vesuvio</h3>
-<div class="tags" id="cf-tags"></div>
-<div class="row">
-<a class="btn btn-main btn-xl mag" href="https://dsfabio.com/attiva" data-open data-cta="carosello" id="cf-cta">🚀 Voglio Vesuvio, gratis</a>
-<div class="scan"><div id="qr-cf"></div><span>Provalo sul<br>tuo telefono</span></div>
-</div>
-</div>
+<div class="grid" id="grid"></div>
 </div>
 </section>
 
-<!-- ======================= TESTO CINETICO ======================= -->
-<section aria-label="L'offerta" style="padding-bottom:clamp(60px,9vw,110px)">
-<div class="kin kin-skew" id="kin" aria-hidden="true">
-<div class="kin-row" style="--t:30s"><span class="g">30 GIORNI GRATIS</span><span class="o">✦ PRONTO IN 24 ORE ✦</span><span class="g">30 GIORNI GRATIS</span><span class="o">✦ PRONTO IN 24 ORE ✦</span></div>
-<div class="kin-row rev" style="--t:34s"><span class="o">NESSUNA CARTA ✦</span><span>LO CREIAMO NOI</span><span class="o">✦ NESSUNA CARTA ✦</span><span>LO CREIAMO NOI</span></div>
-</div>
+<!-- OFFERTA -->
+<section class="blk" aria-labelledby="off-t">
 <div class="wrap">
-<div class="promise">
-<div class="card rv"><span class="em">📸</span><b>Ci mandi il menu</b><p>Anche solo una foto del menu attuale. Bastano 2 minuti.</p></div>
-<div class="card rv" style="--d:1"><span class="em">⚡</span><b>In 24 ore è online</b><p>Lo creiamo noi, nello stile che hai scelto, con QR pronto da stampare.</p></div>
-<div class="card rv" style="--d:2"><span class="em">🎁</span><b>30 giorni gratis</b><p>Lo usi con i tuoi clienti. Nessuna carta, nessun impegno.</p></div>
+<div class="head rv"><h2 id="off-t">Tu ci mandi il menu, <em class="g">al resto pensiamo noi</em></h2></div>
+<div class="offer">
+<div class="card rv"><span class="em">📸</span><b>Ci mandi il menu</b><p>Anche solo una foto del menu attuale, con logo e copertina se li hai. Basta un minuto.</p></div>
+<div class="card rv"><span class="em">⚡</span><b>In 24 ore è online</b><p>Lo creiamo noi nello stile che hai scelto, con il QR pronto da stampare.</p></div>
+<div class="card rv"><span class="em">🎁</span><b>30 giorni gratis</b><p>Lo usi con i tuoi clienti. Nessuna carta, nessun impegno.</p></div>
 </div>
-<p class="price-line rv">Se ti piace continui a <strong>189 € l'anno, tutto incluso</strong>. Se no il menu va in pausa, senza costi né penali.</p>
+<ul class="feat rv"><li>📱 QR per tavoli e vetrina</li><li>🌍 Più lingue</li><li>⚠️ 14 allergeni UE</li><li>✏️ Aggiornamenti inclusi</li><li>📊 Resoconto mensile</li></ul>
+<p class="price rv">Se ti piace continui a <strong>189 € l'anno, tutto incluso</strong>. Se no il menu va in pausa, senza costi né penali.</p>
 </div>
 </section>
 
-<!-- ======================= FINALE ======================= -->
-<section class="ring-sec" aria-labelledby="fin-t">
-<div class="ring" aria-hidden="true"><div class="ring-in" id="ring"></div></div>
-<div class="ring-core rv">
-<span class="eyebrow">Tocca a te</span>
-<h2 class="h2" id="fin-t">Il prossimo menu <span class="grad-text">che gira qui</span> è il tuo</h2>
-<p class="lead">Compila il modulo oggi: domani i tuoi clienti sfogliano il menu dal telefono.</p>
-<a class="btn btn-main btn-xl mag" href="https://dsfabio.com/attiva" data-open data-cta="finale">🚀 Richiedi la prova gratuita <span class="arr" aria-hidden="true">→</span></a>
-<ul class="reassure"><li>Nessuna carta</li><li>Senza impegno</li><li>Pronto in 24 ore</li></ul>
-<div class="fab"><img src="https://dsfabio.com/assets/img/fabio.jpg" alt="" width="34" height="34" loading="lazy" onerror="this.remove()"><span>Lo prepara Fabio, a mano, e lo prova su più telefoni</span></div>
+<!-- FINALE -->
+<section class="blk" aria-labelledby="fin-t" style="padding-top:10px">
+<div class="wrap">
+<div class="card final rv">
+<h2 id="fin-t">Domani il tuo menu <em class="g">è sui tavoli</em></h2>
+<p>Compila il modulo oggi: scegli lo stile, mandaci il menu e in 24 ore è online.</p>
+<a class="btn" href="https://dsfabio.com/attiva" data-open data-cta="finale">🚀 Richiedi la prova gratuita</a>
+<div><span class="fab"><img src="https://dsfabio.com/assets/img/fabio.jpg" alt="" width="34" height="34" loading="lazy" onerror="this.remove()">Lo prepara Fabio, a mano, e lo prova su più telefoni</span></div>
+</div>
 </div>
 </section>
 </main>
 
-<footer class="mini-foot">
+<footer>
 <div class="wrap">
 <span>© <span data-year>2026</span> DS Service di Fabio Dos Santos Souza · Meldola (FC)</span>
 <span><a href="https://dsfabio.com/privacy#privacy">Privacy</a> · <a href="https://dsfabio.com/privacy#cookies">Cookie</a> · <a href="https://dsfabio.com/privacy#terms">Termini</a></span>
 </div>
 </footer>
 
-<div class="m-bar" id="mbar" role="region" aria-label="Prova gratuita"><a class="btn btn-main" href="https://dsfabio.com/attiva" data-open data-cta="barra-mobile">🚀 Prova gratis 30 giorni</a></div>
+<div class="m-bar" id="mbar" role="region" aria-label="Prova gratuita"><a class="btn" href="https://dsfabio.com/attiva" data-open data-cta="barra-mobile">🚀 Prova gratis 30 giorni</a></div>
 
 <script src="/assets/vendor/qrcode-1.4.4.min.js"></script>
 <script>
 (function () {
 'use strict';
-var $ = function (s, c) { return (c || document).querySelector(s); };
-var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+var $ = function (s) { return document.querySelector(s); };
+var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
 var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-var fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+var touch = matchMedia('(hover: none)').matches;
 var SITE = 'https://dsfabio.com'; // i menu di esempio vivono su dsfabio.com
-document.body.classList.remove('no-js');
+var V = '?v=20261115c';           // versione delle miniature (cambiarla quando si rifanno)
+document.documentElement.classList.add('js');
 $$('[data-year]').forEach(function (e) { e.textContent = new Date().getFullYear(); });
+if (touch) $$('.hide-touch').forEach(function (e) { e.remove(); });
 
-/* ---------- I modelli mostrati nella landing ---------- */
+/* ---------- i modelli (s = pagina dimostrativa su dsfabio.com) ---------- */
 var T = [
-  {s:'mdc-016', n:'Vesuvio', f:'pizzeria', tg:['Pizzeria','Pizza-ruota']},
-  {s:'demo-sakura-neon', n:'Sakura Neon', f:'pesce', tg:['Sushi','Cocktail','IT / EN']},
-  {s:'mdc-019', n:'The Copper Fox', f:'bar', tg:['Pub','Birre alla spina','Neon']},
-  {s:'mdc-018', n:'Zucchero Velo', f:'bar', tg:['Pasticceria','Colazioni','Aperitivo']},
-  {s:'mdc-014', n:'Aura', f:'ristorante', tg:['Ristorante','Card 3D']},
-  {s:'mdc-017', n:'La Piadaia', f:'street', tg:['Piadineria','Mazzo di carte']},
-  {s:'mdc-015', n:'Il Focolare', f:'ristorante', tg:['Trattoria','Rustico']},
-  {s:'mdc-007', n:'Hop House', f:'bar', tg:['Pub','Birre artigianali']},
-  {s:'mdc-010', n:'Smash Lab', f:'burger', tg:['Hamburgeria','Shakes']},
-  {s:'mdc-006', n:'Onda Blu', f:'pesce', tg:['Pesce','Pescato del giorno']},
-  {s:'mdc-001', n:'Gusto 360°', f:'ristorante', tg:['Ristorante','Fine dining']},
-  {s:'mdc-008', n:'Forno Rosso', f:'pizzeria', tg:['Pizzeria','Forno a legna']},
-  {s:'mdc-009', n:'Ice Lounge', f:'bar', tg:['Cocktail bar','Lounge']},
-  {s:'mdc-013', n:'Bosforo Kebab', f:'street', tg:['Kebab','Falafel']},
-  {s:'mdc-005', n:'Osteria del Borgo', f:'ristorante', tg:['Osteria','Trattoria']},
-  {s:'mdc-011', n:'Smoke & Steel', f:'burger', tg:['BBQ','Smokehouse']},
-  {s:'mdc-003', n:'Verde & Arancio', f:'ristorante', tg:['Bistrot','Healthy']},
-  {s:'mdc-012', n:'Al Testo', f:'street', tg:['Piadineria','Romagna']},
-  {s:'mdc-004', n:'Bistrot Urbano', f:'bar', tg:['Caffè','Colazioni','Cocktail']},
-  {s:'demo-fuoco-brace', n:'Fuoco & Brace', f:'pizzeria', tg:['Pizzeria','Griglia']}
+  {s:'mdc-014', n:'Aura', f:'pizzeria', tg:'Pizzeria · animato'},
+  {s:'mdc-002', n:'Bella Napoli', f:'pizzeria', tg:'Pizzeria · maioliche'},
+  {s:'demo-sakura-neon', n:'Sakura Neon', f:'pesce', tg:'Sushi · IT / EN'},
+  {s:'mdc-010', n:'Smash Lab', f:'burger', tg:'Hamburgeria · street food'},
+  {s:'mdc-009', n:'Ice Lounge', f:'bar', tg:'Cocktail bar · elegante'},
+  {s:'mdc-019', n:'The Copper Fox', f:'bar', tg:'Pub · birre alla spina'},
+  {s:'mdc-018', n:'Zucchero Velo', f:'bar', tg:'Pasticceria · colazioni'},
+  {s:'mdc-017', n:'La Piadaia', f:'street', tg:'Piadineria'},
+  {s:'mdc-015', n:'Il Focolare', f:'ristorante', tg:'Trattoria · rustico'},
+  {s:'mdc-016', n:'Vesuvio', f:'pizzeria', tg:'Pizzeria'},
+  {s:'demo-fuoco-brace', n:'Fuoco & Brace', f:'pizzeria', tg:'Pizzeria · griglia'},
+  {s:'mdc-007', n:'Hop House', f:'bar', tg:'Pub · birre artigianali'},
+  {s:'mdc-006', n:'Onda Blu', f:'pesce', tg:'Pesce · pescato del giorno'},
+  {s:'mdc-001', n:'Gusto 360°', f:'ristorante', tg:'Ristorante · elegante'},
+  {s:'mdc-008', n:'Forno Rosso', f:'pizzeria', tg:'Pizzeria · forno a legna'},
+  {s:'mdc-013', n:'Bosforo Kebab', f:'street', tg:'Kebab · falafel'},
+  {s:'mdc-005', n:'Osteria del Borgo', f:'ristorante', tg:'Osteria'},
+  {s:'mdc-011', n:'Smoke & Steel', f:'burger', tg:'BBQ · smokehouse'},
+  {s:'mdc-003', n:'Verde & Arancio', f:'ristorante', tg:'Bistrot · healthy'},
+  {s:'mdc-012', n:'Al Testo', f:'street', tg:'Piadineria · Romagna'},
+  {s:'mdc-004', n:'Bistrot Urbano', f:'bar', tg:'Caffè · cocktail'}
 ];
-var IMG = function (t) { return 'https://dsfabio.com/assets/anteprime/' + t.s + '.jpg'; };
+var IMG = function (t) { return SITE + '/assets/anteprime/' + t.s + '.jpg' + V; };
 var ESC = function (t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
 
-/* ---------- Ogni pulsante porta a /attiva (con modello e parametri campagna) ---------- */
+/* ---------- ogni pulsante porta a /attiva (con modello e parametri campagna) ---------- */
 var pass = new URLSearchParams();
 try { new URLSearchParams(location.search).forEach(function (v, k) { if (/^(utm_|gclid|fbclid|ttclid|msclkid|ref)/i.test(k)) pass.set(k, v.slice(0, 120)); }); } catch (e) {}
 function trialHref(model, cta) {
@@ -537,333 +347,77 @@ function trialHref(model, cta) {
   if (model) p.set('modello', model);
   if (!p.has('utm_source')) p.set('utm_source', 'dsmenu-home');
   if (cta && !p.has('utm_content')) p.set('utm_content', 'landing-' + cta);
-  return 'https://dsfabio.com/attiva?' + p.toString();
+  return SITE + '/attiva?' + p.toString();
 }
-function wire(a) { a.href = trialHref(a.getAttribute('data-model'), a.getAttribute('data-cta')); }
-$$('[data-open]').forEach(wire);
+function wire(root) { (root ? root.querySelectorAll('[data-open]') : $$('[data-open]')).forEach(function (a) { a.href = trialHref(a.getAttribute('data-model'), a.getAttribute('data-cta')); }); }
 
-/* Coriandoli al clic, poi la pagina di attivazione */
-var COL = ['#ff3cac', '#7b5cff', '#22d3ee', '#b4ff39', '#ffcf3f'];
-document.addEventListener('click', function (e) {
-  var a = e.target.closest && e.target.closest('a[data-open]'); if (!a) return;
-  if (reduced || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || !document.body.animate) return;
-  e.preventDefault();
-  var r = a.getBoundingClientRect(), x = e.clientX || r.left + r.width / 2, y = e.clientY || r.top + r.height / 2;
-  for (var i = 0; i < 36; i++) {
-    var s = document.createElement('i'); s.className = 'cfx'; s.style.background = COL[i % 5]; s.style.left = x + 'px'; s.style.top = y + 'px';
-    document.body.appendChild(s);
-    var g = Math.random() * 6.28, d = 80 + Math.random() * 170;
-    s.animate([{transform: 'translate(-50%,-50%)', opacity: 1}, {transform: 'translate(' + Math.cos(g) * d + 'px,' + (Math.sin(g) * d + 70) + 'px) rotate(' + Math.random() * 720 + 'deg)', opacity: 0}], {duration: 800 + Math.random() * 300, easing: 'cubic-bezier(.2,.9,.2,1)', fill: 'forwards'});
-    setTimeout(s.remove.bind(s), 1200);
-  }
-  setTimeout(function () { location.href = a.href; }, 420);
+/* ---------- HERO: il menu vero (largo 390 px, rimpicciolito), si può cambiare modello ---------- */
+var live = $('#live'), frame = null;
+var FEAT = [T[0], T[1], T[2], T[3], T[4]];
+$('#live-models').innerHTML = FEAT.map(function (t, k) { return '<button type="button" data-k="' + k + '" aria-pressed="' + (k ? 'false' : 'true') + '">' + ESC(t.n) + '</button>'; }).join('');
+function fit() { if (!frame) return; var s = live.clientWidth / 390; frame.style.transform = 'scale(' + s + ')'; frame.style.height = Math.ceil(live.clientHeight / s) + 'px'; }
+function show(t) {
+  $('#live-img').src = IMG(t); $('#live-img').alt = 'Anteprima del menu digitale ' + t.n;
+  $('#live-open').href = SITE + '/' + t.s; $('#live-tap').href = SITE + '/' + t.s;
+  if (frame) frame.remove(); frame = null;
+  if (reduced || touch) return; // sul telefono basta l'anteprima: il menu si apre a schermo intero
+  frame = document.createElement('iframe');
+  frame.title = 'Menu digitale ' + t.n; frame.src = SITE + '/' + t.s + '?anteprima';
+  frame.addEventListener('load', function () { this.classList.add('ok'); });
+  live.appendChild(frame); fit();
+}
+$('#live-models').addEventListener('click', function (e) {
+  var b = e.target.closest('button'); if (!b) return;
+  $$('#live-models button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+  show(FEAT[+b.getAttribute('data-k')]);
 });
+addEventListener('resize', fit);
+show(T[0]);
 
-/* ---------- QR code ---------- */
-function qr(el, url) {
-  if (!el) return;
-  if (window.qrcode) { var q = qrcode(0, 'M'); q.addData(url); q.make(); el.innerHTML = q.createSvgTag({cellSize: 4, margin: 0, scalable: true}); }
-  else el.innerHTML = '<div style="aspect-ratio:1;display:grid;place-items:center;font-size:2rem;color:#0d0a1f">🔳</div>';
-}
-qr($('#qr-tent'), SITE + '/mdc-016');
-qr($('#qr-cam'), SITE + '/mdc-016');
-
-/* ---------- Barra in alto, avanzamento, comparse ---------- */
-var nav = $('#nav');
-function onScroll() { nav.classList.toggle('scrolled', scrollY > 10); }
-addEventListener('scroll', onScroll, {passive: true}); onScroll();
-if (!(window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()'))) {
-  var pr = $('.progress');
-  addEventListener('scroll', function () { var h = document.documentElement.scrollHeight - innerHeight; pr.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')'; }, {passive: true});
-}
-if (reduced || !('IntersectionObserver' in window)) $$('.rv').forEach(function (e) { e.classList.add('in'); });
-else {
-  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, {threshold: .12, rootMargin: '0px 0px -40px 0px'});
-  $$('.rv').forEach(function (e) { io.observe(e); });
-}
-
-/* ---------- Luce del mouse, card, pulsanti magnetici, telefono 3D ---------- */
-if (fine && !reduced) {
-  var gc = $('.glow-cursor'), raf = 0, mx = 0, my = 0, tilt = $('#tilt'), stage = $('.stage');
-  addEventListener('pointermove', function (e) {
-    mx = e.clientX; my = e.clientY; gc.style.opacity = 1;
-    if (!raf) raf = requestAnimationFrame(function () {
-      gc.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
-      var r = stage.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < innerHeight) {
-        tilt.style.setProperty('--ry', ((mx - (r.left + r.width / 2)) / innerWidth * 26 - 6).toFixed(2) + 'deg');
-        tilt.style.setProperty('--rx', (-(my - (r.top + r.height / 2)) / innerHeight * 18 + 3).toFixed(2) + 'deg');
-      }
-      raf = 0;
-    });
-  }, {passive: true});
-  document.addEventListener('pointermove', function (e) {
-    var c = e.target.closest && e.target.closest('.card'); if (!c) return;
-    var r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
-  }, {passive: true});
-  $$('.mag').forEach(function (b) {
-    b.addEventListener('pointermove', function (e) { var r = b.getBoundingClientRect(); b.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * .16) + 'px,' + ((e.clientY - r.top - r.height / 2) * .3) + 'px)'; });
-    b.addEventListener('pointerleave', function () { b.style.transform = ''; });
-  });
-}
-document.addEventListener('pointerdown', function (e) {
-  var b = e.target.closest && e.target.closest('.btn-main'); if (!b || reduced) return;
-  var r = b.getBoundingClientRect(), s = document.createElement('span');
-  s.className = 'ripple'; s.style.left = (e.clientX - r.left) + 'px'; s.style.top = (e.clientY - r.top) + 'px';
-  b.appendChild(s); setTimeout(function () { s.remove(); }, 650);
-});
-
-/* ---------- Parola che ruota nel titolo ---------- */
+/* ---------- 3 SECONDI: QR → menu → scheda del piatto ---------- */
 (function () {
-  var w = $$('#rot > span'), i = 0; if (reduced || w.length < 2) return;
-  setInterval(function () {
-    var o = w[i]; o.classList.remove('on'); o.classList.add('out');
-    setTimeout(function () { o.classList.remove('out'); }, 600);
-    i = (i + 1) % w.length; w[i].classList.add('on');
-  }, 2400);
-})();
-
-/* ---------- Lingue nella card ---------- */
-(function () {
-  var f = $$('#flags span'), i = 0; if (reduced) return;
-  setInterval(function () { f[i].classList.remove('on'); i = (i + 1) % f.length; f[i].classList.add('on'); }, 1400);
-})();
-
-/* ---------- HERO: menu veri che scorrono da soli ---------- */
-(function () {
-  var ROT = [0, 1, 2, 3, 4, 5].map(function (k) { return T[k]; });
-  var live = $('#live'), img = $('#live-img'), cur = $('#curtain'), curN = $('#curtain-name');
-  var airN = $('#air-name'), airC = $('#air-cta'), tap = $('#tap'), dots = $('#dots'), qrBox = $('#qr-hero');
-  var screen = live.parentNode, idx = 0, frame = null, timer = 0, scrollRaf = 0;
-  dots.innerHTML = ROT.map(function () { return '<i></i>'; }).join('');
-  function setMeta(t) {
-    airN.textContent = t.n;
-    airC.setAttribute('data-model', t.n); tap.setAttribute('data-model', t.n);
-    wire(airC); wire(tap);
-    tap.setAttribute('aria-label', 'Voglio il modello ' + t.n);
-    qr(qrBox, SITE + '/' + t.s);
-    $$('i', dots).forEach(function (d, k) { d.classList.toggle('on', k === idx); });
+  var el = $('#qr-cam');
+  if (window.qrcode) { var q = qrcode(0, 'M'); q.addData(SITE + '/mdc-014'); q.make(); el.innerHTML = q.createSvgTag({cellSize: 4, margin: 0, scalable: true}); }
+  var layers = $$('.demo-phone .layer'), steps = $$('#steps li'), cur = 0, timer = null, seen = false;
+  function go(k) {
+    cur = k;
+    layers.forEach(function (l) { l.classList.toggle('on', +l.getAttribute('data-l') === k); });
+    steps.forEach(function (s) { s.classList.toggle('on', +s.getAttribute('data-s') === k); });
   }
-  function fit() {
-    if (!frame) return;
-    var sc = screen.clientWidth / 390;
-    frame.style.transform = 'scale(' + sc + ')';
-    frame.style.height = Math.ceil(screen.clientHeight / sc) + 'px';
-  }
-  addEventListener('resize', fit);
-  function autoScroll(win, done) {
-    var doc, max;
-    try {
-      doc = win.document.scrollingElement || win.document.documentElement;
-      doc.style.scrollBehavior = 'auto';
-      max = Math.min(doc.scrollHeight - win.innerHeight, 2200);
-    } catch (err) {
-      // menu di esempio su dsfabio.com: gli chiediamo di scorrere da solo (assets/trial.js)
-      var finished = false, fin = function () { if (finished) return; finished = true; removeEventListener('message', onMsg); clearTimeout(tm); done(); };
-      var onMsg = function (e) { if (e.source === win && e.data && e.data.dsf === 'scrolled') fin(); };
-      var tm = setTimeout(fin, 8000);
-      addEventListener('message', onMsg);
-      try { win.postMessage({ dsf: 'scroll', dur: 6500, max: 2200 }, 'https://dsfabio.com'); } catch (e2) { fin(); }
-      return;
-    }
-    if (max < 50) return done();
-    var t0 = 0, dur = 6500;
-    function step(t) {
-      if (!t0) t0 = t;
-      var k = Math.min(1, (t - t0) / dur), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-      try { win.scrollTo({top: max * e, behavior: 'instant'}); } catch (err) { return done(); }
-      if (k < 1) scrollRaf = requestAnimationFrame(step); else done();
-    }
-    scrollRaf = requestAnimationFrame(step);
-  }
-  function load(t) {
-    cancelAnimationFrame(scrollRaf);
-    img.src = IMG(t); img.alt = 'Anteprima del menu digitale ' + t.n;
-    if (frame) frame.remove();
-    if (reduced) return;
-    frame = document.createElement('iframe');
-    frame.title = 'Menu digitale ' + t.n + ' in azione'; frame.tabIndex = -1; frame.setAttribute('aria-hidden', 'true');
-    frame.setAttribute('scrolling', 'no');
-    frame.src = 'https://dsfabio.com/' + t.s;
-    var f = frame, went = false;
-    /* Se il menu non risponde entro 9 s si passa al successivo */
-    clearTimeout(timer); timer = setTimeout(go, 9000);
-    function go() { if (went || f !== frame) return; went = true; clearTimeout(timer); timer = setTimeout(next, 1600); }
-    function begin() {
-      if (f.dataset.on || f !== frame) return; f.dataset.on = '1'; fit();
-      f.classList.add('ok');
-      clearTimeout(timer);
-      setTimeout(function () { autoScroll(f.contentWindow, go); }, 700);
-    }
-    f.addEventListener('load', begin);
-    live.appendChild(f); fit();
-    /* Si parte appena il menu è pronto, senza aspettare tutte le foto */
-    (function wait(n) {
-      try { var d = f.contentDocument; if (d && d.readyState !== 'loading' && d.body && d.body.children.length && d.URL !== 'about:blank') return setTimeout(begin, 400); } catch (err) {}
-      if (n < 60 && f === frame) setTimeout(function () { wait(n + 1); }, 150);
-    })(0);
-  }
-  function next() {
-    if (document.hidden) { timer = setTimeout(next, 1000); return; }
-    idx = (idx + 1) % ROT.length; var t = ROT[idx];
-    curN.textContent = t.n; cur.classList.add('on');
-    setTimeout(function () { load(t); setMeta(t); }, 560);
-    setTimeout(function () { cur.classList.remove('on'); }, 1100);
-  }
-  setMeta(ROT[0]);
-  /* Il menu dal vivo parte solo quando il telefono è visibile */
-  var started = false;
-  function start() { if (started) return; started = true; load(ROT[0]); }
-  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { if (es[0].isIntersecting) start(); }).observe(screen);
-  else start();
-})();
-
-/* ---------- MURO 3D ---------- */
-(function () {
-  var wall = $('#wall'), cols = innerWidth < 700 ? 6 : 7, html = '';
-  for (var c = 0; c < cols; c++) {
-    var list = [];
-    for (var k = 0; k < 5; k++) list.push(T[(c * 2 + k * 3) % T.length]);
-    var cards = list.concat(list).map(function (t) {
-      return '<a class="shot" href="https://dsfabio.com/attiva" data-open data-model="' + ESC(t.n) + '" data-cta="muro-modello" tabindex="-1"><img src="' + IMG(t) + '" alt="" decoding="async" width="390" height="808"><span>✨ Voglio ' + ESC(t.n) + '</span></a>';
-    }).join('');
-    html += '<div class="col' + (c % 2 ? ' dn' : '') + '" style="--t:' + (26 + (c % 3) * 6) + 's">' + cards + '</div>';
-  }
-  wall.innerHTML = html;
-  $$('[data-open]', wall).forEach(wire);
-  var sec = wall.parentNode;
-  if (reduced) return;
-  /* Parte poco prima che la sezione entri nello schermo: appena la si intravede, i menu scorrono già */
-  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { sec.classList.toggle('go', es[0].isIntersecting); }, {rootMargin: '0px 0px 25% 0px'}).observe(sec);
-  else sec.classList.add('go');
-  /* Intanto le colonne seguono lo scroll, così si muovono subito */
-  var rq = 0;
-  function par() {
-    rq = 0;
-    var r = sec.getBoundingClientRect();
-    if (r.bottom < -200 || r.top > innerHeight + 200) return;
-    wall.style.setProperty('--sy', ((innerHeight / 2 - (r.top + r.height / 2)) * .45).toFixed(1) + 'px');
-  }
-  addEventListener('scroll', function () { if (!rq) rq = requestAnimationFrame(par); }, {passive: true});
-  par();
-})();
-
-/* ---------- DAL TAVOLO AL MENU: scena guidata dallo scroll ---------- */
-(function () {
-  var story = $('#story'), scene = $('#scene'), items = $$('#st-list li'), bar = $('#story-bar');
-  var dm = $('#dm'), layers = $$('.layer', scene), N = items.length, cur = -1, langT = 0;
-  var L = {
-    IT: {sub:'Pizzeria · forno a legna', gf:'🌾 Senza glutine', veg:'🌱 Vegetariano', d1:'Margherita', d1d:'Pomodoro, fiordilatte, basilico', d2:'Frittura di paranza', d2d:'Pesce del giorno, limone', d3:'Insalata di bufala', d3d:'Bufala, pomodorini, rucola', d4:'Tiramisù', d4d:'Mascarpone, caffè, cacao', sold:'Finito'},
-    EN: {sub:'Pizzeria · wood-fired oven', gf:'🌾 Gluten free', veg:'🌱 Vegetarian', d1:'Margherita', d1d:'Tomato, mozzarella, basil', d2:'Fried small fish', d2d:'Catch of the day, lemon', d3:'Buffalo mozzarella salad', d3d:'Buffalo mozzarella, tomatoes, rocket', d4:'Tiramisu', d4d:'Mascarpone, coffee, cocoa', sold:'Sold out'},
-    DE: {sub:'Pizzeria · Holzofen', gf:'🌾 Glutenfrei', veg:'🌱 Vegetarisch', d1:'Margherita', d1d:'Tomate, Mozzarella, Basilikum', d2:'Frittierte Fischchen', d2d:'Tagesfang, Zitrone', d3:'Büffelmozzarella-Salat', d3d:'Büffelmozzarella, Tomaten, Rucola', d4:'Tiramisu', d4d:'Mascarpone, Kaffee, Kakao', sold:'Aus'}
-  };
-  var LK = ['IT', 'EN', 'DE'], li = 0;
-  function setLang(k) {
-    var sw = $$('.fade-sw', dm); sw.forEach(function (e) { e.classList.add('sw'); });
-    $$('#dm-lang span').forEach(function (s) { s.classList.toggle('on', s.textContent === k); });
-    setTimeout(function () { sw.forEach(function (e) { var v = L[k][e.getAttribute('data-k')]; if (v) e.textContent = v; e.classList.remove('sw'); }); }, 250);
-  }
-  function show(s) {
-    if (s === cur) return; cur = s;
-    scene.setAttribute('data-s', s);
-    items.forEach(function (e, k) { e.classList.toggle('on', k === s); });
-    var lay = s === 0 ? 0 : s === 1 ? 1 : s === 2 ? 2 : 3;
-    layers.forEach(function (e) { e.classList.toggle('on', +e.getAttribute('data-l') === lay); });
-    clearInterval(langT);
-    dm.classList.toggle('show-al', s >= 4);
-    dm.classList.toggle('upd', s >= 5);
-    dm.classList.remove('gf'); $('#gf').classList.remove('on');
-    if (s === 3) { li = 0; setLang('IT'); if (!reduced) langT = setInterval(function () { li = (li + 1) % LK.length; setLang(LK[li]); }, 1300); }
-    else if (li !== 0) { li = 0; setLang('IT'); }
-    if (s === 4) setTimeout(function () { if (cur === 4) { dm.classList.add('gf'); $('#gf').classList.add('on'); } }, 900);
-  }
-  function upd() {
-    var r = story.getBoundingClientRect(), total = story.offsetHeight - innerHeight;
-    var p = Math.min(1, Math.max(0, -r.top / (total || 1)));
-    bar.style.width = (p * 100) + '%';
-    show(Math.min(N - 1, Math.floor(p * N * 0.999)));
-  }
-  addEventListener('scroll', upd, {passive: true}); addEventListener('resize', upd); upd();
-})();
-
-/* ---------- CAROSELLO 3D ---------- */
-(function () {
-  var track = $('#cf-track'), stage = $('#cf'), name = $('#cf-name'), tags = $('#cf-tags'), cta = $('#cf-cta'), qrCf = $('#qr-cf');
-  var list = T.slice(), i = 0, auto = 0;
-  function build() {
-    track.innerHTML = list.map(function (t, k) { return '<figure class="cf-card" data-k="' + k + '"><img src="' + IMG(t) + '" alt="Menu digitale ' + ESC(t.n) + '" loading="lazy" decoding="async" width="390" height="808"></figure>'; }).join('');
-    $$('.cf-card', track).forEach(function (c) { c.addEventListener('click', function () { var k = +c.getAttribute('data-k'); if (k === i) location.href = cta.href; else go(k); }); });
-    render();
-  }
-  function render() {
-    var w = innerWidth < 640 ? 150 : 210, n = list.length;
-    $$('.cf-card', track).forEach(function (c, k) {
-      var o = k - i; if (n > 4) { if (o > n / 2) o -= n; if (o < -n / 2) o += n; }
-      var a = Math.abs(o);
-      c.classList.toggle('c', o === 0);
-      c.style.zIndex = 40 - a;
-      c.style.opacity = a > 3 ? 0 : 1;
-      c.style.filter = o === 0 ? 'none' : 'brightness(' + (1 - a * .18) + ')';
-      c.style.transform = 'translate(-50%,-50%) translateX(' + (o * w) + 'px) translateZ(' + (-a * 140) + 'px) rotateY(' + (o === 0 ? 0 : (o > 0 ? -38 : 38)) + 'deg)';
-    });
-    var t = list[i];
-    name.textContent = t.n;
-    tags.innerHTML = t.tg.map(function (g) { return '<span>' + ESC(g) + '</span>'; }).join('');
-    cta.setAttribute('data-model', t.n); wire(cta);
-    cta.innerHTML = '🚀 Voglio ' + ESC(t.n) + ', gratis';
-    qr(qrCf, SITE + '/' + t.s);
-  }
-  function go(k) { var n = list.length; i = ((k % n) + n) % n; render(); }
-  function restart() { clearInterval(auto); if (!reduced) auto = setInterval(function () { if (!document.hidden) go(i + 1); }, 3200); }
-  $('#cf-prev').addEventListener('click', function () { go(i - 1); restart(); });
-  $('#cf-next').addEventListener('click', function () { go(i + 1); restart(); });
-  stage.addEventListener('pointerenter', function () { clearInterval(auto); });
-  stage.addEventListener('pointerleave', restart);
-  var sx = null;
-  stage.addEventListener('pointerdown', function (e) { sx = e.clientX; });
-  addEventListener('pointerup', function (e) { if (sx === null) return; var d = e.clientX - sx; sx = null; if (Math.abs(d) > 40) { go(i + (d < 0 ? 1 : -1)); restart(); } });
-  stage.tabIndex = 0;
-  stage.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft') { go(i - 1); restart(); } if (e.key === 'ArrowRight') { go(i + 1); restart(); } });
-  $$('#filters button').forEach(function (b) {
-    b.addEventListener('click', function () {
-      $$('#filters button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-      var f = b.getAttribute('data-f');
-      list = f ? T.filter(function (t) { return t.f === f; }) : T.slice();
-      i = 0; build(); restart();
-    });
-  });
-  addEventListener('resize', render);
-  build(); restart();
-})();
-
-/* ---------- Testo cinetico: si inclina con la velocità dello scroll ---------- */
-(function () {
-  var k = $('#kin'), last = scrollY, sk = 0, rq = 0; if (reduced) return;
-  addEventListener('scroll', function () {
-    var v = scrollY - last; last = scrollY;
-    sk = Math.max(-14, Math.min(14, v * .5));
-    k.style.setProperty('--skew', sk + 'deg');
-    clearTimeout(rq); rq = setTimeout(function () { k.style.setProperty('--skew', '0deg'); }, 120);
-  }, {passive: true});
-})();
-
-/* ---------- Anello 3D finale ---------- */
-(function () {
-  var r = $('#ring'), h = '';
-  for (var k = 0; k < 12; k++) { var t = T[k]; h += '<a href="https://dsfabio.com/attiva" data-open data-model="' + ESC(t.n) + '" data-cta="anello" tabindex="-1" style="--i:' + k + '"><img src="' + IMG(t) + '" alt="" loading="lazy" decoding="async" width="390" height="808"></a>'; }
-  r.innerHTML = h; $$('[data-open]', r).forEach(wire);
-})();
-
-/* ---------- Barra fissa su telefono ---------- */
-(function () {
-  var bar = $('#mbar'), vis = new Set();
-  function upd() { bar.classList.toggle('show', scrollY > innerHeight * .6 && !vis.size); }
+  function loop() { clearTimeout(timer); if (reduced) return; timer = setTimeout(function () { go((cur + 1) % 3); loop(); }, cur === 2 ? 3600 : 2600); }
+  steps.forEach(function (s) { s.addEventListener('click', function () { go(+s.getAttribute('data-s')); loop(); }); });
   if ('IntersectionObserver' in window) {
-    var ob = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) vis.add(e.target); else vis.delete(e.target); }); upd(); });
-    $$('.hero-cta, .cf-info .row, .ring-core').forEach(function (b) { ob.observe(b); });
-  }
-  addEventListener('scroll', upd, {passive: true}); upd();
+    new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting && !seen) { seen = true; go(0); loop(); } }); }, {threshold: .4}).observe($('#come'));
+  } else loop();
 })();
+
+/* ---------- MODELLI: griglia con filtro ---------- */
+var grid = $('#grid');
+function drawGrid(f) {
+  grid.innerHTML = T.filter(function (t) { return !f || t.f === f; }).map(function (t) {
+    return '<article class="card tpl"><a class="pic" href="' + SITE + '/' + t.s + '" target="_blank" rel="noopener" aria-label="Anteprima di ' + ESC(t.n) + '"><img src="' + IMG(t) + '" alt="Menu digitale ' + ESC(t.n) + '" loading="lazy" decoding="async" width="390" height="808"></a>'
+      + '<div class="tx"><h3>' + ESC(t.n) + '</h3><span class="tags">' + ESC(t.tg) + '</span><div class="acts">'
+      + '<a class="see" href="' + SITE + '/' + t.s + '" target="_blank" rel="noopener">👁 Anteprima</a>'
+      + '<a class="want" href="' + SITE + '/attiva" data-open data-model="' + ESC(t.n) + '" data-cta="modello">Lo voglio</a></div></div></article>';
+  }).join('');
+  wire(grid);
+}
+$('#filters').addEventListener('click', function (e) {
+  var b = e.target.closest('button'); if (!b) return;
+  $$('#filters button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+  drawGrid(b.getAttribute('data-f'));
+});
+drawGrid('');
+wire();
+
+/* ---------- comparse e barra in basso ---------- */
+if ('IntersectionObserver' in window && !reduced) {
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, {rootMargin: '0px 0px -8% 0px'});
+  $$('.rv').forEach(function (x) { io.observe(x); });
+} else $$('.rv').forEach(function (x) { x.classList.add('in'); });
+var bar = $('#mbar');
+function upd() { bar.classList.toggle('show', scrollY > innerHeight * .7); }
+addEventListener('scroll', upd, {passive: true}); upd();
 })();
 </script>
 </body>
