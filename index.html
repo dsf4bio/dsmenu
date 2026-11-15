@@ -384,6 +384,20 @@ function trialHref(model, cta) {
   if (cta && !p.has('utm_content')) p.set('utm_content', 'landing-' + cta);
   return SITE + '/attiva?' + p.toString();
 }
+/* ---------- clic sulla pubblicità in fondo ai menu dei clienti: si conta in Metrics (una volta al giorno per menu) ---------- */
+(function () {
+  try {
+    var q = new URLSearchParams(location.search), slug = (q.get('utm_campaign') || '').toLowerCase();
+    if (q.get('utm_source') !== 'dsmenu' || !/^[a-z0-9](?:[a-z0-9-]{0,58}[a-z0-9])?$/.test(slug)) return;
+    var key = 'dsm-ad-' + slug, today = new Date().toISOString().slice(0, 10);
+    try { if (localStorage.getItem(key) === today) return; localStorage.setItem(key, today); } catch (e) {}
+    fetch('https://xzhbyxvlrxemujrqatbl.supabase.co/rest/v1/rpc/menu_ad_click', {
+      method: 'POST', keepalive: true,
+      headers: { 'Content-Type': 'application/json', apikey: 'sb_publishable_sfam2xLCQig0550kvfkUdg_yGaU0IA_' },
+      body: JSON.stringify({ p_slug: slug })
+    }).catch(function () {});
+  } catch (e) {}
+})();
 function wire(root) { (root ? root.querySelectorAll('[data-open]') : $$('[data-open]')).forEach(function (a) { a.href = trialHref(a.getAttribute('data-model'), a.getAttribute('data-cta')); }); }
 
 /* ---------- HERO: il menu vero (largo 390 px, rimpicciolito), si può cambiare modello ---------- */
