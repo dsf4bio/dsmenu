@@ -47,7 +47,7 @@ a{color:inherit}
 .glow{position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(255,106,43,.45),transparent 65%);filter:blur(10px);animation:pulse 3.2s ease-in-out infinite}
 @keyframes pulse{50%{transform:scale(1.08);opacity:.7}}
 .plate{position:absolute;inset:0;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#fbf6f0 0 44%,#e9dfd3 46% 50%,#fbf6f0 52% 64%,#d8ccbf 66% 68%,#f4ede5 70%);box-shadow:0 30px 60px rgba(0,0,0,.6),inset 0 -8px 20px rgba(0,0,0,.12)}
-.plate .food{font-size:clamp(5rem,30vw,9rem);line-height:1;filter:drop-shadow(0 10px 12px rgba(0,0,0,.35));animation:spin 40s linear infinite}
+.plate .food{font-size:clamp(5rem,30vw,9rem);line-height:1;filter:drop-shadow(0 10px 12px rgba(0,0,0,.35))}
 @keyframes spin{to{transform:rotate(360deg)}}
 .scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:5;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sub);display:flex;flex-direction:column;align-items:center;gap:8px}
 .scroll-hint span{width:1px;height:34px;background:linear-gradient(var(--ember),transparent);animation:drip 1.8s ease-in-out infinite;transform-origin:top}
@@ -185,7 +185,6 @@ footer{text-align:center;padding:36px 18px 30px;color:var(--sub);font-size:.85re
     <div class="plate-wrap" id="plate-wrap" aria-hidden="true"><div class="glow"></div><div class="plate"><span class="food">__DSM_HERO_EMOJI__</span></div></div>
     <a class="btn-fire" href="#menu" data-scroll>🔥 Sfoglia il menu</a>
   </div>
-  <div class="scroll-hint" aria-hidden="true">Scorri <span></span></div>
 </header>
 
 <section class="specials" id="specials" aria-labelledby="sp-t">
@@ -431,10 +430,10 @@ if (hasG && !reduced) {
   gsap.from('.title .ch', {yPercent: 110, rotate: 8, duration: 1, ease: 'expo.out', stagger: .05, delay: .15});
   gsap.from('.title .amp', {scale: 0, rotate: -30, duration: .9, ease: 'back.out(2)', delay: .5});
   gsap.from('.kicker', {y: 20, opacity: 0, duration: .8, delay: .1});
-  gsap.from('.plate-wrap', {scale: .4, opacity: 0, rotate: -90, duration: 1.4, ease: 'expo.out', delay: .3});
+  gsap.from('.plate-wrap', {scale: .4, opacity: 0, duration: 1.4, ease: 'expo.out', delay: .3});
   gsap.from('.hero .btn-fire', {y: 30, opacity: 0, duration: .8, delay: .8});
 
-  gsap.to('.plate-wrap', {yPercent: 35, scale: .7, rotate: 60, ease: 'none', scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}});
+  gsap.to('.plate-wrap', {yPercent: 35, scale: .7, ease: 'none', scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}});
   gsap.to('.title', {yPercent: -40, opacity: .2, ease: 'none', scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true}});
 
   const sp = $('.specials'), tr = $('#htrack');
@@ -443,7 +442,6 @@ if (hasG && !reduced) {
     sp.classList.add('js-pin');
     const st = {trigger: sp, start: 'top top', end: () => '+=' + amount(), scrub: .8, invalidateOnRefresh: true};
     gsap.to(tr, {x: () => -amount(), ease: 'none', scrollTrigger: Object.assign({pin: true, anticipatePin: 1}, st)});
-    gsap.to('.spec .dish-plate span', {rotate: 360, ease: 'none', scrollTrigger: Object.assign({}, st)});
   }
 
   gsap.set('.dish', {opacity: 0, y: 40});
