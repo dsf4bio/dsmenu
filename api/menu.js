@@ -351,7 +351,11 @@ function fillTheme(name, r, h) {
   if (name === 'mdc-015') h = h.replace('/* dati del menu: dal gestionale */', () => `/* dati del menu: dal gestionale */\nconst DSM_TAG = ${json(values.TAGLINE || values.KICKER)};`);
   // immagine di copertina (tema Aura): dietro al titolo, scurita perché il testo resti leggibile
   const coverCss = name === 'mdc-016' && photoOk(info.cover)
-    ? `.hero{background:linear-gradient(165deg,rgba(70,82,31,.88),rgba(38,46,15,.66)),url("${esc(info.cover)}") center/cover no-repeat!important}`
+    // la copertina sta dietro al logo e al nome: su telefono solo nella parte alta (sotto c'è il piatto),
+    // così resta centrata e poco tagliata; in fondo sfuma nel verde del tema
+    ? `.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(165deg,rgba(70,82,31,.72),rgba(38,46,15,.5)),url("${esc(info.cover)}") center center/cover no-repeat}`
+      + `.hero>*{position:relative;z-index:1}`
+      + `@media (max-width:760px){.hero::before{bottom:auto;height:min(60%,560px);-webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent)}}`
     : '';
   if (css || coverCss) h = h.replace('</head>', () => `<style>${css || ''}${coverCss}</style>\n</head>`);
   return h;
