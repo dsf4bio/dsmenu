@@ -199,9 +199,10 @@ function footer(r) {
   ${i.logo && photoOk(i.logo) ? `<div style="margin:0 auto 12px">${logoImg(i.logo, '92px')}</div>` : ''}
   <strong>${esc(r.name)}</strong>
   ${line ? `<div class="finfo">${line}</div>` : ''}
+  ${i.vat ? `<div class="fvat" style="font-size:.8em;opacity:.8;margin-top:6px">P.IVA ${esc(String(i.vat).replace(/^IT/i, '').replace(/\s+/g, ''))}</div>` : ''}
   ${soc ? `<div class="soc">${soc}</div>` : ''}${links ? `<nav class="flinks" aria-label="Contatti">${links}</nav>` : ''}
   ${ALLERGEN_NOTICE}
-  <small class="fby" style="display:block;margin-top:14px;opacity:.75">Menu digitale by <a href="https://dsfabio.com/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">DS Service</a> · <a href="https://dsfabio.com/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">Lo vuoi per il tuo locale?</a></small>
+  <small class="fby" style="display:block;margin-top:14px;opacity:.75">Menu digitale by <a href="https://dsfabio.com/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">DS Service</a> · <a href="https://dsfabio.com/?utm_source=dsmenu&amp;utm_medium=menu&amp;utm_campaign=${encodeURIComponent(r.slug || '')}" target="_blank" rel="noopener">Lo vuoi per il tuo locale?</a> · <a href="https://dsfabio.com/privacy#menu" target="_blank" rel="noopener">Privacy</a></small>
 </footer>`;
 }
 
@@ -334,6 +335,7 @@ function fillTheme(name, r, h) {
     HOURS: esc(info.hours || ''),
     HERO_EMOJI: esc(firstEmoji || '🍽️'),
     MONO: logoImg(info.logo, MONO_LOGO) || esc(info.monogram || String(r.name || '?').trim().charAt(0).toUpperCase()),
+    LOGO: logoImg(info.logo, '76px'),
     MARQUEE: `${Array(2).fill(S.map((s) => s.TITLE).join(' ✦ ')).join(' ✦ ')} ✦&nbsp;`,
     // scritta che gira attorno al piatto (tema Aura)
     RING: esc(Array(3).fill(String(info.kicker || r.name || '').toUpperCase()).join(' · ') + ' ·'),
@@ -346,7 +348,11 @@ function fillTheme(name, r, h) {
   h = h.replace(/__DSM_([A-Z_]+?)__/g, (m, key) => (key in values ? values[key] : ''));
   h = h.replace('/*DSM:DATA*/', () => `/* dati del menu: dal gestionale */\n${js}`);
   if (name === 'mdc-015') h = h.replace('/* dati del menu: dal gestionale */', () => `/* dati del menu: dal gestionale */\nconst DSM_TAG = ${json(values.TAGLINE || values.KICKER)};`);
-  if (css) h = h.replace('</head>', () => `<style>${css}</style>\n</head>`);
+  // immagine di copertina (tema Aura): dietro al titolo, scurita perché il testo resti leggibile
+  const coverCss = name === 'mdc-016' && photoOk(info.cover)
+    ? `.hero{background:linear-gradient(165deg,rgba(70,82,31,.88),rgba(38,46,15,.66)),url("${esc(info.cover)}") center/cover no-repeat!important}`
+    : '';
+  if (css || coverCss) h = h.replace('</head>', () => `<style>${css || ''}${coverCss}</style>\n</head>`);
   return h;
 }
 
