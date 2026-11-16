@@ -485,7 +485,7 @@ def translate_page(src, page, lang, d):
             return 'href="/%s/%s%s"' % (lang, path, rest)
         return m.group(0)
     # link alle pagine di dsfabio.com (Attiva, Privacy...): la versione nella stessa lingua
-    res = re.sub(r'href="https://dsfabio\.com/(attiva|assistenza|privacy|modelli|about)([#?][^"]*)?"',
+    res = re.sub(r'href="https://dsfabio\.com/(attiva|assistenza|privacy|modelli|about|(?:mdc|demo)-[\w-]+)([#?][^"]*)?"',
                  lambda m: 'href="https://dsfabio.com/%s/%s%s"' % (lang, m.group(1), m.group(2) or ''), res)
     return localize_common(res, page, lang), missing
 

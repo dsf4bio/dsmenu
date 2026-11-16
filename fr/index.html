@@ -231,10 +231,10 @@ footer a:hover{color:var(--text)}
 <div class="stage">
 <div class="phone"><div class="screen" id="live"><div class="notch"></div>
 <img class="shot" id="live-img" src="https://dsfabio.com/assets/anteprime/mdc-014.jpg?v=20261115c" alt="Aperçu du menu digital Aura" width="390" height="808">
-<a class="tapcover" id="live-tap" href="https://dsfabio.com/mdc-014" target="_blank" rel="noopener" aria-label="Ouvrir le menu en plein écran"></a>
+<a class="tapcover" id="live-tap" href="https://dsfabio.com/fr/mdc-014" target="_blank" rel="noopener" aria-label="Ouvrir le menu en plein écran"></a>
 </div></div>
 <div class="models" role="group" aria-label="Changer le modèle dans le téléphone" id="live-models"></div>
-<small>C’est un vrai menu : <span class="hide-touch">faites-le défiler ou </span><a id="live-open" href="https://dsfabio.com/mdc-014" target="_blank" rel="noopener">ouvrez-le en plein écran ↗</a></small>
+<small>C’est un vrai menu : <span class="hide-touch">faites-le défiler ou </span><a id="live-open" href="https://dsfabio.com/fr/mdc-014" target="_blank" rel="noopener">ouvrez-le en plein écran ↗</a></small>
 </div>
 </div>
 </section>
@@ -352,6 +352,9 @@ var T = [
   {s:'mdc-012', n:'Al Testo', f:'street', tg:'Piadineria · Romagne'},
   {s:'mdc-004', n:'Bistrot Urbano', f:'bar', tg:'Café · cocktails'}
 ];
+// i menu di esempio nella lingua della pagina (dsfabio.com/pt/mdc-001)
+var ML = (document.documentElement.lang || 'it').slice(0, 2);
+var MSITE = SITE + (/^(en|es|pt|de|fr)$/.test(ML) ? '/' + ML : '');
 var IMG = function (t) { return SITE + '/assets/anteprime/' + t.s + '.jpg' + V; };
 var ESC = function (t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
 
@@ -401,12 +404,12 @@ $('#live-models').innerHTML = FEAT.map(function (t, k) { return '<button type="b
 function fit() { if (!frame) return; var s = live.clientWidth / 390; frame.style.transform = 'scale(' + s + ')'; frame.style.height = Math.ceil(live.clientHeight / s) + 'px'; }
 function show(t) {
   $('#live-img').src = IMG(t); $('#live-img').alt = 'Aperçu du menu digital ' + t.n;
-  $('#live-open').href = SITE + '/' + t.s; $('#live-tap').href = SITE + '/' + t.s;
+  $('#live-open').href = MSITE + '/' + t.s; $('#live-tap').href = MSITE + '/' + t.s;
   if (frame) frame.remove(); frame = null;
   if (reduced) return;
   // il menu vero scorre piano da solo (anche sul telefono: lì un tocco lo apre a schermo intero)
   frame = document.createElement('iframe');
-  frame.title = 'Menu digital ' + t.n; frame.src = SITE + '/' + t.s + '?anteprima&scorri';
+  frame.title = 'Menu digital ' + t.n; frame.src = MSITE + '/' + t.s + '?anteprima&scorri';
   if (touch) { frame.tabIndex = -1; frame.style.pointerEvents = 'none'; }
   frame.addEventListener('load', function () { this.classList.add('ok'); });
   live.appendChild(frame); fit();
@@ -425,7 +428,7 @@ function mount(screen, onReady) {
   var w = +screen.getAttribute('data-w') || 390, f = document.createElement('iframe');
   f.tabIndex = -1; f.setAttribute('aria-hidden', 'true'); f.title = '';
   f.style.width = w + 'px'; f.style.pointerEvents = 'none';
-  f.src = SITE + '/' + screen.getAttribute('data-src') + '?anteprima' + (screen.getAttribute('data-auto') ? '&scorri' : '');
+  f.src = MSITE + '/' + screen.getAttribute('data-src') + '?anteprima' + (screen.getAttribute('data-auto') ? '&scorri' : '');
   var fitF = function () { var s = screen.clientWidth / w; f.style.transform = 'scale(' + s + ')'; f.style.height = Math.ceil(screen.clientHeight / s) + 'px'; };
   addEventListener('resize', fitF);
   addEventListener('message', function (e) { if (e.source === f.contentWindow && e.data && e.data.dsm === 'ready') { f.classList.add('ok'); if (onReady) onReady(f); } });
@@ -450,9 +453,9 @@ function qrSvg(url) { if (!window.qrcode) return ''; var q = qrcode(0, 'M'); q.a
 var grid = $('#grid');
 function drawGrid(f) {
   grid.innerHTML = T.filter(function (t) { return !f || t.f === f; }).map(function (t) {
-    return '<article class="card tpl"><a class="pic" href="' + SITE + '/' + t.s + '" target="_blank" rel="noopener" aria-label="Aperçu de ' + ESC(t.n) + '"><img src="' + IMG(t) + '" alt="Menu digital ' + ESC(t.n) + '" loading="lazy" decoding="async" width="390" height="808"></a>'
+    return '<article class="card tpl"><a class="pic" href="' + MSITE + '/' + t.s + '" target="_blank" rel="noopener" aria-label="Aperçu de ' + ESC(t.n) + '"><img src="' + IMG(t) + '" alt="Menu digital ' + ESC(t.n) + '" loading="lazy" decoding="async" width="390" height="808"></a>'
       + '<div class="tx"><h3>' + ESC(t.n) + '</h3><span class="tags">' + ESC(t.tg) + '</span><div class="acts">'
-      + '<a class="see" href="' + SITE + '/' + t.s + '" target="_blank" rel="noopener">👁 Aperçu</a>'
+      + '<a class="see" href="' + MSITE + '/' + t.s + '" target="_blank" rel="noopener">👁 Aperçu</a>'
       + '<a class="want" href="' + TRIAL + '" data-open data-model="' + ESC(t.n) + '" data-cta="modello">Je le veux</a></div></div></article>';
   }).join('');
   wire(grid);
