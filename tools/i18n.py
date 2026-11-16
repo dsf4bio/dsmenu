@@ -21,7 +21,7 @@ JS_PAGES = {'index'}
 IT_ONLY = set()
 LANGS = {
     'it': ('it_IT', 'Italiano'), 'en': ('en_GB', 'English'), 'es': ('es_ES', 'Español'),
-    'pt': ('pt_BR', 'Português'), 'de': ('de_DE', 'Deutsch'), 'fr': ('fr_FR', 'Français'),
+    'pt': ('pt_PT', 'Português'), 'de': ('de_DE', 'Deutsch'), 'fr': ('fr_FR', 'Français'),
 }
 SITE = 'https://dsmenu.it'
 INLINE = {'a', 'strong', 'em', 'b', 'i', 'span', 'br', 'small', 'sup', 'sub', 'code', 'mark', 'abbr', 'u', 's', 'wbr', 'time',
