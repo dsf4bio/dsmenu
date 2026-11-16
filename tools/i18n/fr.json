@@ -50,7 +50,6 @@
  "⚠️ 14 allergeni UE": "⚠️ 14 allergènes UE",
  "✏️ Aggiornamenti inclusi": "✏️ Mises à jour incluses",
  "📊 Resoconto mensile": "📊 Bilan mensuel",
- "Se ti piace continui a <1>189 € l'anno, tutto incluso</1>. Se no il menu va in pausa, senza costi né penali.": "S’il vous plaît, vous continuez à <1>189 € par an, tout compris</1>. Sinon, le menu est mis en pause, sans frais ni pénalités.",
  "Domani il tuo menu <1>è sui tavoli</1>": "Demain, votre menu <1>est sur les tables</1>",
  "Compila il modulo oggi: scegli lo stile, mandaci il menu e in 24 ore è online.": "Remplissez le formulaire aujourd’hui : choisissez le style, envoyez-nous le menu et il est en ligne en 24 heures.",
  "🚀 Richiedi la prova gratuita": "🚀 Demander l’essai gratuit",
@@ -85,5 +84,6 @@
  "\" alt=\"Menu digitale ": "\" alt=\"Menu digital ",
  "\" target=\"_blank\" rel=\"noopener\">👁 Anteprima</a>": "\" target=\"_blank\" rel=\"noopener\">👁 Aperçu</a>",
  "\" data-cta=\"modello\">Lo voglio</a></div></div></article>": "\" data-cta=\"modello\">Je le veux</a></div></div></article>",
- "<span aria-hidden=\"true\">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type=\"button\" aria-label=\"Chiudi\">×</button>": "<span aria-hidden=\"true\">👋</span><p><strong>Vous venez de consulter le menu digital d’un établissement ?</strong>Nous le faisons aussi pour le vôtre : prêt en 24 heures, avec vos plats et votre style. Les 30 premiers jours sont gratuits.</p><button type=\"button\" aria-label=\"Fermer\">×</button>"
+ "<span aria-hidden=\"true\">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type=\"button\" aria-label=\"Chiudi\">×</button>": "<span aria-hidden=\"true\">👋</span><p><strong>Vous venez de consulter le menu digital d’un établissement ?</strong>Nous le faisons aussi pour le vôtre : prêt en 24 heures, avec vos plats et votre style. Les 30 premiers jours sont gratuits.</p><button type=\"button\" aria-label=\"Fermer\">×</button>",
+ "Se ti piace continui a <1>169 € l'anno, tutto incluso</1> (o risparmi fino al 15% pagando 2 o 3 anni). Se no il menu va in pausa, senza costi né penali.": "S’il vous plaît, vous continuez à <1>169 € par an, tout compris</1> (ou économisez jusqu’à 15 % en payant 2 ou 3 ans). Sinon, le menu est mis en pause, sans frais ni pénalités."
 }

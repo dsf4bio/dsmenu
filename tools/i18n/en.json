@@ -50,7 +50,6 @@
  "⚠️ 14 allergeni UE": "⚠️ 14 EU allergens",
  "✏️ Aggiornamenti inclusi": "✏️ Updates included",
  "📊 Resoconto mensile": "📊 Monthly report",
- "Se ti piace continui a <1>189 € l'anno, tutto incluso</1>. Se no il menu va in pausa, senza costi né penali.": "If you like it, you continue at <1>€189 a year, all included</1>. If not, the menu is paused, with no costs or penalties.",
  "Domani il tuo menu <1>è sui tavoli</1>": "Tomorrow your menu <1>is on the tables</1>",
  "Compila il modulo oggi: scegli lo stile, mandaci il menu e in 24 ore è online.": "Fill in the form today: choose the style, send us the menu and it’s online in 24 hours.",
  "🚀 Richiedi la prova gratuita": "🚀 Request the free trial",
@@ -85,5 +84,6 @@
  "\" alt=\"Menu digitale ": "\" alt=\"Digital menu ",
  "\" target=\"_blank\" rel=\"noopener\">👁 Anteprima</a>": "\" target=\"_blank\" rel=\"noopener\">👁 Preview</a>",
  "\" data-cta=\"modello\">Lo voglio</a></div></div></article>": "\" data-cta=\"modello\">I want it</a></div></div></article>",
- "<span aria-hidden=\"true\">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type=\"button\" aria-label=\"Chiudi\">×</button>": "<span aria-hidden=\"true\">👋</span><p><strong>Did you just browse a venue’s digital menu?</strong>We can make one for yours too: ready in 24 hours, with your dishes and your style. The first 30 days are free.</p><button type=\"button\" aria-label=\"Close\">×</button>"
+ "<span aria-hidden=\"true\">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type=\"button\" aria-label=\"Chiudi\">×</button>": "<span aria-hidden=\"true\">👋</span><p><strong>Did you just browse a venue’s digital menu?</strong>We can make one for yours too: ready in 24 hours, with your dishes and your style. The first 30 days are free.</p><button type=\"button\" aria-label=\"Close\">×</button>",
+ "Se ti piace continui a <1>169 € l'anno, tutto incluso</1> (o risparmi fino al 15% pagando 2 o 3 anni). Se no il menu va in pausa, senza costi né penali.": "If you like it, you continue at <1>€169 a year, all included</1> (or save up to 15% by paying for 2 or 3 years). If not, the menu is paused, with no costs or penalties."
 }

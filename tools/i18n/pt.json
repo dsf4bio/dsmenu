@@ -50,7 +50,6 @@
  "⚠️ 14 allergeni UE": "⚠️ 14 alérgenos UE",
  "✏️ Aggiornamenti inclusi": "✏️ Atualizações incluídas",
  "📊 Resoconto mensile": "📊 Relatório mensal",
- "Se ti piace continui a <1>189 € l'anno, tutto incluso</1>. Se no il menu va in pausa, senza costi né penali.": "Se gostar, continua por <1>189 € por ano, tudo incluído</1>. Se não, o cardápio entra em pausa, sem custos nem multas.",
  "Domani il tuo menu <1>è sui tavoli</1>": "Amanhã seu cardápio <1>já está nas mesas</1>",
  "Compila il modulo oggi: scegli lo stile, mandaci il menu e in 24 ore è online.": "Preencha o formulário hoje: escolha o estilo, mande o cardápio e em 24 horas ele está no ar.",
  "🚀 Richiedi la prova gratuita": "🚀 Peça o teste grátis",
@@ -85,5 +84,6 @@
  "\" alt=\"Menu digitale ": "\" alt=\"Cardápio digital ",
  "\" target=\"_blank\" rel=\"noopener\">👁 Anteprima</a>": "\" target=\"_blank\" rel=\"noopener\">👁 Visualizar</a>",
  "\" data-cta=\"modello\">Lo voglio</a></div></div></article>": "\" data-cta=\"modello\">Quero este</a></div></div></article>",
- "<span aria-hidden=\"true\">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type=\"button\" aria-label=\"Chiudi\">×</button>": "<span aria-hidden=\"true\">👋</span><p><strong>Acabou de ver o cardápio digital de um local?</strong>Fazemos um para o seu também: pronto em 24 horas, com seus pratos e seu estilo. Os primeiros 30 dias são grátis.</p><button type=\"button\" aria-label=\"Fechar\">×</button>"
+ "<span aria-hidden=\"true\">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type=\"button\" aria-label=\"Chiudi\">×</button>": "<span aria-hidden=\"true\">👋</span><p><strong>Acabou de ver o cardápio digital de um local?</strong>Fazemos um para o seu também: pronto em 24 horas, com seus pratos e seu estilo. Os primeiros 30 dias são grátis.</p><button type=\"button\" aria-label=\"Fechar\">×</button>",
+ "Se ti piace continui a <1>169 € l'anno, tutto incluso</1> (o risparmi fino al 15% pagando 2 o 3 anni). Se no il menu va in pausa, senza costi né penali.": "Se gostar, continua por <1>169 € por ano, tudo incluído</1> (ou economiza até 15% pagando 2 ou 3 anos). Se não, o cardápio entra em pausa, sem custos nem multas."
 }

@@ -50,7 +50,6 @@
  "⚠️ 14 allergeni UE": "⚠️ 14 EU-Allergene",
  "✏️ Aggiornamenti inclusi": "✏️ Updates inklusive",
  "📊 Resoconto mensile": "📊 Monatsbericht",
- "Se ti piace continui a <1>189 € l'anno, tutto incluso</1>. Se no il menu va in pausa, senza costi né penali.": "Wenn sie dir gefällt, machst du für <1>189 € im Jahr, alles inklusive</1> weiter. Wenn nicht, wird die Karte pausiert, ohne Kosten oder Strafen.",
  "Domani il tuo menu <1>è sui tavoli</1>": "Morgen liegt deine Karte <1>auf den Tischen</1>",
  "Compila il modulo oggi: scegli lo stile, mandaci il menu e in 24 ore è online.": "Füll heute das Formular aus: Stil wählen, Karte schicken, und in 24 Stunden ist sie online.",
  "🚀 Richiedi la prova gratuita": "🚀 Kostenlosen Test anfordern",
@@ -85,5 +84,6 @@
  "\" alt=\"Menu digitale ": "\" alt=\"Digitale Speisekarte ",
  "\" target=\"_blank\" rel=\"noopener\">👁 Anteprima</a>": "\" target=\"_blank\" rel=\"noopener\">👁 Vorschau</a>",
  "\" data-cta=\"modello\">Lo voglio</a></div></div></article>": "\" data-cta=\"modello\">Will ich</a></div></div></article>",
- "<span aria-hidden=\"true\">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type=\"button\" aria-label=\"Chiudi\">×</button>": "<span aria-hidden=\"true\">👋</span><p><strong>Hast du gerade die digitale Speisekarte eines Lokals angesehen?</strong>So eine machen wir auch für deins: fertig in 24 Stunden, mit deinen Gerichten und deinem Stil. Die ersten 30 Tage sind gratis.</p><button type=\"button\" aria-label=\"Schließen\">×</button>"
+ "<span aria-hidden=\"true\">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type=\"button\" aria-label=\"Chiudi\">×</button>": "<span aria-hidden=\"true\">👋</span><p><strong>Hast du gerade die digitale Speisekarte eines Lokals angesehen?</strong>So eine machen wir auch für deins: fertig in 24 Stunden, mit deinen Gerichten und deinem Stil. Die ersten 30 Tage sind gratis.</p><button type=\"button\" aria-label=\"Schließen\">×</button>",
+ "Se ti piace continui a <1>169 € l'anno, tutto incluso</1> (o risparmi fino al 15% pagando 2 o 3 anni). Se no il menu va in pausa, senza costi né penali.": "Wenn sie dir gefällt, machst du für <1>169 € im Jahr, alles inklusive</1> (oder sparst bis zu 15 %, wenn du 2 oder 3 Jahre zahlst) weiter. Wenn nicht, wird die Karte pausiert, ohne Kosten oder Strafen."
 }
