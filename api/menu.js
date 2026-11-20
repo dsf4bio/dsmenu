@@ -633,8 +633,18 @@ body>*:not(#dsm-pause){filter:blur(7px) saturate(.8);pointer-events:none!importa
     .replace(/<\/body>/i, () => `${overlay}</body>`);
 }
 
-function simplePage(title, text, status, robots = 'noindex') {
-  return { status, html: `<!doctype html><html lang="it"><head><meta charset="utf-8">
+// menu non ancora pubblicato: avviso nella lingua del menu / del cliente
+const PREPARING = {
+  it: 'Il menu digitale è in preparazione: sarà online a breve.',
+  en: 'The digital menu is being prepared: it will be online soon.',
+  es: 'El menú digital está en preparación: estará online muy pronto.',
+  pt: 'O menu digital está a ser preparado: estará online em breve.',
+  de: 'Die digitale Speisekarte wird gerade vorbereitet: Sie ist bald online.',
+  fr: 'Le menu digital est en préparation : il sera bientôt en ligne.',
+};
+
+function simplePage(title, text, status, robots = 'noindex', lang = 'it') {
+  return { status, html: `<!doctype html><html lang="${esc(lang)}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="${robots}">
 <title>${esc(title)}</title><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f6f1e7;color:#2b2420;
@@ -670,7 +680,10 @@ export default async function handler(req, res) {
       }
       if (r.state === 'ok') out = { status: 200, html: render(r) };
       else if (r.state === 'paused') out = { status: 200, html: pausedPage(r) };
-      else if (r.state === 'empty') out = simplePage(`${r.name}`, 'Il menu digitale è in preparazione: sarà online a breve.', 200);
+      else if (r.state === 'empty') {
+        const lang = PREPARING[r.lang] ? r.lang : 'it';
+        out = simplePage(`${r.name}`, PREPARING[lang], 200, 'noindex', lang);
+      }
       else out = simplePage('Menu non trovato', 'Controlla l\'indirizzo o inquadra di nuovo il QR code.', 404);
       // in cache 60 s: una modifica pubblicata è online entro circa un minuto
       res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=60, stale-while-revalidate=600');
