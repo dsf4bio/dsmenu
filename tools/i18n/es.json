@@ -85,5 +85,11 @@
  "\" target=\"_blank\" rel=\"noopener\">👁 Anteprima</a>": "\" target=\"_blank\" rel=\"noopener\">👁 Vista previa</a>",
  "\" data-cta=\"modello\">Lo voglio</a></div></div></article>": "\" data-cta=\"modello\">Lo quiero</a></div></div></article>",
  "<span aria-hidden=\"true\">👋</span><p><strong>Hai appena sfogliato il menu digitale di un locale?</strong>Lo facciamo anche per il tuo: pronto in 24 ore, con i tuoi piatti e il tuo stile. I primi 30 giorni sono gratis.</p><button type=\"button\" aria-label=\"Chiudi\">×</button>": "<span aria-hidden=\"true\">👋</span><p><strong>¿Acabas de hojear el menú digital de un local?</strong>También lo hacemos para el tuyo: listo en 24 horas, con tus platos y tu estilo. Los primeros 30 días son gratis.</p><button type=\"button\" aria-label=\"Cerrar\">×</button>",
- "Se ti piace continui a <1>169 € l'anno, tutto incluso</1> (o risparmi fino al 15% pagando 2 o 3 anni). Se no il menu va in pausa, senza costi né penali.": "Si te gusta, sigues por <1>169 € al año, todo incluido</1> (o ahorras hasta un 15 % pagando 2 o 3 años). Si no, el menú se pausa, sin costes ni penalizaciones."
+ "Se ti piace continui a <1>169 € l'anno, tutto incluso</1> (o risparmi fino al 15% pagando 2 o 3 anni). Se no il menu va in pausa, senza costi né penali.": "Si te gusta, sigues por <1>169 € al año, todo incluido</1> (o ahorras hasta un 15 % pagando 2 o 3 años). Si no, el menú se pausa, sin costes ni penalizaciones.",
+ "Menu digitali con QR code · 30 giorni gratis | DS Service": "Menús digitales con código QR · 30 días gratis | DS Service",
+ "Il menu digitale del tuo locale, pronto in 24 ore: oltre 20 stili per pizzerie, ristoranti, sushi, bar e pub, con allergeni e più lingue. 30 giorni gratis.": "El menú digital de tu local, listo en 24 horas: más de 20 estilos para pizzerías, restaurantes, sushi, bares y pubs, con alérgenos e idiomas. 30 días gratis.",
+ "Menu digitali con QR code": "Menús digitales con código QR",
+ "Menu digitale per tipo di locale": "Menú digital por tipo de local",
+ "<1>Menu digitale per:</1> <2>Pizzerie</2> · <3>Ristoranti</3> · <4>Bar e pub</4> · <5>Sushi e pesce</5> · <6>Hamburgerie</6> · <7>Kebab e piadinerie</7>": "<1>Menú digital para:</1> <2>Pizzerías</2> · <3>Restaurantes</3> · <4>Bares y pubs</4> · <5>Sushi y pescado</5> · <6>Hamburgueserías</6> · <7>Kebabs y piadinerías</7>",
+ "<1>Privacy</1> · <2>Cookie</2> · <3>Termini</3>": "<1>Privacidad</1> · <2>Cookies</2> · <3>Términos</3>"
 }
