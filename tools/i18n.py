@@ -517,6 +517,9 @@ def build():
 def sitemap():
     alts = ''.join('\n    <xhtml:link rel="alternate" hreflang="%s" href="%s"/>' % (l, page_url('index', l)) for l in LANGS)
     rows = ['  <url><loc>%s</loc><priority>%s</priority>%s\n  </url>' % (page_url('index', l), '1.0' if l == 'it' else '0.8', alts) for l in LANGS]
+    # home nascosta a Google (noindex): fuori dalla sitemap, altrimenti Search Console segnala l'errore
+    if 'content="noindex' in open(os.path.join(ROOT, 'index.html'), encoding='utf-8').read():
+        rows = []
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
            'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + '\n'.join(rows) + '\n</urlset>\n')
     open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8').write(xml)
