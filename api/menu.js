@@ -12,7 +12,8 @@ import path from 'node:path';
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://xzhbyxvlrxemujrqatbl.supabase.co';
 // chiave pubblica (publishable): può stare qui, i dati sono protetti dal database
 const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_sfam2xLCQig0550kvfkUdg_yGaU0IA_';
-const SITE = 'https://www.dsmenu.it';
+// stesso indirizzo della home, della sitemap e del materiale (dsmenu.it/nomelocale): un solo dominio per Google
+const SITE = 'https://dsmenu.it';
 const THEMES = new Set(Array.from({ length: 21 }, (_, i) => `mdc-${String(i + 1).padStart(3, '0')}`));
 // temi preparati con tools/prepara_temi.py: dati e intestazione tramite segnaposto
 const PLACEHOLDER_THEMES = new Set(['mdc-002', 'mdc-005', 'mdc-006', 'mdc-007', 'mdc-008', 'mdc-009', 'mdc-010',
@@ -421,6 +422,41 @@ if(/bot|crawl|spider|slurp|preview|lighthouse|headless/i.test(navigator.userAgen
 setTimeout(function(){try{fetch(${json(SUPABASE_URL)}+'/rest/v1/rpc/menu_view_hit',{method:'POST',keepalive:true,headers:{apikey:${json(SUPABASE_KEY)},'Content-Type':'application/json'},body:JSON.stringify({p_slug:${json(slug)}})}).catch(function(){})}catch(e){}},1500)})();</script>\n`;
 }
 
+// ---------- dati strutturati per Google (schema.org): il locale e il suo menu ----------
+// Solo dati già visibili nella pagina; prezzi in euro come nei temi; i piatti esauriti restano fuori.
+function structuredData(r, url) {
+  const i = r.info || {};
+  const ok = (u) => typeof u === 'string' && /^https:\/\//.test(u);
+  const txt = (v) => String(v ?? '').replace(/\*\*/g, '').replace(/\s+/g, ' ').trim();
+  const sections = (Array.isArray(r.data?.sections) ? r.data.sections : []).map((s) => ({
+    '@type': 'MenuSection',
+    name: txt(s.title),
+    hasMenuItem: (Array.isArray(s.items) ? s.items : [])
+      .filter((it) => txt(it.name) && !(Array.isArray(it.flags) && it.flags.includes('esaurito')))
+      .map((it) => ({
+        '@type': 'MenuItem',
+        name: txt(it.name),
+        ...(txt(it.description) ? { description: txt(it.description) } : {}),
+        ...(num(it.price, 0) > 0 ? { offers: { '@type': 'Offer', price: num(it.price, 0).toFixed(2), priceCurrency: 'EUR' } } : {}),
+        ...(it.diet === 'vegan' ? { suitableForDiet: 'https://schema.org/VeganDiet' } : it.diet === 'veg' ? { suitableForDiet: 'https://schema.org/VegetarianDiet' } : {}),
+      })),
+  })).filter((s) => s.name && s.hasMenuItem.length);
+  const sameAs = [i.facebook, i.instagram, i.tiktok, i.website].filter(ok);
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'FoodEstablishment',
+    '@id': `${url}#locale`,
+    name: txt(r.name),
+    url,
+    ...(photoOk(i.logo) ? { image: i.logo, logo: i.logo } : {}),
+    ...(txt(i.phone) ? { telephone: txt(i.phone) } : {}),
+    ...(txt(i.address) || txt(r.city) ? { address: { '@type': 'PostalAddress', ...(txt(i.address) ? { streetAddress: txt(i.address) } : {}), ...(txt(r.city) ? { addressLocality: txt(r.city) } : {}) } } : {}),
+    ...(sameAs.length ? { sameAs } : {}),
+    hasMenu: { '@type': 'Menu', url, inLanguage: menuLang(r), ...(sections.length ? { hasMenuSection: sections } : {}) },
+  };
+  return `<script type="application/ld+json">${json(ld)}</script>\n`;
+}
+
 function render(r, { preview = false } = {}) {
   const name = THEMES.has(r.theme) ? r.theme : DEFAULT_THEME;
   let h = theme(name);
@@ -467,6 +503,7 @@ function render(r, { preview = false } = {}) {
   // lingua della pagina = lingua del menu (il browser non propone traduzioni sbagliate)
   h = h.replace(/<html lang="it"/i, `<html lang="${menuLang(r)}"`);
   h = brandHeader(name, r.info || {}, h);
+  if (!preview) h = h.replace('</head>', () => `${structuredData(r, url)}</head>`);
   if (!preview) h = h.replace(/<\/body>/i, () => `${viewBeacon(r.slug)}</body>`);
   return h;
 }

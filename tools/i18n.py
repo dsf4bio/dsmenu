@@ -487,7 +487,7 @@ def translate_page(src, page, lang, d):
     # immagine di anteprima (social) nella lingua della pagina
     res = res.replace('https://dsfabio.com/og-image.png', 'https://dsfabio.com/og-image-%s.png' % lang)
     # link alle pagine di dsfabio.com (Attiva, Privacy...): la versione nella stessa lingua
-    res = re.sub(r'href="https://dsfabio\.com/(attiva|assistenza|privacy|modelli|about|(?:mdc|demo)-[\w-]+)([#?][^"]*)?"',
+    res = re.sub(r'href="https://dsfabio\.com/(attiva|assistenza|privacy|modelli|about|menu-digitale-[a-z-]+|(?:mdc|demo)-[\w-]+)([#?][^"]*)?"',
                  lambda m: 'href="https://dsfabio.com/%s/%s%s"' % (lang, m.group(1), m.group(2) or ''), res)
     return localize_common(res, page, lang), missing
 
